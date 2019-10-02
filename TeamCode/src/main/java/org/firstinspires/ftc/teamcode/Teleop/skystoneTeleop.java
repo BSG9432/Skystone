@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,8 +14,16 @@ public class skystoneTeleop extends OpMode {
     public DcMotor frontRight;
     public DcMotor backRight;
     public int speed = 1;
-    
-    
+
+
+    @Override
+    public void init() {
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
+        backRight = hardwareMap.dcMotor.get("backRight");
+    }
+
     @Override
     public void loop() {
         if((gamepad1.dpad_up = true) && (speed < 1)) //makes speed go up when dpad up is pressed
