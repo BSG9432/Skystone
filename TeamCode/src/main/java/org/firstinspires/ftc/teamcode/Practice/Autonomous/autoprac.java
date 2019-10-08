@@ -18,13 +18,14 @@ public class autoprac extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        frontRight = hardwareMap.dcMotor.get("frontLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
         backLeft = hardwareMap.dcMotor.get("backLeft");
         backRight = hardwareMap.dcMotor.get("backRight");
         servoBoi = hardwareMap.servo.get("servoBoi");
 
+
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //servo set position .25
         waitForStart();
@@ -44,6 +45,7 @@ public class autoprac extends LinearOpMode {
         backLeft.setPower(-.5);
         backRight.setPower(-.5);
         sleep(5000);
+
 
         //pivot turn right for 5 seconds
         frontLeft.setPower(.5);
