@@ -138,17 +138,17 @@ public class IMUtest extends LinearOpMode
                 });
 
         telemetry.addLine()
-                .addData("heading", new Func<String>() {
+                .addData("x", new Func<String>() {
                     @Override public String value() {
                         return formatAngle(angles.angleUnit, angles.firstAngle);
                     }
                 })
-                .addData("roll", new Func<String>() {
+                .addData("y", new Func<String>() {
                     @Override public String value() {
                         return formatAngle(angles.angleUnit, angles.secondAngle);
                     }
                 })
-                .addData("pitch", new Func<String>() {
+                .addData("z", new Func<String>() {
                     @Override public String value() {
                         return formatAngle(angles.angleUnit, angles.thirdAngle);
                     }
