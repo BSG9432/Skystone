@@ -76,7 +76,7 @@ public class EncodersTemplate extends LinearOpMode {
     //for encoders...
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // Neverest 40
     static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -120,8 +120,10 @@ public class EncodersTemplate extends LinearOpMode {
         encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-
+        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
+        robot.rightClaw.setPosition(0.0)
         sleep(1000);     // pause for servos to move
+         */
 
 
         telemetry.addData("Path", "Complete");
@@ -204,7 +206,7 @@ public class EncodersTemplate extends LinearOpMode {
         }
     }
 
-   //BLAAAAAAAAAAAAAAAAAAAAAAAAH
+   //rotate function using IMU's
     private void rotate(int degrees, double power){
         double leftPower, rightPower;
 
@@ -218,14 +220,14 @@ public class EncodersTemplate extends LinearOpMode {
         {   // turn right.
             leftPower = -power;
             rightPower = -.3;
-            telemetry.addLine("TURN BUT THE OTHER ONE");
+            telemetry.addLine("right");
             telemetry.update();
         }
         else if (degrees > 0)
         {   // turn left.
             leftPower = .3;
             rightPower = power;
-            telemetry.addLine("TURN YEH");
+            telemetry.addLine("left");
             telemetry.update();
         }
         else return;
@@ -240,12 +242,12 @@ public class EncodersTemplate extends LinearOpMode {
         if (degrees < 0)
         {
             // On right turn we have to get off zero first.
-            while (opModeIsActive() && getHeading() == 0) {}
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
 
-            while (opModeIsActive() && getHeading() > degrees) {}
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
         }
         else    // left turn.
-            while (opModeIsActive() && getHeading() < degrees) {}
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
 
         // turn the motors off.
         frontLeft.setPower(0);
@@ -257,7 +259,7 @@ public class EncodersTemplate extends LinearOpMode {
         sleep(1000);
 
         // reset angle tracking on new heading.
-        resetAngle();
+        bsgRobot.resetAngle();
 
     }
 }

@@ -43,12 +43,11 @@ public class Robot {
   public Servo leftPan;
   public Servo rightPan;
 
+  public Telemetry telemetry;
+
   public Robot() { //constructor
 
   }
-
-  public Telemetry telemetry;
-
 
   public void init(HardwareMap hMap) {
     frontLeft = hMap.dcMotor.get("frontLeft");
@@ -99,7 +98,7 @@ public class Robot {
     backRight.setPower(0);
   }
 
-  void composeTelemetry() {
+  public void composeTelemetry() {
 
     // At the beginning of each telemetry update, grab a bunch of data
     // from the IMU that we will then display in separate lines.
