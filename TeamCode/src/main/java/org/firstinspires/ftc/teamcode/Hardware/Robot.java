@@ -55,6 +55,7 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
+
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -166,9 +167,7 @@ public class Robot {
     return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
   }
 
-  public void resetAngle(){
-    imuAngle = 0;
-  }
+  public void resetAngle(){imuAngle = 0;}
 
   public double getHeading() {
     Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC,
