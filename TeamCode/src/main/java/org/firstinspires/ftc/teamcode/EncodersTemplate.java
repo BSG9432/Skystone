@@ -217,17 +217,17 @@ public class EncodersTemplate extends LinearOpMode {
         // clockwise (right).
 
         if (degrees < 0)
-        {   // turn right.
-            leftPower = -power;
-            rightPower = -.3;
-            telemetry.addLine("right");
+        {   // turn left.
+            leftPower = power;
+            rightPower = .3;
+            telemetry.addLine("left");
             telemetry.update();
         }
         else if (degrees > 0)
-        {   // turn left.
-            leftPower = .3;
-            rightPower = power;
-            telemetry.addLine("left");
+        {   // turn right.
+            leftPower = -.3;
+            rightPower = -power;
+            telemetry.addLine("right");
             telemetry.update();
         }
         else return;
@@ -239,15 +239,15 @@ public class EncodersTemplate extends LinearOpMode {
         backRight.setPower(rightPower);
 
         // rotate until turn is completed.
-        if (degrees < 0)
+        if (degrees < 0) //-10
         {
-            // On right turn we have to get off zero first.
+            // On left turn we have to get off zero first.
             while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
 
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
-        }
-        else    // left turn.
             while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
+        }
+        else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
 
         // turn the motors off.
         frontLeft.setPower(0);
