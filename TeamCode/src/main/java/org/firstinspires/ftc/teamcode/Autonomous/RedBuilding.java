@@ -63,8 +63,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuilding")
-public class BlueBuilding extends LinearOpMode {
+@Autonomous(name="RedBuilding")
+public class RedBuilding extends LinearOpMode {
     public DcMotor frontLeft;
     public DcMotor backLeft;
     public DcMotor frontRight;
@@ -116,19 +116,19 @@ public class BlueBuilding extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
-        rotate(90, TURN_SPEED);                                           //S2: Rotate clockwise 90 degrees
-        encoderDrive(DRIVE_SPEED,   21, 21, 4.5);    // S3: Turn Right 21 Inches with 5 Sec timeout
-        rotate(-90, TURN_SPEED);                                       //S4: Turn counterclockwise 90 degrees
-        encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5); // S1: Forward 11.5 Inches with 2.5 Sec timeout
+        rotate(-90, TURN_SPEED);                                        //S2: Rotate counterclockwise 90 degrees
+        encoderDrive(DRIVE_SPEED,   21, 21, 4.5);  // S3: Turn Right 21 Inches with 5 Sec timeout
+        rotate(90, TURN_SPEED);                                      //S4: Turn clockwise 90 degrees
+        encoderDrive(DRIVE_SPEED, 5, 5, 1.5);   // S3: Reverse 24 Inches with 4 Sec timeout
 
         bsgRobot.leftPan.setPosition(.5);
         bsgRobot.rightPan.setPosition(.5);
         sleep(1000);
 
-        encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
-        rotate(-90, TURN_SPEED);                                        //S7: Rotate counterclockwise -90 degrees
-        encoderDrive(DRIVE_SPEED, 36,36, 7.0);     //S8: Forward 36 Inches with 7 Sec timeout
+        encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0); // Backward -28.5 Inches with 5 Sec timeout
+        rotate(90, TURN_SPEED);                                         // Rotate clockwise 90 degrees
+        encoderDrive(DRIVE_SPEED, 36,36, 7.0);      // Forward 26 Inches with 7 Sec timeout
 
 
 
