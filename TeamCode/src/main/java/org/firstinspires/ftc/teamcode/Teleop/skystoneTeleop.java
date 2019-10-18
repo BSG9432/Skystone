@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Teleop;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -26,7 +26,7 @@ public class skystoneTeleop extends OpMode {
 
     @Override
     public void loop() {
-        if((gamepad1.dpad_up = true) && (speed < 1)) //makes speed go up when dpad up is pressed
+        /*if((gamepad1.dpad_up = true) && (speed < 1)) //makes speed go up when dpad up is pressed
         {
             speed += .25;
         }
@@ -34,11 +34,13 @@ public class skystoneTeleop extends OpMode {
         {
             speed -= .25;
         }
+
+         */
         
         if(Math.abs(gamepad1.right_stick_y) > .1)
         {
-            frontRight.setPower(-speed);
-            backRight.setPower(-speed);
+            frontRight.setPower(-gamepad1.right_stick_y);
+            backRight.setPower(-gamepad1.right_stick_y);
         }
         else
         {
@@ -48,8 +50,8 @@ public class skystoneTeleop extends OpMode {
         
         if(Math.abs(gamepad1.left_stick_y) > .1)
         {
-            frontLeft.setPower(-speed);
-            backLeft.setPower(-speed);
+            frontLeft.setPower(gamepad1.left_stick_y);
+            backLeft.setPower(gamepad1.left_stick_y);
         }
         else
         {
@@ -57,7 +59,7 @@ public class skystoneTeleop extends OpMode {
             backLeft.setPower(0);
         }
         
-        if (gamepad1.left_stick_x > .1) // strafe RIGHT
+        /*if (gamepad1.left_stick_x > .1) // strafe RIGHT
         {
             frontRight.setPower(-1);
             backRight.setPower(1);
@@ -87,5 +89,7 @@ public class skystoneTeleop extends OpMode {
             frontLeft.setPower(0);
             backLeft.setPower(0);
         }
+
+         */
     }
 }
