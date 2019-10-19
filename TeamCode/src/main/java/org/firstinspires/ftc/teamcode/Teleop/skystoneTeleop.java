@@ -1,32 +1,81 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+
 //test
 @TeleOp (name = "skystoneTeleop")
 
 public class skystoneTeleop extends OpMode {
-    public DcMotor frontLeft;
-    public DcMotor backLeft;
-    public DcMotor frontRight;
-    public DcMotor backRight;
+    Robot bsgRobot = new Robot();
     public int speed = 1;
 
 
     @Override
     public void init() {
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        backLeft = hardwareMap.dcMotor.get("backLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
-        backRight = hardwareMap.dcMotor.get("backRight");
+        bsgRobot.frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        bsgRobot.backLeft = hardwareMap.dcMotor.get("backLeft");
+        bsgRobot.frontRight = hardwareMap.dcMotor.get("frontRight");
+        bsgRobot.backRight = hardwareMap.dcMotor.get("backRight");
+
     }
 
     @Override
     public void loop() {
-        /*if((gamepad1.dpad_up = true) && (speed < 1)) //makes speed go up when dpad up is pressed
+        int open =
+        int close
+        //For Right motors
+        if (-gamepad1.right_stick_y > .1)
+        {
+            bsgRobot.frontRight.setPower(speed);
+            bsgRobot.backRight.setPower(speed);
+        }
+        else
+        {
+            bsgRobot.frontRight.setPower(0);
+            bsgRobot.backRight.setPower(0);
+        }
+
+        if (-gamepad1.right_stick_y < -.1) {
+            bsgRobot.frontRight.setPower(-speed);
+            bsgRobot.backRight.setPower(-speed);
+        }
+        else {
+            bsgRobot.frontRight.setPower(0);
+            bsgRobot.backRight.setPower(0);
+        }
+
+
+
+        //For Left Side
+        if (-gamepad1.left_stick_y > .1)
+        {
+            bsgRobot.frontLeft.setPower(-speed);
+            bsgRobot.backLeft.setPower(-speed);
+        }
+        else
+        {
+            bsgRobot.frontLeft.setPower(0);
+            bsgRobot.backLeft.setPower(0);
+        }
+
+        if (-gamepad1.left_stick_y < -.1)
+        {
+            bsgRobot.frontLeft.setPower(speed);
+            bsgRobot.backLeft.setPower(speed);
+        }
+        else
+        {
+            bsgRobot.frontLeft.setPower(0);
+            bsgRobot.backLeft.setPower(0);
+        }
+
+
+        if((gamepad1.dpad_up = true) && (speed < 1)) //makes speed go up when dpad up is pressed
         {
             speed += .25;
         }
@@ -35,30 +84,16 @@ public class skystoneTeleop extends OpMode {
             speed -= .25;
         }
 
-         */
-        
-        if(Math.abs(gamepad1.right_stick_y) > .1)
-        {
-            frontRight.setPower(-gamepad1.right_stick_y);
-            backRight.setPower(-gamepad1.right_stick_y);
+// left bumper servos close
+        //left trigger lift up
+        if (gamepad1.left_bumper) {
+
         }
-        else
-        {
-            frontRight.setPower(0);
-            backRight.setPower(0);
-        }
-        
-        if(Math.abs(gamepad1.left_stick_y) > .1)
-        {
-            frontLeft.setPower(gamepad1.left_stick_y);
-            backLeft.setPower(gamepad1.left_stick_y);
-        }
-        else
-        {
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
-        }
-        
+
+
+
+        //lift intake - triggers ; intake intake - bumpers
+
         /*if (gamepad1.left_stick_x > .1) // strafe RIGHT
         {
             frontRight.setPower(-1);

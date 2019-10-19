@@ -63,8 +63,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="blueLoading")
-public class blueloading extends LinearOpMode {
+@Autonomous(name="BlueLoading")
+public class BlueLoading extends LinearOpMode {
     public DcMotor frontLeft;
     public DcMotor backLeft;
     public DcMotor frontRight;

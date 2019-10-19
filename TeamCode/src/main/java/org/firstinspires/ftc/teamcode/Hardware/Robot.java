@@ -40,8 +40,11 @@ public class Robot {
   Orientation angles;
   Acceleration gravity;
 
-  public Servo leftPan;
-  public Servo rightPan;
+  //for grabbing stones
+  public Servo leftFoundation;
+  public Servo rightFoundation;
+  public Servo leftClaw;
+  public Servo rightClaw;
 
   public Telemetry telemetry;
 
@@ -63,8 +66,8 @@ public class Robot {
 
     intake = hMap.dcMotor.get("intake");
 
-    leftPan = hMap.servo.get("leftPan");
-    rightPan = hMap.servo.get("rightPan");
+    leftFoundation = hMap.servo.get("leftPan");
+    rightFoundation = hMap.servo.get("rightPan");
 
 
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

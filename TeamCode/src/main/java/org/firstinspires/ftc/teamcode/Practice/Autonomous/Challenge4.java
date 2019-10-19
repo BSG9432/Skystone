@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Practice.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-
+@Disabled
 @Autonomous (name = "Challenge4")
 public class Challenge4 extends LinearOpMode {
     DcMotor frontLeft;
@@ -22,7 +23,7 @@ public class Challenge4 extends LinearOpMode {
     servoBoi = hardwareMap.servo.get("servoBoi");
 
     waitForStart();
-    frontLeft.setPower(.5);
+    frontLeft.setPower(.5);//point
     backLeft.setPower(.5);
     frontRight.setPower(0);
     backRight.setPower(0);
@@ -34,13 +35,13 @@ public class Challenge4 extends LinearOpMode {
     backRight.setPower(0);
     sleep(1000);
 
-    frontLeft.setPower(.5);
+    frontLeft.setPower(.5);//pivot
     backLeft.setPower(.5);
     frontRight.setPower(-.5);
     backRight.setPower(-.5);
     sleep(2000);
 
-    frontLeft.setPower(0);
+    frontLeft.setPower(0); //point
     backLeft.setPower(0);
     frontRight.setPower(.5);
     backRight.setPower(.5);
