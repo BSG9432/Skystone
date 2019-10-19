@@ -66,8 +66,10 @@ public class Robot {
 
     intake = hMap.dcMotor.get("intake");
 
-    leftFoundation = hMap.servo.get("leftPan");
-    rightFoundation = hMap.servo.get("rightPan");
+    leftFoundation = hMap.servo.get("leftFoundation");
+    rightFoundation = hMap.servo.get("rightFoundation");
+    leftClaw = hMap.servo.get("leftClaw");
+    rightClaw = hMap.servo.get("rightClaw");
 
 
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

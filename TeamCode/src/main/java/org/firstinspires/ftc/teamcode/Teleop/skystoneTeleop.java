@@ -26,8 +26,7 @@ public class skystoneTeleop extends OpMode {
 
     @Override
     public void loop() {
-        int open =
-        int close
+
         //For Right motors
         if (-gamepad1.right_stick_y > .1)
         {
@@ -87,10 +86,20 @@ public class skystoneTeleop extends OpMode {
 // left bumper servos close
         //left trigger lift up
         if (gamepad1.left_bumper) {
-
+        bsgRobot.rightClaw.setPosition(.4);
+        bsgRobot.leftClaw.setPosition(.6);
+        }
+        if(gamepad1.right_bumper)
+        {
+            bsgRobot.rightClaw.setPosition(.9);
+            bsgRobot.leftClaw.setPosition(.1);
         }
 
-
+        if (gamepad1.left_trigger > .1)
+        {
+            bsgRobot.leftFoundation.setPosition();
+            bsgRobot.rightFoundation.setPosition();
+        }
 
         //lift intake - triggers ; intake intake - bumpers
 
