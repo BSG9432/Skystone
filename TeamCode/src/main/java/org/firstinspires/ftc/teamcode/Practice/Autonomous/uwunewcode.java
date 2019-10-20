@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Practice.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+@Disabled
 @Autonomous (name = "uwunewcode")
 public class uwunewcode extends LinearOpMode {
     DcMotor frontLeft;
@@ -20,14 +21,17 @@ public class uwunewcode extends LinearOpMode {
    backRight = hardwareMap.dcMotor.get("backRight");
 
         waitForStart();
-        frontLeft.setPower(1); //going Left pivot turn .75 2 1/2 sec
+
+        //forward at full speed for 2.5 seconds
+        frontLeft.setPower(1);
         backLeft.setPower(1);
         frontRight.setPower(1);
         backRight.setPower(1);
         sleep(2500);
 
-        frontLeft.setPower(.75); //point right turn
-        backLeft.setPower(.75);
+        //point right turn .5 speed for 2.5 seconds
+        frontLeft.setPower(.5);
+        backLeft.setPower(.5);
         frontRight.setPower(0);
         backRight.setPower(0);
         sleep(2500);

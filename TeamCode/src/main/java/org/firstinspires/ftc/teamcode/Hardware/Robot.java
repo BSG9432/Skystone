@@ -44,11 +44,11 @@ public class Robot {
   Orientation angles;
   Acceleration gravity;
 
-  Telemetry telemetry;
-  HardwareMap hMap;
-
-  public Servo leftPan;
-  public Servo rightPan;
+  //for grabbing stones
+  public Servo leftFoundation;
+  public Servo rightFoundation;
+  public Servo leftClaw;
+  public Servo rightClaw;
 
   public Robot() { //constructor
 
@@ -65,8 +65,10 @@ public class Robot {
 
     intake = hMap.dcMotor.get("intake");
 
-    leftPan = hMap.servo.get("leftPan");
-    rightPan = hMap.servo.get("rightPan");
+    leftFoundation = hMap.servo.get("leftFoundation");
+    rightFoundation = hMap.servo.get("rightFoundation");
+    leftClaw = hMap.servo.get("leftClaw");
+    rightClaw = hMap.servo.get("rightClaw");
 
     telemetry.addLine("We done bois");//DS
     Log.d("#BSG", "Started Encoders");
@@ -196,4 +198,3 @@ public class Robot {
   }
 
 }
-
