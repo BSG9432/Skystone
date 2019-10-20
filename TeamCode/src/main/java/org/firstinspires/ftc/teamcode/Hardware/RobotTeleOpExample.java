@@ -9,13 +9,13 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @TeleOp(name = "RobotTeleOpExample")
 @Disabled
 public class RobotTeleOpExample extends OpMode {
-/*
-The cool thing about using classes is the your class "Robot" is essentially it's own type now
-bsgRobot comes from the classRobot, and we are creating a new Robot instance of a class.
-bsgRobot now have access to all of the methods and variables inside of the Robot class
+    /*
+    The cool thing about using classes is the your class "Robot" is essentially it's own type now
+    bsgRobot comes from the classRobot, and we are creating a new Robot instance of a class.
+    bsgRobot now have access to all of the methods and variables inside of the Robot class
 
-This class is designed to act as an example template of how to apply our robot class
-*/
+    This class is designed to act as an example template of how to apply our robot class
+    */
     Robot bsgRobot = new Robot();
 
     @Override
@@ -26,7 +26,7 @@ This class is designed to act as an example template of how to apply our robot c
     @Override
     public void loop() {
 
-    }
 
+    }
 }
 

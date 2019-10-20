@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
+import android.util.Log;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -23,6 +25,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 import java.util.Locale;
+import java.util.logging.Logger;
 
 //NOTE: This is off the top of my head
 
@@ -31,8 +34,9 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-
   public DcMotor intake;
+
+
 
   BNO055IMU imu;
   public double imuAngle;
@@ -40,10 +44,11 @@ public class Robot {
   Orientation angles;
   Acceleration gravity;
 
+  Telemetry telemetry;
+  HardwareMap hMap;
+
   public Servo leftPan;
   public Servo rightPan;
-
-  public Telemetry telemetry;
 
   public Robot() { //constructor
 
@@ -55,18 +60,20 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
-
-    frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    brakeMotors(frontRight,frontLeft);
+    brakeMotors(backRight, backLeft);
 
     intake = hMap.dcMotor.get("intake");
 
     leftPan = hMap.servo.get("leftPan");
     rightPan = hMap.servo.get("rightPan");
 
+    telemetry.addLine("We done bois");//DS
+    Log.d("#BSG", "Started Encoders");
+    Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
 
+
+    /*
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
     parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -82,22 +89,34 @@ public class Robot {
 
     // Set up our telemetry dashboard
     composeTelemetry();
-
+    */
   }
 
   public void moveForward(double power) {
     frontLeft.setPower(power);
-    backLeft.setPower(power);
+    backLeft.setPower(-power);
     frontRight.setPower(power);
-    backRight.setPower(power);
+    backRight.setPower(-power);
   }
 
+  public void brakeMotors(DcMotor x, DcMotor y){
+    x.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    y.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+  }
   public void stopWheels() {
     frontLeft.setPower(0);
     backLeft.setPower(0);
     frontRight.setPower(0);
     backRight.setPower(0);
+
+
   }
+
+  public void moveServo(double pos){
+    leftPan.setPosition(pos);
+  }
+
 
   public void composeTelemetry() {
 
