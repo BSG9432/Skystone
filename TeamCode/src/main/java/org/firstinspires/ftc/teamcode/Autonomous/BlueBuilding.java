@@ -122,8 +122,8 @@ public class BlueBuilding extends LinearOpMode {
         rotate(-90, TURN_SPEED);                                       //S4: Turn counterclockwise 90 degrees
         encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
 
-        bsgRobot.leftPan.setPosition(.5);
-        bsgRobot.rightPan.setPosition(.5);
+        //bsgRobot.leftPan.setPosition(.5);
+        //bsgRobot.rightPan.setPosition(.5);
         sleep(1000);
 
         encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout

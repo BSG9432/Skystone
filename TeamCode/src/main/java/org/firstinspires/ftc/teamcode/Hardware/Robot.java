@@ -1,31 +1,16 @@
 package org.firstinspires.ftc.teamcode.Hardware;
-import android.util.Log;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.*;
-import com.vuforia.CameraDevice;
-
-import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 import java.util.Locale;
-import java.util.logging.Logger;
 
 //NOTE: This is off the top of my head
 
@@ -70,10 +55,11 @@ public class Robot {
     leftClaw = hMap.servo.get("leftClaw");
     rightClaw = hMap.servo.get("rightClaw");
 
+    /*
     telemetry.addLine("We done bois");//DS
     Log.d("#BSG", "Started Encoders");
     Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
-
+*/
 
     /*
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -115,11 +101,7 @@ public class Robot {
 
   }
 
-  public void moveServo(double pos){
-    leftPan.setPosition(pos);
-  }
-
-
+  /*
   public void composeTelemetry() {
 
     // At the beginning of each telemetry update, grab a bunch of data
@@ -178,7 +160,7 @@ public class Robot {
               }
             });
   }
-
+*/
 
   String formatAngle(AngleUnit angleUnit, double angle) {
     return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));

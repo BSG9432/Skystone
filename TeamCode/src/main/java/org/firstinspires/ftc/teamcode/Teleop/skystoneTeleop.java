@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
@@ -97,8 +95,8 @@ public class skystoneTeleop extends OpMode {
 
         if (gamepad1.left_trigger > .1)
         {
-            bsgRobot.leftFoundation.setPosition();
-            bsgRobot.rightFoundation.setPosition();
+            //bsgRobot.leftFoundation.setPosition();
+            //bsgRobot.rightFoundation.setPosition();
         }
 
         //lift intake - triggers ; intake intake - bumpers
