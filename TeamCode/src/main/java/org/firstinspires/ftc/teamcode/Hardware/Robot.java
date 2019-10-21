@@ -1,9 +1,14 @@
 package org.firstinspires.ftc.teamcode.Hardware;
+import android.util.Log;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -19,9 +24,7 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-  public DcMotor intake;
-
-
+  public DcMotor lift;
 
   BNO055IMU imu;
   public double imuAngle;
@@ -29,11 +32,15 @@ public class Robot {
   Orientation angles;
   Acceleration gravity;
 
-  //for grabbing stones
+  //for moving the foundation
   public Servo leftFoundation;
   public Servo rightFoundation;
+
+  //for grabbing stones
   public Servo leftClaw;
   public Servo rightClaw;
+
+  public Telemetry telemetry;
 
   public Robot() { //constructor
 
@@ -48,20 +55,21 @@ public class Robot {
     brakeMotors(frontRight,frontLeft);
     brakeMotors(backRight, backLeft);
 
-    intake = hMap.dcMotor.get("intake");
+    lift = hMap.dcMotor.get("intake");
 
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
     leftClaw = hMap.servo.get("leftClaw");
     rightClaw = hMap.servo.get("rightClaw");
 
-    /*
+    //Telemetry to show on phone to confirm that  initialization occured
     telemetry.addLine("We done bois");//DS
+    //Lines that show up in the internal log (can be accessed on the phone
     Log.d("#BSG", "Started Encoders");
     Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
-*/
 
-    /*
+
+
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
     parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -77,7 +85,7 @@ public class Robot {
 
     // Set up our telemetry dashboard
     composeTelemetry();
-    */
+
   }
 
   public void moveForward(double power) {
@@ -101,7 +109,7 @@ public class Robot {
 
   }
 
-  /*
+
   public void composeTelemetry() {
 
     // At the beginning of each telemetry update, grab a bunch of data
@@ -160,7 +168,6 @@ public class Robot {
               }
             });
   }
-*/
 
   String formatAngle(AngleUnit angleUnit, double angle) {
     return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
