@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -89,6 +90,8 @@ public class RedBuilding extends LinearOpMode {
 
         bsgRobot.init(hardwareMap);
 
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
@@ -122,8 +125,8 @@ public class RedBuilding extends LinearOpMode {
         rotate(90, TURN_SPEED);                                      //S4: Turn clockwise 90 degrees
         encoderDrive(DRIVE_SPEED, 5, 5, 1.5);   // S3: Reverse 24 Inches with 4 Sec timeout
 
-       // bsgRobot.leftPan.setPosition(.5);
-       // bsgRobot.rightPan.setPosition(.5);
+       bsgRobot.leftFoundation.setPosition(.5);
+       bsgRobot.rightFoundation.setPosition(.5);
         sleep(1000);
 
         encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0); // Backward -28.5 Inches with 5 Sec timeout

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 
 import java.util.Locale;
 
@@ -61,6 +62,7 @@ public class Robot {
     rightFoundation = hMap.servo.get("rightFoundation");
     //leftClaw = hMap.servo.get("leftClaw");
     //rightClaw = hMap.servo.get("rightClaw");
+
 
     //Telemetry to show on phone to confirm that  initialization occured
     telemetry.addLine("We done bois");//DS

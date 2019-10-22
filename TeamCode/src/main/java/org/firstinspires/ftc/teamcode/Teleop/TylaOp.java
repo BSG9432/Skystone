@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 //test
-@TeleOp (name = "skystoneTeleop")
+@TeleOp (name = "TylaOp")
 
-public class skystoneTeleop extends OpMode {
+public class TylaOp extends OpMode {
     Robot bsgRobot = new Robot();
     public int speed = 1;
 
