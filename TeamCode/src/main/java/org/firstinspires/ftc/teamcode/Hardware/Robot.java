@@ -24,7 +24,7 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-  public DcMotor lift;
+ // public DcMotor lift;
 
   BNO055IMU imu;
   public double imuAngle;
@@ -37,9 +37,9 @@ public class Robot {
   public Servo rightFoundation;
 
   //for grabbing stones
-  public Servo leftClaw;
+ /* public Servo leftClaw;
   public Servo rightClaw;
-
+*/
   public Telemetry telemetry;
 
   public Robot() { //constructor
@@ -55,12 +55,12 @@ public class Robot {
     brakeMotors(frontRight,frontLeft);
     brakeMotors(backRight, backLeft);
 
-    lift = hMap.dcMotor.get("intake");
+    //lift = hMap.dcMotor.get("lift");
 
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
-    leftClaw = hMap.servo.get("leftClaw");
-    rightClaw = hMap.servo.get("rightClaw");
+    //leftClaw = hMap.servo.get("leftClaw");
+    //rightClaw = hMap.servo.get("rightClaw");
 
     //Telemetry to show on phone to confirm that  initialization occured
     telemetry.addLine("We done bois");//DS
