@@ -65,10 +65,10 @@ public class Robot {
 
 
     //Telemetry to show on phone to confirm that  initialization occured
-    telemetry.addLine("We done bois");//DS
+    //telemetry.addLine("We done bois");//DS
     //Lines that show up in the internal log (can be accessed on the phone
-    Log.d("#BSG", "Started Encoders");
-    Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
+    //Log.d("#BSG", "Started Encoders");
+    //Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
 
 
 
