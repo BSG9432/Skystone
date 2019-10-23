@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -52,8 +52,6 @@ public class TylaOp extends OpMode {
             bsgRobot.backRight.setPower(0);
         }
 
-
-
         //For Left Side
         if (-gamepad1.left_stick_y > .1)
         {
@@ -77,10 +75,20 @@ public class TylaOp extends OpMode {
             bsgRobot.backLeft.setPower(0);
         }
 
-//left trigger lift up
+        // TO CONTROL THE FOUNDATION SERVOS
+        //grab foundation
+        if (gamepad1.a) {
+            bsgRobot.rightFoundation.setPosition(.5);
+            bsgRobot.leftFoundation.setPosition(.5);
+        }
+        if (gamepad1.b) {
+            bsgRobot.rightFoundation.setPosition(.1);
+            bsgRobot.leftFoundation.setPosition(.9);
+        }
 
 
-        // left bumper servos close
+
+        // BUMPERS TO CONTROL CLAW
         /*
         if (gamepad1.left_bumper) {
         bsgRobot.rightClaw.setPosition(.4);
@@ -92,45 +100,45 @@ public class TylaOp extends OpMode {
             bsgRobot.leftClaw.setPosition(.1);
         }
 */
-        if (gamepad1.left_trigger > .1)
+        // TRIGGERS TO CONTROL THE LIFT
+        //if (gamepad1.left_trigger > .1)
         {
             //bsgRobot.lift.setPower(-.5);
             //bsgRobot.lift.setPower(.5)
         }
 
-        //lift intake - triggers ; intake intake - bumpers
-
-        /*if (gamepad1.left_stick_x > .1) // strafe RIGHT
+        if (gamepad1.left_stick_x > .1) // strafe RIGHT
         {
-            frontRight.setPower(-1);
-            backRight.setPower(1);
-            frontLeft.setPower(1);
-            backLeft.setPower(-1);
+            bsgRobot.frontRight.setPower(-1);
+            bsgRobot.backRight.setPower(1);
+            bsgRobot. frontLeft.setPower(1);
+            bsgRobot.backLeft.setPower(-1);
         }
         
         else
         {
-            frontRight.setPower(0);
-            backRight.setPower(0);
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+            bsgRobot.frontRight.setPower(0);
+            bsgRobot.backRight.setPower(0);
+            bsgRobot.frontLeft.setPower(0);
+            bsgRobot.backLeft.setPower(0);
         }
-        
+
+
         if (gamepad1.left_stick_x < -.1) // strafe LEFT
         {
-            frontRight.setPower(1);
-            backRight.setPower(-1);
-            frontLeft.setPower(-1);
-            backLeft.setPower(1);
+            bsgRobot.frontRight.setPower(1);
+            bsgRobot.backRight.setPower(-1);
+            bsgRobot.frontLeft.setPower(-1);
+            bsgRobot.backLeft.setPower(1);
         }
         else
         {
-            frontRight.setPower(0);
-            backRight.setPower(0);
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+            bsgRobot.frontRight.setPower(0);
+            bsgRobot.backRight.setPower(0);
+            bsgRobot.frontLeft.setPower(0);
+            bsgRobot.backLeft.setPower(0);
         }
 
-         */
+
     }
 }
