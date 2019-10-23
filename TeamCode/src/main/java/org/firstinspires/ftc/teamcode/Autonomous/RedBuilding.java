@@ -66,10 +66,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 @Autonomous(name="RedBuilding")
 public class RedBuilding extends LinearOpMode {
-    public DcMotor frontLeft;
-    public DcMotor backLeft;
-    public DcMotor frontRight;
-    public DcMotor backRight;
+
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -96,22 +93,22 @@ public class RedBuilding extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
 
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
-                frontLeft.getCurrentPosition(),
-                backLeft.getCurrentPosition(),
-                frontRight.getCurrentPosition(),
-                backRight.getCurrentPosition());
+                bsgRobot.frontLeft.getCurrentPosition(),
+                bsgRobot.backLeft.getCurrentPosition(),
+                bsgRobot.frontRight.getCurrentPosition(),
+                bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -164,29 +161,29 @@ public class RedBuilding extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newLeftTarget = backLeft.getCurrentPosition()  + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newRightTarget = backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget =  bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newLeftTarget =  bsgRobot.backLeft.getCurrentPosition()  + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget =  bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newRightTarget =  bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
-            frontLeft.setTargetPosition(newLeftTarget);
-            backLeft.setTargetPosition(newLeftTarget);
-            frontRight.setTargetPosition(newRightTarget);
-            backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newRightTarget);
+            bsgRobot.backRight.setTargetPosition(newRightTarget);
 
 
             // Turn On RUN_TO_POSITION
-            frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            frontLeft.setPower(Math.abs(speed));
-            backLeft.setPower(Math.abs(speed));
-            frontRight.setPower(Math.abs(speed));
-            backRight.setPower(Math.abs(speed));
+            bsgRobot.frontLeft.setPower(Math.abs(speed));
+            bsgRobot.backLeft.setPower(Math.abs(speed));
+            bsgRobot.frontRight.setPower(Math.abs(speed));
+            bsgRobot.backRight.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -196,16 +193,16 @@ public class RedBuilding extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (frontLeft.isBusy() && frontRight.isBusy() &&
-                            backLeft.isBusy() && backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
-                        frontLeft.getCurrentPosition(),
-                        backLeft.getCurrentPosition(),
-                        frontRight.getCurrentPosition(),
-                        backRight.getCurrentPosition());
+                        bsgRobot.frontLeft.getCurrentPosition(),
+                        bsgRobot.backLeft.getCurrentPosition(),
+                        bsgRobot.frontRight.getCurrentPosition(),
+                        bsgRobot.backRight.getCurrentPosition());
                 telemetry.update();
             }
 
@@ -213,10 +210,10 @@ public class RedBuilding extends LinearOpMode {
             bsgRobot.stopWheels();
 
             // Turn off RUN_TO_POSITION
-            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }
@@ -249,10 +246,10 @@ public class RedBuilding extends LinearOpMode {
         else return;
 
         // set power to rotate.
-        frontLeft.setPower(leftPower);
-        backLeft.setPower(leftPower);
-        frontRight.setPower(rightPower);
-        backRight.setPower(rightPower);
+        bsgRobot.frontLeft.setPower(leftPower);
+        bsgRobot.backLeft.setPower(leftPower);
+        bsgRobot.frontRight.setPower(rightPower);
+        bsgRobot.backRight.setPower(rightPower);
 
         // rotate until turn is completed.
         if (degrees < 0) //-10
@@ -266,10 +263,10 @@ public class RedBuilding extends LinearOpMode {
             while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
 
         // turn the motors off.
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+        bsgRobot.frontLeft.setPower(0);
+        bsgRobot.backLeft.setPower(0);
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.backRight.setPower(0);
 
         // wait for rotation to stop.
         sleep(1000);
