@@ -1,6 +1,4 @@
 package org.firstinspires.ftc.teamcode.Hardware;
-import android.util.Log;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,7 +12,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
 
 import java.util.Locale;
 
@@ -41,7 +38,7 @@ public class Robot {
  /* public Servo leftClaw;
   public Servo rightClaw;
 */
-  public Telemetry telemetry;
+  public static Telemetry telemetry;
 
   public Robot() { //constructor
 
