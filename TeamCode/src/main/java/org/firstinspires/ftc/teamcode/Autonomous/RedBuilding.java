@@ -34,6 +34,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
@@ -71,6 +73,8 @@ public class RedBuilding extends LinearOpMode {
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
 
+
+
     //for encoders...
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -86,6 +90,8 @@ public class RedBuilding extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
+        bsgRobot.initIMU(hardwareMap);
+
 
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
@@ -113,6 +119,13 @@ public class RedBuilding extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+
+        bsgRobot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+
+        // Loop and update the dashboard
+        while (opModeIsActive()) {
+            telemetry.update();
+        }
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)

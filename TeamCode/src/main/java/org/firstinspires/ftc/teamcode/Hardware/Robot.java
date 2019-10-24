@@ -27,7 +27,7 @@ public class Robot {
   public DcMotor backRight;
  // public DcMotor lift;
 
-  BNO055IMU imu;
+  public BNO055IMU imu;
   public double imuAngle;
 
   Orientation angles;
@@ -53,7 +53,7 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
-    brakeMotors(frontRight,frontLeft);
+    brakeMotors(frontRight, frontLeft);
     brakeMotors(backRight, backLeft);
 
     //lift = hMap.dcMotor.get("lift");
@@ -69,6 +69,9 @@ public class Robot {
     //Lines that show up in the internal log (can be accessed on the phone
     //Log.d("#BSG", "Started Encoders");
     //Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
+  }
+
+  public void initIMU(HardwareMap hMap) {
 
 
 

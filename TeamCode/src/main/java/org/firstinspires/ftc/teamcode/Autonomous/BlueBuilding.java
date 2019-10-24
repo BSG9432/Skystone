@@ -34,6 +34,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
@@ -85,12 +87,13 @@ public class BlueBuilding extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
+        bsgRobot.initIMU(hardwareMap);
 
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -113,6 +116,13 @@ public class BlueBuilding extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+
+        bsgRobot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+
+        // Loop and update the dashboard
+        while (opModeIsActive()) {
+            telemetry.update();
+        }
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
