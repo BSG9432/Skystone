@@ -27,16 +27,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -69,11 +66,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @Autonomous(name="RedBuilding")
 public class RedBuilding extends LinearOpMode {
 
-
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
-
-
 
     //for encoders...
     private ElapsedTime     runtime = new ElapsedTime();
@@ -89,11 +83,11 @@ public class RedBuilding extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        bsgRobot.init(hardwareMap);
-        bsgRobot.initIMU(hardwareMap);
-
-
+       bsgRobot.init(hardwareMap);
         AutoTransitioner.transitionOnStop(this, "TylaOp");
+        
+        bsgRobot.rightFoundation.setPosition(.1);
+        bsgRobot.leftFoundation.setPosition(.9);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -120,36 +114,26 @@ public class RedBuilding extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        bsgRobot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
-
-        // Loop and update the dashboard
-        while (opModeIsActive()) {
-            telemetry.update();
-        }
-
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5); // S1: Forward 11.5 Inches with 2.5 Sec timeout
-        rotate(-90, TURN_SPEED);                                        //S2: Rotate counterclockwise 90 degrees
+        encoderDrive(TURN_SPEED, -8, 8, 2.5) //S2: Rotate counterclockwise 90 degrees
         encoderDrive(DRIVE_SPEED,   21, 21, 4.5);  // S3: Turn Right 21 Inches with 5 Sec timeout
-        rotate(90, TURN_SPEED);                                      //S4: Turn clockwise 90 degrees
-        encoderDrive(DRIVE_SPEED, 5, 5, 1.5);   // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(TURN_SPEED, 8, -8, 2.5) //S4: Turn clockwise 90 degrees
+        encoderDrive(DRIVE_SPEED, 5, 5, 1.5);   // S5: Reverse 24 Inches with 4 Sec timeout
 
-       bsgRobot.leftFoundation.setPosition(.5);
-       bsgRobot.rightFoundation.setPosition(.5);
+       bsgRobot.leftFoundation.setPosition(0);  //Grab foundation
+       bsgRobot.rightFoundation.setPosition(1);
         sleep(1000);
 
         encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0); // Backward -28.5 Inches with 5 Sec timeout
-        rotate(90, TURN_SPEED);                                         // Rotate clockwise 90 degrees
+        
+        bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
+       bsgRobot.rightFoundation.setPosition(.9);
+        sleep(1000);
+        
+        encoderDrive(TURN_SPEED, 8, -8, 2.5)  // Rotate clockwise 90 degrees
         encoderDrive(DRIVE_SPEED, 36,36, 7.0);      // Forward 26 Inches with 7 Sec timeout
-
-
-
-
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0)
-        sleep(1000);     // pause for servos to move
-         */
 
 
         telemetry.addData("Path", "Complete");
@@ -206,8 +190,8 @@ public class RedBuilding extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    ( bsgRobot.frontLeft.isBusy() &&  bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() &&  bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
@@ -232,16 +216,13 @@ public class RedBuilding extends LinearOpMode {
         }
     }
 
-    //rotate function using IMU's
-    private void rotate(int degrees, double power){
+   //rotate function using IMU's
+   /* private void rotate(int degrees, double power){
         double leftPower, rightPower;
-
         //restart imu movement tracking
         bsgRobot.resetAngle();
-
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
-
         if (degrees < 0)
         {   // turn left.
             leftPower = power;
@@ -257,35 +238,29 @@ public class RedBuilding extends LinearOpMode {
             telemetry.update();
         }
         else return;
-
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
         bsgRobot.backLeft.setPower(leftPower);
         bsgRobot.frontRight.setPower(rightPower);
         bsgRobot.backRight.setPower(rightPower);
-
         // rotate until turn is completed.
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
             while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
-
             while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
         }
         else    // right turn.
             while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
-
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
         bsgRobot.backLeft.setPower(0);
         bsgRobot.frontRight.setPower(0);
         bsgRobot.backRight.setPower(0);
-
         // wait for rotation to stop.
         sleep(1000);
-
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
+    */
 
     }
-}
