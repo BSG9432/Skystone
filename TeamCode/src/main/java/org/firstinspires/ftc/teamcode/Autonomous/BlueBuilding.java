@@ -34,9 +34,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -87,13 +84,9 @@ public class BlueBuilding extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
-        bsgRobot.initIMU(hardwareMap);
-
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
-
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");
+        telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -117,19 +110,17 @@ public class BlueBuilding extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        bsgRobot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
-
-        // Loop and update the dashboard
-        while (opModeIsActive()) {
-            telemetry.update();
-        }
-
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+
         encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
-        rotate(90, TURN_SPEED);                                           //S2: Rotate clockwise 90 degrees
+
+        encoderDrive(TURN_SPEED, 6, -6, 3.0);
+
         encoderDrive(DRIVE_SPEED,   21, 21, 4.5);    // S3: Turn Right 21 Inches with 5 Sec timeout
-        rotate(-90, TURN_SPEED);                                       //S4: Turn counterclockwise 90 degrees
+
+        encoderDrive(TURN_SPEED, -6, 6, 3.0) ;      //S4: Turn counterclockwise 90 degrees
+
         encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
 
         bsgRobot.leftFoundation.setPosition(.5);
@@ -137,11 +128,10 @@ public class BlueBuilding extends LinearOpMode {
         sleep(1000);
 
         encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
-        rotate(-90, TURN_SPEED);                                        //S7: Rotate counterclockwise -90 degrees
+
+        encoderDrive(TURN_SPEED, -6, 6, 3.0);       //S7: Rotate counterclockwise -90 degrees
+
         encoderDrive(DRIVE_SPEED, 36,36, 7.0);     //S8: Forward 36 Inches with 7 Sec timeout
-
-
-
 
         /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0)
@@ -230,7 +220,7 @@ public class BlueBuilding extends LinearOpMode {
     }
 
     //rotate function using IMU's
-    private void rotate(int degrees, double power){
+   /* private void rotate(int degrees, double power){
         double leftPower, rightPower;
 
         //restart imu movement tracking
@@ -284,5 +274,8 @@ public class BlueBuilding extends LinearOpMode {
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
 
-    }
+    */
+
 }
+
+
