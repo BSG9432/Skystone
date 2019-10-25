@@ -60,7 +60,6 @@ public class Robot {
     //leftClaw = hMap.servo.get("leftClaw");
     //rightClaw = hMap.servo.get("rightClaw");
 
-
     //Telemetry to show on phone to confirm that  initialization occured
     //telemetry.addLine("We done bois");//DS
     //Lines that show up in the internal log (can be accessed on the phone

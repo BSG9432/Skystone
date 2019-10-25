@@ -25,7 +25,7 @@ public class Challenge1 extends LinearOpMode{
         bsgRobot. backLeft.setPower(-.25);
         bsgRobot.frontRight.setPower(.25);
         bsgRobot.backRight.setPower(.25);
-   sleep(1500                                         );
+   sleep(1500);
 
 
 
