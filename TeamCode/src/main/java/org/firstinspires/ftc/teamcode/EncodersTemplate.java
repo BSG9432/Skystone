@@ -84,6 +84,7 @@ public class EncodersTemplate extends LinearOpMode {
     public void runOpMode() {
 
        bsgRobot.init(hardwareMap);
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
