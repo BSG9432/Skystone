@@ -1,3 +1,4 @@
+ 
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,16 +28,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -86,9 +84,7 @@ public class RedLoading extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        bsgRobot.init(hardwareMap);
-        bsgRobot.initIMU(hardwareMap);
-
+       bsgRobot.init(hardwareMap);
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
@@ -116,19 +112,11 @@ public class RedLoading extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        bsgRobot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
-
-        // Loop and update the dashboard
-        while (opModeIsActive()) {
-            telemetry.update();
-        }
-
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED , 27.5, 27.5, 6); //go forward 27.5 and timeout for 6 seconds
-        rotate(-90, TURN_SPEED);
+        encoderDrive(TURN_SPEED, 8, -8, 3.0); 
         encoderDrive(DRIVE_SPEED,23,23,6);
-
 
 
         telemetry.addData("Path", "Complete");
@@ -185,8 +173,8 @@ public class RedLoading extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    ( bsgRobot.frontLeft.isBusy() &&  bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() &&  bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
@@ -211,16 +199,13 @@ public class RedLoading extends LinearOpMode {
         }
     }
 
-    //rotate function using IMU's
-    private void rotate(int degrees, double power){
+   //rotate function using IMU's
+   /* private void rotate(int degrees, double power){
         double leftPower, rightPower;
-
         //restart imu movement tracking
         bsgRobot.resetAngle();
-
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
-
         if (degrees < 0)
         {   // turn left.
             leftPower = power;
@@ -236,35 +221,29 @@ public class RedLoading extends LinearOpMode {
             telemetry.update();
         }
         else return;
-
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
         bsgRobot.backLeft.setPower(leftPower);
         bsgRobot.frontRight.setPower(rightPower);
         bsgRobot.backRight.setPower(rightPower);
-
         // rotate until turn is completed.
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
             while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
-
             while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
         }
         else    // right turn.
             while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
-
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
         bsgRobot.backLeft.setPower(0);
         bsgRobot.frontRight.setPower(0);
         bsgRobot.backRight.setPower(0);
-
         // wait for rotation to stop.
         sleep(1000);
-
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
+    */
 
     }
-}
