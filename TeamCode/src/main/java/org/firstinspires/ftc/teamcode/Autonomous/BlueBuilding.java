@@ -78,7 +78,7 @@ public class BlueBuilding extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.7;
+    static final double     DRIVE_SPEED             = 0.9;
     static final double     TURN_SPEED              = 0.5;
 
     @Override
@@ -115,29 +115,29 @@ public class BlueBuilding extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -11.5,  11.5, 2.5);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
 
-        encoderDrive(TURN_SPEED, 6, -6, 3.0);
+        //encoderDrive(TURN_SPEED, 6, -6, 3.0);
 
-        encoderDrive(DRIVE_SPEED,   21, 21, 4.5);    // S3: Turn Right 21 Inches with 5 Sec timeout
+        //encoderDrive(DRIVE_SPEED,   21, 21, 4.5);    // S3: Turn Right 21 Inches with 5 Sec timeout
 
-        encoderDrive(TURN_SPEED, -6, 6, 3.0) ;      //S4: Turn counterclockwise 90 degrees
+        //encoderDrive(TURN_SPEED, -6, 6, 3.0) ;      //S4: Turn counterclockwise 90 degrees
 
-        encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
+        //encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
 
-        bsgRobot.leftFoundation.setPosition(.5);
-        bsgRobot.rightFoundation.setPosition(.5);
-        sleep(1000);
+        //bsgRobot.leftFoundation.setPosition(.5);
+        //bsgRobot.rightFoundation.setPosition(.5);
+        //sleep(1000);
 
-        encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
+        //encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
         
-        bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
-        bsgRobot.rightFoundation.setPosition(.9);
-        sleep(1000);
+        //bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
+        //bsgRobot.rightFoundation.setPosition(.9);
+        //sleep(1000);
 
-        encoderDrive(TURN_SPEED, -6, 6, 3.0);       //S7: Rotate counterclockwise -90 degrees
+        //encoderDrive(TURN_SPEED, -6, 6, 3.0);       //S7: Rotate counterclockwise -90 degrees
 
-        encoderDrive(DRIVE_SPEED, 36,36, 7.0);     //S8: Forward 36 Inches with 7 Sec timeout
+        //encoderDrive(DRIVE_SPEED, 36,36, 7.0);     //S8: Forward 36 Inches with 7 Sec timeout
 
         /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0)
