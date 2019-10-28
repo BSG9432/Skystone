@@ -125,8 +125,8 @@ public class EncodersTest extends LinearOpMode {
 
         //encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
 
-        //bsgRobot.leftFoundation.setPosition(.5);
-        //bsgRobot.rightFoundation.setPosition(.5);
+        //bsgRobot.leftFoundation.setPosition(1);
+        //bsgRobot.rightFoundation.setPosition(0);
         //sleep(1000);
 
         //encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
