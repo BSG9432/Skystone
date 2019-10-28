@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -64,8 +64,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuilding")
-public class BlueBuilding extends LinearOpMode {
+@Autonomous(name="EncodersTest")
+public class EncodersTest extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -85,7 +85,7 @@ public class BlueBuilding extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+        //AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -115,7 +115,7 @@ public class BlueBuilding extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
+        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 4.0);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
 
         //encoderDrive(TURN_SPEED, 6, -6, 3.0);
 
@@ -130,7 +130,7 @@ public class BlueBuilding extends LinearOpMode {
         //sleep(1000);
 
         //encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
-        
+
         //bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
         //bsgRobot.rightFoundation.setPosition(.9);
         //sleep(1000);
