@@ -43,6 +43,8 @@ public class TylaOp extends OpMode {
             bsgRobot.backRight.setPower(0);
         }
 
+
+
         /*
         if (-gamepad1.right_stick_y < -.1) {
             bsgRobot.frontRight.setPower(-speed);
@@ -65,6 +67,12 @@ public class TylaOp extends OpMode {
             bsgRobot.frontLeft.setPower(0);
             bsgRobot.backLeft.setPower(0);
         }
+        //Telemetry to see values of motors 
+        telemetry.addData("Front Right Value: ", bsgRobot.frontRight.getPower());
+        telemetry.addData("Back Right Value: ", bsgRobot.backRight.getPower());
+        telemetry.addData("Front Left Value: ", bsgRobot.frontLeft.getPower());
+        telemetry.addData("Back  Left Value: ", bsgRobot.backLeft.getPower());
+        telemetry.update();
 
         /*
         if (-gamepad1.left_stick_y < -.1)
