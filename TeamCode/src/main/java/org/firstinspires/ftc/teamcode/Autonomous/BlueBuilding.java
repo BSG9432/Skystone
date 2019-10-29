@@ -71,13 +71,17 @@ public class BlueBuilding extends LinearOpMode {
 
         foundationUp(800); //let go of foundation */
 
-       // rotate(90, .8); //rotate RIGHT to face towards alliance bridge
+        //rotate(90, .8); //rotate RIGHT to face towards alliance bridge
 
-        bsgRobot.frontLeft.setPower(.5);
-        bsgRobot.backLeft.setPower(.5);
-        bsgRobot.frontRight.setPower(-.3);
-        bsgRobot.backRight.setPower(-.3);
-        sleep(750);
+
+
+        bsgRobot.frontLeft.setPower(.75);
+        bsgRobot.backLeft.setPower(.75);
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.backRight.setPower(0);
+        sleep(1000);
+
+
 
        /* sleep(500);
 
@@ -193,8 +197,8 @@ public class BlueBuilding extends LinearOpMode {
         } else return;
 
         // set power to rotate.
-        bsgRobot.frontLeft.setPower(leftPower);
-        bsgRobot.backLeft.setPower(leftPower);
+        bsgRobot.frontLeft.setPower(-leftPower);
+        bsgRobot.backLeft.setPower(-leftPower);
         bsgRobot.frontRight.setPower(rightPower);
         bsgRobot.backRight.setPower(rightPower);
 

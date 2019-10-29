@@ -21,10 +21,10 @@ public class Challenge1 extends LinearOpMode{
 
     waitForStart();
     //forward at .25 speed for 3 seconds
-        bsgRobot.frontLeft.setPower(-.25);
-        bsgRobot. backLeft.setPower(-.25);
-        bsgRobot.frontRight.setPower(.25);
-        bsgRobot.backRight.setPower(.25);
+        bsgRobot.frontLeft.setPower(.5);
+        bsgRobot. backLeft.setPower(.5);
+        bsgRobot.frontRight.setPower(.5);
+        bsgRobot.backRight.setPower(.50);
    sleep(1500);
 
 
