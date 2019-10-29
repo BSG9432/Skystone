@@ -115,7 +115,7 @@ public class BlueBuilding extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(.8,  40,  40, 3); //forward 40 inches towards foundation
+        /*encoderDrive(.8,  40,  40, 3); //forward 40 inches towards foundation
 
         sleep(500);
 
@@ -125,20 +125,28 @@ public class BlueBuilding extends LinearOpMode {
 
         sleep(500);
 
-        foundationUp(800); //let go of foundation
+        foundationUp(800); //let go of foundation */
 
-        rotate(90, .8); //rotate RIGHT to face towards alliance bridge
+       // rotate(90, .8); //rotate RIGHT to face towards alliance bridge
 
-        sleep(500);
+        bsgRobot.frontLeft.setPower(.5);
+        bsgRobot.backLeft.setPower(.5);
+        bsgRobot.frontRight.setPower(-.3);
+        bsgRobot.backRight.setPower(-.3);
+        sleep(750);
+
+       /* sleep(500);
 
         encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
 
         sleep(500);
 
+        */
+
         telemetry.addData("Path", "Complete");
         telemetry.update();
 
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+       // AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     /*
