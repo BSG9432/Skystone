@@ -31,7 +31,7 @@ public class TylaOp extends OpMode {
             speed -= .25;
         }
 */
-        //For Right motors
+        //For Right Motors
         if (Math.abs(gamepad1.right_stick_y) > .1)
         {
             bsgRobot.frontRight.setPower(-gamepad1.right_stick_y);
@@ -43,24 +43,11 @@ public class TylaOp extends OpMode {
             bsgRobot.backRight.setPower(0);
         }
 
-
-
-        /*
-        if (-gamepad1.right_stick_y < -.1) {
-            bsgRobot.frontRight.setPower(-speed);
-            bsgRobot.backRight.setPower(-speed);
-        }
-        else {
-            bsgRobot.frontRight.setPower(0);
-            bsgRobot.backRight.setPower(0);
-        }
-         */
-
-        //For Left Side
+        //For Left Motors (KEEP IN MIND THAT LEFT MOTORS ARE SET AT REVERSE DIRECTION IN THE ROBOT OBJECT CLASS)
         if (Math.abs(gamepad1.left_stick_y) > .1)
         {
-            bsgRobot.frontLeft.setPower(gamepad1.left_stick_y);
-            bsgRobot.backLeft.setPower(gamepad1.left_stick_y);
+            bsgRobot.frontLeft.setPower(-gamepad1.left_stick_y);
+            bsgRobot.backLeft.setPower(-gamepad1.left_stick_y);
         }
         else
         {
@@ -74,32 +61,17 @@ public class TylaOp extends OpMode {
         telemetry.addData("Back  Left Value: ", bsgRobot.backLeft.getPower());
         telemetry.update();
 
-        /*
-        if (-gamepad1.left_stick_y < -.1)
-        {
-            bsgRobot.frontLeft.setPower(speed);
-            bsgRobot.backLeft.setPower(speed);
-        }
-        else
-        {
-            bsgRobot.frontLeft.setPower(0);
-            bsgRobot.backLeft.setPower(0);
-        }
-
-         */
-
         // TO CONTROL THE FOUNDATION SERVOS
-        //grab foundation
-        if (gamepad1.a) {
+        if (gamepad1.a) //Down Position
+        {
             bsgRobot.rightFoundation.setPosition(1);
             bsgRobot.leftFoundation.setPosition(0);
         }
-        if (gamepad1.b) {
+        if (gamepad1.b) //Up Position
+        {
             bsgRobot.rightFoundation.setPosition(.1);
             bsgRobot.leftFoundation.setPosition(.9);
         }
-
-
 
         // BUMPERS TO CONTROL CLAW
         /*
@@ -120,24 +92,23 @@ public class TylaOp extends OpMode {
             //bsgRobot.lift.setPower(.5)
         }
 
-       /* if (gamepad1.left_stick_x > .1) // strafe RIGHT
+        if (gamepad1.left_trigger > .1) // strafe RIGHT
         {
             bsgRobot.frontRight.setPower(-1);
             bsgRobot.backRight.setPower(1);
             bsgRobot. frontLeft.setPower(1);
             bsgRobot.backLeft.setPower(-1);
         }
-        
         else
         {
             bsgRobot.frontRight.setPower(0);
             bsgRobot.backRight.setPower(0);
             bsgRobot.frontLeft.setPower(0);
             bsgRobot.backLeft.setPower(0);
-        }*/
+        }
 
 
-       /* if (gamepad1.left_stick_x < -.1) // strafe LEFT
+        if (gamepad1.left_trigger < -.1) // strafe LEFT
         {
             bsgRobot.frontRight.setPower(1);
             bsgRobot.backRight.setPower(-1);
@@ -151,7 +122,6 @@ public class TylaOp extends OpMode {
             bsgRobot.frontLeft.setPower(0);
             bsgRobot.backLeft.setPower(0);
         }
-*/
 
     }
 }
