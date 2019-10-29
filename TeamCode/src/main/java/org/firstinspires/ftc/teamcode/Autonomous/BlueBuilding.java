@@ -115,38 +115,30 @@ public class BlueBuilding extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
+        encoderDrive(.8,  40,  40, 3); //forward 40 inches towards foundation
 
-        //encoderDrive(TURN_SPEED, 6, -6, 3.0);
+        sleep(500);
 
-        //encoderDrive(DRIVE_SPEED,   21, 21, 4.5);    // S3: Turn Right 21 Inches with 5 Sec timeout
+        foundationDown(800); //grab foundation
 
-        //encoderDrive(TURN_SPEED, -6, 6, 3.0) ;      //S4: Turn counterclockwise 90 degrees
+        encoderDrive(.8, -40, -40, 3); //drag foundation backwards 40 inches into build zone
 
-        //encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
+        sleep(500);
 
-        //bsgRobot.leftFoundation.setPosition(.5);
-        //bsgRobot.rightFoundation.setPosition(.5);
-        //sleep(1000);
+        foundationUp(800); //let go of foundation
 
-        //encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
-        
-        //bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
-        //bsgRobot.rightFoundation.setPosition(.9);
-        //sleep(1000);
+        rotate(90, .8); //rotate RIGHT to face towards alliance bridge
 
-        //encoderDrive(TURN_SPEED, -6, 6, 3.0);       //S7: Rotate counterclockwise -90 degrees
+        sleep(500);
 
-        //encoderDrive(DRIVE_SPEED, 36,36, 7.0);     //S8: Forward 36 Inches with 7 Sec timeout
+        encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
 
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0)
-        sleep(1000);     // pause for servos to move
-         */
-
+        sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     /*
@@ -226,7 +218,8 @@ public class BlueBuilding extends LinearOpMode {
     }
 
     //rotate function using IMU's
-   /* private void rotate(int degrees, double power){
+    public void rotate (int degrees, double power) {
+
         double leftPower, rightPower;
 
         //restart imu movement tracking
@@ -235,21 +228,17 @@ public class BlueBuilding extends LinearOpMode {
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
 
-        if (degrees < 0)
-        {   // turn left.
+        if (degrees < 0) {   // turn left.
             leftPower = power;
             rightPower = .3;
             telemetry.addLine("left");
             telemetry.update();
-        }
-        else if (degrees > 0)
-        {   // turn right.
+        } else if (degrees > 0) {   // turn right.
             leftPower = -.3;
             rightPower = -power;
             telemetry.addLine("right");
             telemetry.update();
-        }
-        else return;
+        } else return;
 
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
@@ -261,12 +250,14 @@ public class BlueBuilding extends LinearOpMode {
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {
+            }
 
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
-        }
-        else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {
+            }
+        } else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {
+            }
 
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
@@ -280,8 +271,21 @@ public class BlueBuilding extends LinearOpMode {
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
 
-    */
+    }
 
+    public void foundationDown(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
+        sleep(pause);
+    }
+
+    public void foundationUp(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(.1);
+        bsgRobot.leftFoundation.setPosition(.9);
+        sleep(pause);
+    }
 }
 
 

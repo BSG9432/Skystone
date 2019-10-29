@@ -27,13 +27,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -77,17 +78,14 @@ public class RedBuilding extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.7;
+    static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() {
 
-       bsgRobot.init(hardwareMap);
+        bsgRobot.init(hardwareMap);
         AutoTransitioner.transitionOnStop(this, "TylaOp");
-        
-        bsgRobot.rightFoundation.setPosition(.1);
-        bsgRobot.leftFoundation.setPosition(.9);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -116,28 +114,31 @@ public class RedBuilding extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 2.5); // S1: Forward 11.5 Inches with 2.5 Sec timeout
-        encoderDrive(TURN_SPEED, -8, 8, 2.5); //S2: Rotate counterclockwise 90 degrees
-        encoderDrive(DRIVE_SPEED,   21, 21, 4.5);  // S3: Turn Right 21 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED, 8, -8, 2.5); //S4: Turn clockwise 90 degrees
-        encoderDrive(DRIVE_SPEED, 5, 5, 1.5);   // S5: Reverse 24 Inches with 4 Sec timeout
 
-       bsgRobot.leftFoundation.setPosition(0);  //Grab foundation
-       bsgRobot.rightFoundation.setPosition(1);
-        sleep(1000);
+        encoderDrive(.8,  40,  40, 3); //forward 40 inches towards foundation
 
-        encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0); // Backward -28.5 Inches with 5 Sec timeout
-        
-        bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
-       bsgRobot.rightFoundation.setPosition(.9);
-        sleep(1000);
-        
-        encoderDrive(TURN_SPEED, 8, -8, 2.5);  // Rotate clockwise 90 degrees
-        encoderDrive(DRIVE_SPEED, 36,36, 7.0);      // Forward 26 Inches with 7 Sec timeout
+        sleep(500);
 
+        foundationDown(800); //grab foundation
+
+        encoderDrive(.8, -40, -40, 3); //drag foundation backwards 40 inches into build zone
+
+        sleep(500);
+
+        foundationUp(800); //let go of foundation
+
+        rotate(-90, .8); //rotate LEFT to face towards alliance bridge
+
+        sleep(500);
+
+        encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
+
+        sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     /*
@@ -216,51 +217,75 @@ public class RedBuilding extends LinearOpMode {
         }
     }
 
-   //rotate function using IMU's
-   /* private void rotate(int degrees, double power){
+    //rotate function using IMU's
+    public void rotate (int degrees, double power) {
+
         double leftPower, rightPower;
+
         //restart imu movement tracking
         bsgRobot.resetAngle();
+
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
-        if (degrees < 0)
-        {   // turn left.
+
+        if (degrees < 0) {   // turn left.
             leftPower = power;
             rightPower = .3;
             telemetry.addLine("left");
             telemetry.update();
-        }
-        else if (degrees > 0)
-        {   // turn right.
+        } else if (degrees > 0) {   // turn right.
             leftPower = -.3;
             rightPower = -power;
             telemetry.addLine("right");
             telemetry.update();
-        }
-        else return;
+        } else return;
+
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
         bsgRobot.backLeft.setPower(leftPower);
         bsgRobot.frontRight.setPower(rightPower);
         bsgRobot.backRight.setPower(rightPower);
+
         // rotate until turn is completed.
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
-        }
-        else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {
+            }
+
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {
+            }
+        } else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {
+            }
+
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
         bsgRobot.backLeft.setPower(0);
         bsgRobot.frontRight.setPower(0);
         bsgRobot.backRight.setPower(0);
+
         // wait for rotation to stop.
         sleep(1000);
+
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
-    */
 
     }
+
+    public void foundationDown(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
+        sleep(pause);
+    }
+
+    public void foundationUp(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(.1);
+        bsgRobot.leftFoundation.setPosition(.9);
+        sleep(pause);
+    }
+}
+
+

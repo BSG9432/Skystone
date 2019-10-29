@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -50,13 +51,19 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
-    brakeMotors(frontRight, frontLeft);
-    brakeMotors(backRight, backLeft);
+    frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+    backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     //lift = hMap.dcMotor.get("lift");
 
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
+
     //leftClaw = hMap.servo.get("leftClaw");
     //rightClaw = hMap.servo.get("rightClaw");
 
@@ -68,8 +75,6 @@ public class Robot {
   }
 
   public void initIMU(HardwareMap hMap) {
-
-
 
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -96,11 +101,6 @@ public class Robot {
     backRight.setPower(-power);
   }
 
-  public void brakeMotors(DcMotor x, DcMotor y){
-    x.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    y.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-  }
   public void stopWheels() {
     frontLeft.setPower(0);
     backLeft.setPower(0);
@@ -178,7 +178,10 @@ public class Robot {
     return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
   }
 
-  public void resetAngle(){imuAngle = 0;}
+  public void resetAngle()
+  {
+    imuAngle = 0;
+  }
 
   public double getHeading() {
     Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC,

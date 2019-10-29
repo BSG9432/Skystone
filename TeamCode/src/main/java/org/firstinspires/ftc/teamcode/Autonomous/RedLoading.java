@@ -1,4 +1,3 @@
- 
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -79,13 +78,13 @@ public class RedLoading extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.7;
+    static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() {
 
-       bsgRobot.init(hardwareMap);
+        bsgRobot.init(hardwareMap);
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
@@ -115,13 +114,16 @@ public class RedLoading extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED , 27.5, 27.5, 6); //go forward 27.5 and timeout for 6 seconds
-        encoderDrive(TURN_SPEED, 8, -8, 3.0); 
-        encoderDrive(DRIVE_SPEED,23,23,6);
+
+        encoderDrive(.8,  23,  23, 3); //forward 23 inches to park under alliance bridge (SET ROBOT ON START OF THE SECOND TILE)
+
+        sleep(500);
 
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     /*
@@ -200,51 +202,75 @@ public class RedLoading extends LinearOpMode {
         }
     }
 
-   //rotate function using IMU's
-   /* private void rotate(int degrees, double power){
+    //rotate function using IMU's
+    public void rotate (int degrees, double power) {
+
         double leftPower, rightPower;
+
         //restart imu movement tracking
         bsgRobot.resetAngle();
+
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
-        if (degrees < 0)
-        {   // turn left.
+
+        if (degrees < 0) {   // turn left.
             leftPower = power;
             rightPower = .3;
             telemetry.addLine("left");
             telemetry.update();
-        }
-        else if (degrees > 0)
-        {   // turn right.
+        } else if (degrees > 0) {   // turn right.
             leftPower = -.3;
             rightPower = -power;
             telemetry.addLine("right");
             telemetry.update();
-        }
-        else return;
+        } else return;
+
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
         bsgRobot.backLeft.setPower(leftPower);
         bsgRobot.frontRight.setPower(rightPower);
         bsgRobot.backRight.setPower(rightPower);
+
         // rotate until turn is completed.
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
-        }
-        else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {
+            }
+
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {
+            }
+        } else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {
+            }
+
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
         bsgRobot.backLeft.setPower(0);
         bsgRobot.frontRight.setPower(0);
         bsgRobot.backRight.setPower(0);
+
         // wait for rotation to stop.
         sleep(1000);
+
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
-    */
 
     }
+
+    public void foundationDown(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
+        sleep(pause);
+    }
+
+    public void foundationUp(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(.1);
+        bsgRobot.leftFoundation.setPosition(.9);
+        sleep(pause);
+    }
+}
+
+
