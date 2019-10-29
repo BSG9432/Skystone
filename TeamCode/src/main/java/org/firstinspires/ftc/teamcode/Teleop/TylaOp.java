@@ -67,7 +67,6 @@ public class TylaOp extends OpMode {
             bsgRobot.frontLeft.setPower(0);
             bsgRobot.backLeft.setPower(0);
         }
-        //Telemetry to see values of motors 
         telemetry.addData("Front Right Value: ", bsgRobot.frontRight.getPower());
         telemetry.addData("Back Right Value: ", bsgRobot.backRight.getPower());
         telemetry.addData("Front Left Value: ", bsgRobot.frontLeft.getPower());
