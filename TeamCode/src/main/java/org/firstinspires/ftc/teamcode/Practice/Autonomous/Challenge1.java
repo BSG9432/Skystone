@@ -27,7 +27,7 @@ public class Challenge1 extends LinearOpMode{
         bsgRobot.backRight.setPower(.50);
    sleep(1500);
 
-
+ AutoTransitioner.transitionOnStop(this, "TylaOp");
 
 
 
