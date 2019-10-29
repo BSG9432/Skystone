@@ -28,7 +28,7 @@ public class Robot {
   public BNO055IMU imu;
   public double imuAngle;
 
-  Orientation angles;
+  public static Orientation angles;
   Acceleration gravity;
 
   //for moving the foundation
@@ -184,7 +184,7 @@ public class Robot {
   }
 
   public double getHeading() {
-    Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC,
+    angles = imu.getAngularOrientation(AxesReference.INTRINSIC,
             AxesOrder.ZYX, AngleUnit.DEGREES);
     double heading = angles.firstAngle;
     return heading;
