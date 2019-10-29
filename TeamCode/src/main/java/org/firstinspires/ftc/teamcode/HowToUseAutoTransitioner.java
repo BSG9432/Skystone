@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 
-@Autonomous(name = "AutoTransitioningAuto")
-public class AutoTransitioningAuto extends LinearOpMode {
+@Autonomous(name = "HowToUseAutoTransitioner")
+public class HowToUseAutoTransitioner extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry.addData("Initializing Here", true);
