@@ -217,14 +217,14 @@ public class BlueBuilding extends LinearOpMode {
 
     }
 
-    public void foundationDown(int pause)
+    public void foundationDown(long pause)
     {
         bsgRobot.rightFoundation.setPosition(1);
         bsgRobot.leftFoundation.setPosition(0);
         sleep(pause);
     }
 
-    public void foundationUp(int pause)
+    public void foundationUp(long pause)
     {
         bsgRobot.rightFoundation.setPosition(.1);
         bsgRobot.leftFoundation.setPosition(.9);
