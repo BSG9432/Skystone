@@ -91,7 +91,7 @@ public class TylaOp extends OpMode {
             //bsgRobot.lift.setPower(.5)
         }
 
-       /* if (gamepad1.left_trigger > .1) // strafe RIGHT
+        if (gamepad1.right_trigger > .1) // strafe Right
         {
             bsgRobot.frontRight.setPower(-1);
             bsgRobot.backRight.setPower(1);
@@ -107,7 +107,7 @@ public class TylaOp extends OpMode {
         }
 
 
-        if (gamepad1.left_trigger < -.1) // strafe LEFT
+        if (gamepad1.left_trigger > .1) // strafe Left
         {
             bsgRobot.frontRight.setPower(1);
             bsgRobot.backRight.setPower(-1);
@@ -122,7 +122,7 @@ public class TylaOp extends OpMode {
             bsgRobot.backLeft.setPower(0);
         }
 
-        */
+
 
     }
 }

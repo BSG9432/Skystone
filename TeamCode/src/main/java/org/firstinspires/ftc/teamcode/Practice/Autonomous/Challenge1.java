@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @Autonomous (name = "Challenge1")
 public class Challenge1 extends LinearOpMode{
