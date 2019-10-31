@@ -24,7 +24,7 @@ public class owonewcode extends LinearOpMode {
        waitForStart();
        frontLeft.setPower(-.5);
        backLeft.setPower(-.5);
-       backLeft.setPower(.5);
+       frontRight.setPower(.5);
        backRight.setPower(.5);
        sleep(3000);
        //forward at half speed for 2.5 seconds
