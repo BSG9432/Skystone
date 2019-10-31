@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -57,6 +58,8 @@ public class BlueBuilding extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
+
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
@@ -94,10 +97,8 @@ public class BlueBuilding extends LinearOpMode {
         imu.initialize(parameters);
 
         //AutoTransitioner from Team 7203 KNO3 Robotics
-        AutoTransitioner.transitionOnStop(this, "OOFdistrictsTeleOp");
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
 
-        // Wait for the game to start (driver presses PLAY)
-        AutoTransitioner.transitionOnStop(this,"OOFdistrictsTeleOp" );
 
         waitForStart();
 
@@ -110,6 +111,7 @@ public class BlueBuilding extends LinearOpMode {
 
         encoderDrive(DRIVE_SPEED, -5, 5, 1.0);
         rotate(45, .5);
+        telemetry.addLine("right");
         
 
         telemetry.addData("Path", "Complete");
@@ -220,14 +222,14 @@ public class BlueBuilding extends LinearOpMode {
         // clockwise (right).
 
         if (degrees < 0)
+        {   // turn left.
+            leftPower = 0;
+            rightPower = power;
+        }
+        else if (degrees > 0)
         {   // turn right.
             leftPower = -power;
             rightPower = 0;
-        }
-        else if (degrees > 0)
-        {   // turn left.
-            leftPower = 0;
-            rightPower = -power;
         }
         else return;
 

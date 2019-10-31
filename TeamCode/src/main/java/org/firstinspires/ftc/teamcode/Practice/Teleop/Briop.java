@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Practice;
+package org.firstinspires.ftc.teamcode.Practice.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,7 +12,9 @@ public class Briop extends OpMode {
     DcMotor backLeft;
     DcMotor frontRight;
     DcMotor backRight;
-    Servo servoBoi;
+
+    public Servo leftFoundation;
+    public Servo rightFoundation;
 
     @Override
     public void init() {
@@ -20,13 +22,14 @@ public class Briop extends OpMode {
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-        servoBoi = hardwareMap.servo.get("servoBoi");
 
+        leftFoundation = hardwareMap.servo.get("leftFoundation");
+        rightFoundation = hardwareMap.servo.get("rightFoundation");
         //positive value on left side goes forward
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        servoBoi.setPosition(.25);
+
     }
 
     @Override
@@ -50,13 +53,6 @@ public class Briop extends OpMode {
                 backRight.setPower(0);
         }
 
-        //set Servo position to .75
-        if (gamepad1.a){
-            servoBoi.setPosition(.75);
-        }
-        //sets Servo position to .2
-        if (gamepad1.y){
-            servoBoi.setPosition(.2);
-        }
+
     }
 }
