@@ -111,14 +111,6 @@ public class BlueBuilding extends LinearOpMode {
 
         encoderDrive(DRIVE_SPEED, -5, 5, 1.0);
         rotate(45, .5);
-        telemetry.addLine("right");
-        
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-
-
-
     }
 
     /*
