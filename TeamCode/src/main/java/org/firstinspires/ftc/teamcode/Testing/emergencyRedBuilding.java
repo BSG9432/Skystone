@@ -1,0 +1,91 @@
+package org.firstinspires.ftc.teamcode.Testing;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+@Autonomous (name="emergencyRedBuilding")
+public class emergencyRedBuilding extends LinearOpMode {
+
+    public DcMotor frontLeft;
+    public DcMotor frontRight;
+    public DcMotor backLeft;
+    public DcMotor backRight;
+
+    public Servo leftFoundation;
+    public Servo rightFoundation;
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
+        backRight = hardwareMap.dcMotor.get("backRight");
+
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftFoundation = hardwareMap.servo.get("leftFoundation");
+        rightFoundation = hardwareMap.servo.get("rightFoundation");
+
+        waitForStart();
+
+        //strafeRight(.5, 2500);
+        //drive(.5,.5,2000);
+        foundationGrab(1000);
+        //drive(-.5,-.5,2000);
+        //foundationRelease(1000);
+        //
+        // strafeLeft(.5, 4000);
+
+
+    }
+
+    public void drive(double leftPower, double rightPower, long sleepTime)
+    {
+        frontLeft.setPower(leftPower);
+        backLeft.setPower(leftPower);
+        frontRight.setPower(rightPower);
+        backRight.setPower(rightPower);
+        sleep(sleepTime);
+    }
+
+    public void strafeRight(double speed, long sleepTime)
+    {
+        frontLeft.setPower(speed);
+        backLeft.setPower(-speed);
+        frontRight.setPower(-speed);
+        backRight.setPower(speed);
+        sleep(sleepTime);
+    }
+
+    public void strafeLeft(double speed, long sleepTime)
+    {
+        frontLeft.setPower(-speed);
+        backLeft.setPower(speed);
+        frontRight.setPower(speed);
+        backRight.setPower(-speed);
+        sleep(sleepTime);
+    }
+
+    public void foundationGrab(long sleepTime)
+    {
+        rightFoundation.setPosition(1);
+        leftFoundation.setPosition(0);
+        sleep(sleepTime);
+    }
+
+    public void foundationRelease(long sleepTime)
+    {
+        rightFoundation.setPosition(.1);
+        leftFoundation.setPosition(.9);
+        sleep(sleepTime);
+    }
+
+}
