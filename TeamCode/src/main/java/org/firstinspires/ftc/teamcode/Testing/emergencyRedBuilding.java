@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
+
 @Autonomous (name="emergencyRedBuilding")
 public class emergencyRedBuilding extends LinearOpMode {
 
@@ -34,15 +37,39 @@ public class emergencyRedBuilding extends LinearOpMode {
         leftFoundation = hardwareMap.servo.get("leftFoundation");
         rightFoundation = hardwareMap.servo.get("rightFoundation");
 
+
+        rightFoundation.setPosition(1);
+        leftFoundation.setPosition(0);
+
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
+
+
         waitForStart();
 
-        //strafeRight(.5, 2500);
-        //drive(.5,.5,2000);
+        strafeRight(.5, 1000);
+        drive(.5,.5,1750);
+
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
+        sleep(200);
+
         foundationGrab(1000);
-        //drive(-.5,-.5,2000);
-        //foundationRelease(1000);
-        //
-        // strafeLeft(.5, 4000);
+
+        //rightFoundation.setPosition(.1);
+        //leftFoundation.setPosition(.9);
+        //sleep(1000);
+        drive(-1,-1,1700);
+
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
+        sleep(200);
+
+        foundationRelease(1000);
+        strafeLeft(.5, 3400);
 
 
     }
@@ -74,14 +101,14 @@ public class emergencyRedBuilding extends LinearOpMode {
         sleep(sleepTime);
     }
 
-    public void foundationGrab(long sleepTime)
+    public void foundationRelease(long sleepTime)
     {
         rightFoundation.setPosition(1);
         leftFoundation.setPosition(0);
         sleep(sleepTime);
     }
 
-    public void foundationRelease(long sleepTime)
+    public void foundationGrab(long sleepTime)
     {
         rightFoundation.setPosition(.1);
         leftFoundation.setPosition(.9);
