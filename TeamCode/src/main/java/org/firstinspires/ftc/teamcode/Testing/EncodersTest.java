@@ -29,12 +29,13 @@
 
 package org.firstinspires.ftc.teamcode.Testing;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -64,16 +65,15 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="EncodersTest")
+@Autonomous(name="EncodersTest", group="Pushbot")
+
 public class EncodersTest extends LinearOpMode {
 
-    //taking the hardware from our Robot class with our hardware
+    /* Declare OpMode members. */
     Robot bsgRobot = new Robot();
-
-    //for encoders...
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // Neverest 40
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -84,11 +84,14 @@ public class EncodersTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        /*
+         * Initialize the drive system variables.
+         * The init() method of the hardware class does all the work here
+         */
         bsgRobot.init(hardwareMap);
-        //AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -107,6 +110,7 @@ public class EncodersTest extends LinearOpMode {
                 bsgRobot.backLeft.getCurrentPosition(),
                 bsgRobot.frontRight.getCurrentPosition(),
                 bsgRobot.backRight.getCurrentPosition());
+
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -114,36 +118,13 @@ public class EncodersTest extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        encoderDrive(DRIVE_SPEED,  48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        encoderDrive(DRIVE_SPEED,  11.5,  11.5, 4.0);   // S1: Forward 11.5 Inches with 2.5 Sec timeout
-
-        //encoderDrive(TURN_SPEED, 6, -6, 3.0);
-
-        //encoderDrive(DRIVE_SPEED,   21, 21, 4.5);    // S3: Turn Right 21 Inches with 5 Sec timeout
-
-        //encoderDrive(TURN_SPEED, -6, 6, 3.0) ;      //S4: Turn counterclockwise 90 degrees
-
-        //encoderDrive(DRIVE_SPEED, 5, 5, 1.5);     // S3: Reverse 24 Inches with 4 Sec timeout
-
-        //bsgRobot.leftFoundation.setPosition(1);
-        //bsgRobot.rightFoundation.setPosition(0);
-        //sleep(1000);
-
-        //encoderDrive(DRIVE_SPEED, -28.5,-28.5, 5.0);  //S6: Backward -28.5 Inches with 5 Sec timeout
-
-        //bsgRobot.leftFoundation.setPosition(.1); //Release Foundation
-        //bsgRobot.rightFoundation.setPosition(.9);
-        //sleep(1000);
-
-        //encoderDrive(TURN_SPEED, -6, 6, 3.0);       //S7: Rotate counterclockwise -90 degrees
-
-        //encoderDrive(DRIVE_SPEED, 36,36, 7.0);     //S8: Forward 36 Inches with 7 Sec timeout
-
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0)
+        bsgRobot.leftFoundation.setPosition(1.0);            // S4: Stop and close the claw.
+        bsgRobot.rightFoundation.setPosition(0.0);
         sleep(1000);     // pause for servos to move
-         */
-
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -167,16 +148,14 @@ public class EncodersTest extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget =  bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newLeftTarget =  bsgRobot.backLeft.getCurrentPosition()  + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget =  bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newRightTarget =  bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-
+            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
             bsgRobot.backLeft.setTargetPosition(newLeftTarget);
             bsgRobot.frontRight.setTargetPosition(newRightTarget);
             bsgRobot.backRight.setTargetPosition(newRightTarget);
-
 
             // Turn On RUN_TO_POSITION
             bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -199,8 +178,8 @@ public class EncodersTest extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    ( bsgRobot.frontLeft.isBusy() &&  bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() &&  bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() && bsgRobot.backLeft.isBusy()
+                            && bsgRobot.frontRight.isBusy() &&  bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
@@ -221,67 +200,8 @@ public class EncodersTest extends LinearOpMode {
             bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
             //  sleep(250);   // optional pause after each move
         }
     }
-
-    //rotate function using IMU's
-   /* private void rotate(int degrees, double power){
-        double leftPower, rightPower;
-
-        //restart imu movement tracking
-        bsgRobot.resetAngle();
-
-        // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-        // clockwise (right).
-
-        if (degrees < 0)
-        {   // turn left.
-            leftPower = power;
-            rightPower = .3;
-            telemetry.addLine("left");
-            telemetry.update();
-        }
-        else if (degrees > 0)
-        {   // turn right.
-            leftPower = -.3;
-            rightPower = -power;
-            telemetry.addLine("right");
-            telemetry.update();
-        }
-        else return;
-
-        // set power to rotate.
-        bsgRobot.frontLeft.setPower(leftPower);
-        bsgRobot.backLeft.setPower(leftPower);
-        bsgRobot.frontRight.setPower(rightPower);
-        bsgRobot.backRight.setPower(rightPower);
-
-        // rotate until turn is completed.
-        if (degrees < 0) //-10
-        {
-            // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
-
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
-        }
-        else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
-
-        // turn the motors off.
-        bsgRobot.frontLeft.setPower(0);
-        bsgRobot.backLeft.setPower(0);
-        bsgRobot.frontRight.setPower(0);
-        bsgRobot.backRight.setPower(0);
-
-        // wait for rotation to stop.
-        sleep(1000);
-
-        // reset angle tracking on new heading.
-        bsgRobot.resetAngle();
-
-    */
-
 }
-
-
