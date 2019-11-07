@@ -18,8 +18,11 @@ public class TylaOp extends OpMode {
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
+
     public Servo leftFoundation;
     public Servo rightFoundation;
+
+    public DcMotor lift;
 
     @Override
     public void init() {
@@ -28,6 +31,8 @@ public class TylaOp extends OpMode {
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
+
+        lift = hardwareMap.dcMotor.get("lift");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -140,6 +145,19 @@ public class TylaOp extends OpMode {
             backRight.setPower(0);
             frontLeft.setPower(0);
             backLeft.setPower(0);
+        }
+
+        if(gamepad1.right_bumper)
+        {
+            lift.setPower(1);
+        }
+        else if (gamepad1.left_bumper)
+        {
+            lift.setPower(-1);
+        }
+        else
+        {
+            lift.setPower(0);
         }
 
 
