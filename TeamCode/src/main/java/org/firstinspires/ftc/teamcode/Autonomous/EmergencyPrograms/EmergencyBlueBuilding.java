@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Testing;
+package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 
-@Autonomous (name="emergencyRedBuilding")
-public class emergencyRedBuilding extends LinearOpMode {
+@Autonomous (name="emergencyBlueBuilding")
+public class EmergencyBlueBuilding extends LinearOpMode {
 
     public DcMotor frontLeft;
     public DcMotor frontRight;
@@ -19,12 +19,16 @@ public class emergencyRedBuilding extends LinearOpMode {
     public Servo leftFoundation;
     public Servo rightFoundation;
 
+    public DcMotor lift;
+
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
+
+        lift = hardwareMap.dcMotor.get("lift");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -46,7 +50,7 @@ public class emergencyRedBuilding extends LinearOpMode {
 
         waitForStart();
 
-        strafeRight(.5, 1000);
+        strafeLeft(.5, 1000);
         drive(.5,.5,1750);
 
         frontLeft.setPower(0);
@@ -69,7 +73,7 @@ public class emergencyRedBuilding extends LinearOpMode {
         sleep(200);
 
         foundationRelease(1000);
-        strafeLeft(.5, 3400);
+        strafeRight(.5, 3400);
 
 
     }

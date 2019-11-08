@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Testing;
+package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,13 +8,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 
-@Autonomous (name="emergencyBlueBuilding")
-public class EmergencyBlueBuilding extends LinearOpMode {
+@Autonomous (name="emergencyRedBuilding")
+public class emergencyRedBuilding extends LinearOpMode {
 
     public DcMotor frontLeft;
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
+
+    public DcMotor lift;
 
     public Servo leftFoundation;
     public Servo rightFoundation;
@@ -34,6 +36,8 @@ public class EmergencyBlueBuilding extends LinearOpMode {
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        lift = hardwareMap.dcMotor.get("lift");
+
         leftFoundation = hardwareMap.servo.get("leftFoundation");
         rightFoundation = hardwareMap.servo.get("rightFoundation");
 
@@ -46,7 +50,7 @@ public class EmergencyBlueBuilding extends LinearOpMode {
 
         waitForStart();
 
-        strafeLeft(.5, 1000);
+        strafeRight(.5, 1000);
         drive(.5,.5,1750);
 
         frontLeft.setPower(0);
@@ -69,7 +73,7 @@ public class EmergencyBlueBuilding extends LinearOpMode {
         sleep(200);
 
         foundationRelease(1000);
-        strafeRight(.5, 3400);
+        strafeLeft(.5, 3400);
 
 
     }

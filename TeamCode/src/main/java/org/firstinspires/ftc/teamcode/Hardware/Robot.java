@@ -23,7 +23,7 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
- // public DcMotor lift;
+  public DcMotor lift;
 
   public BNO055IMU imu;
   public double imuAngle;
@@ -35,10 +35,6 @@ public class Robot {
   public Servo leftFoundation;
   public Servo rightFoundation;
 
-  //for grabbing stones
- /* public Servo leftClaw;
-  public Servo rightClaw;
-*/
   public static Telemetry telemetry;
 
   public Robot() { //constructor
