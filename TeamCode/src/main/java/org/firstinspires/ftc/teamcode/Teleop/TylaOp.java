@@ -116,10 +116,10 @@ public class TylaOp extends OpMode {
 */
         // TRIGGERS TO CONTROL THE LIFT
         //if (gamepad1.left_trigger > .1)
-        {
+        //{
             //bsgRobot.lift.setPower(-.5);
             //bsgRobot.lift.setPower(.5)
-        }
+       // }
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {

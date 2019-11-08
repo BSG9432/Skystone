@@ -55,7 +55,7 @@ public class Robot {
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-    //lift = hMap.dcMotor.get("lift");
+    lift = hMap.dcMotor.get("lift");
 
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
