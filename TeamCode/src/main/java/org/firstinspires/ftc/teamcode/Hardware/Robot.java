@@ -92,9 +92,9 @@ public class Robot {
 
   public void moveForward(double power) {
     frontLeft.setPower(power);
-    backLeft.setPower(-power);
+    backLeft.setPower(power);
     frontRight.setPower(power);
-    backRight.setPower(-power);
+    backRight.setPower(power);
   }
 
   public void stopWheels() {

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @TeleOp (name = "TylaOp")
 
 public class TylaOp extends OpMode {
-    //Robot bsgRobot = new Robot();
+    Robot bsgBot = new Robot();
    // public int speed = 1;
 
    /* public DcMotor frontLeft;
@@ -27,7 +27,6 @@ public class TylaOp extends OpMode {
 
     */
 
-    Robot bsgBot = new Robot();
 
     @Override
     public void init() {
@@ -39,14 +38,14 @@ public class TylaOp extends OpMode {
         backRight = hardwareMap.dcMotor.get("backRight");
 
         lift = hardwareMap.dcMotor.get("lift");
-         */
+
         bsgBot.frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         bsgBot.backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         bsgBot.leftFoundation = hardwareMap.servo.get("leftFoundation");
         bsgBot.rightFoundation = hardwareMap.servo.get("rightFoundation");
-
+        */
     }
 
     @Override
