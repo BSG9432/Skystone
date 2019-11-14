@@ -109,31 +109,36 @@ public class RedBuilding extends LinearOpMode {
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
+        bsgRobot.rightFoundation.setPosition(0);
+        bsgRobot.leftFoundation.setPosition(1);
+
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(.8,  40,  40, 3); //forward 40 inches towards foundation
+       // encoderDrive(.8,  23,  23, 3); //forward 40 inches towards foundation
 
-        sleep(500);
+        //sleep(500);
 
-        foundationDown(800); //grab foundation
+        foundationDown(2000); //grab foundation
 
-        encoderDrive(.8, -40, -40, 3); //drag foundation backwards 40 inches into build zone
+       // encoderDrive(.8, -40, -40, 3); //drag foundation backwards 40 inches into build zone
 
-        sleep(500);
+       // sleep(500);
 
-        foundationUp(800); //let go of foundation
+       // foundationUp(800); //let go of foundation
 
-        rotate(-90, .8); //rotate LEFT to face towards alliance bridge
+        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
 
-        sleep(500);
+       // sleep(500);
 
-        encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
+        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
 
-        sleep(500);
+      //  sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

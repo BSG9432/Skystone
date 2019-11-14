@@ -31,8 +31,13 @@ public class TylaOp extends OpMode {
     @Override
     public void init() {
         bsgBot.init(hardwareMap);
+
+        bsgBot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgBot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgBot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgBot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         /*
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");'
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
@@ -92,8 +97,8 @@ public class TylaOp extends OpMode {
         // TO CONTROL THE FOUNDATION SERVOS
         if (gamepad1.a) //Down Position
         {
-            bsgBot.rightFoundation.setPosition(1);
-            bsgBot.leftFoundation.setPosition(0);
+            bsgBot.rightFoundation.setPosition(.9);
+            bsgBot.leftFoundation.setPosition(.1);
         }
         if (gamepad1.b) //Up Position
         {
@@ -101,7 +106,7 @@ public class TylaOp extends OpMode {
             bsgBot.leftFoundation.setPosition(.9);
         }
 
-        
+
 
         // BUMPERS TO CONTROL CLAW
         /*
