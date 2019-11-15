@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Practice.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-@Autonomous (name = "Challenge1")
+@Autonomous (name = "Park")
 public class park extends LinearOpMode{
 
 

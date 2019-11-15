@@ -97,8 +97,8 @@ public class TylaOp extends OpMode {
         // TO CONTROL THE FOUNDATION SERVOS
         if (gamepad1.a) //Down Position
         {
-            bsgBot.rightFoundation.setPosition(.9);
-            bsgBot.leftFoundation.setPosition(.1);
+            bsgBot.rightFoundation.setPosition(1);
+            bsgBot.leftFoundation.setPosition(0);
         }
         if (gamepad1.b) //Up Position
         {
