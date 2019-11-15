@@ -121,22 +121,22 @@ public class RedBuilding extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         //fix
-        strafeRight(750);
-
-        encoderDrive(.5,  36.4,  36.4, 6); //forward 40 inches towards foundation
+        strafeRight(1000);
+//36.4 38
+        encoderDrive(.5,  43,  43, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(.8, -36.4, -36.4, 3); //drag foundation backwards 40 inches into build zone
+        encoderDrive(.8, -43, -43, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //fix
-        strafeLeft(2900);
+        strafeLeft(3100);
 
 
 
