@@ -27,10 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -64,10 +63,9 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@Disabled
 
-@Autonomous(name="RedLoading")
-public class RedLoading extends LinearOpMode {
+@Autonomous(name="redFarPark")
+public class redFarPark extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -111,16 +109,19 @@ public class RedLoading extends LinearOpMode {
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
+        bsgRobot.rightFoundation.setPosition(0);
+        bsgRobot.leftFoundation.setPosition(1);
+
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-        encoderDrive(.8,  23,  23, 3); //forward 23 inches to park under alliance bridge (SET ROBOT ON START OF THE SECOND TILE)
+        encoderDrive(.5,  31,  31, 5);
 
         sleep(500);
 
+        strafeRight(2000);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -262,8 +263,8 @@ public class RedLoading extends LinearOpMode {
 
     public void foundationDown(int pause)
     {
-        bsgRobot.rightFoundation.setPosition(1);
-        bsgRobot.leftFoundation.setPosition(0);
+        bsgRobot.rightFoundation.setPosition(.8);
+        bsgRobot.leftFoundation.setPosition(.2);
         sleep(pause);
     }
 
@@ -272,6 +273,20 @@ public class RedLoading extends LinearOpMode {
         bsgRobot.rightFoundation.setPosition(.1);
         bsgRobot.leftFoundation.setPosition(.9);
         sleep(pause);
+    }
+    public void strafeLeft(long time){
+        bsgRobot.frontRight.setPower(1);
+        bsgRobot.backRight.setPower(-1);
+        bsgRobot.frontLeft.setPower(-1);
+        bsgRobot.backLeft.setPower(1);
+        sleep(time);
+    }
+    public void strafeRight(long time){
+        bsgRobot.frontRight.setPower(-1);
+        bsgRobot.backRight.setPower(1);
+        bsgRobot.frontLeft.setPower(1);
+        bsgRobot.backLeft.setPower(-1);
+        sleep(time);
     }
 }
 
