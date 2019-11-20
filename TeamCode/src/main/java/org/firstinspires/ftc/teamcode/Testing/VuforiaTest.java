@@ -158,10 +158,10 @@ public class VuforiaTest extends LinearOpMode {
          * We also indicate which camera on the RC we wish to use.
          */
         parameters.cameraName = webcam;
-
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
+        
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
