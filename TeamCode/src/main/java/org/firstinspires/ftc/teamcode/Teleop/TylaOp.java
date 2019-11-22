@@ -12,31 +12,45 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @TeleOp (name = "TylaOp")
 
 public class TylaOp extends OpMode {
-    //Robot bsgRobot = new Robot();
+    Robot bsgBot = new Robot();
    // public int speed = 1;
-    public DcMotor frontLeft;
+
+   /* public DcMotor frontLeft;
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
+
     public Servo leftFoundation;
     public Servo rightFoundation;
 
+    public DcMotor lift;
+
+    */
+
+
     @Override
     public void init() {
-        //bsgRobot.init(hardwareMap);
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        bsgBot.init(hardwareMap);
+
+        bsgBot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgBot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgBot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgBot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        /*
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");'
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift = hardwareMap.dcMotor.get("lift");
+
+        bsgBot.frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        bsgBot.backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-
-        leftFoundation = hardwareMap.servo.get("leftFoundation");
-        rightFoundation = hardwareMap.servo.get("rightFoundation");
-
+        bsgBot.leftFoundation = hardwareMap.servo.get("leftFoundation");
+        bsgBot.rightFoundation = hardwareMap.servo.get("rightFoundation");
+        */
     }
 
     @Override
@@ -54,43 +68,45 @@ public class TylaOp extends OpMode {
         //For Right Motors
         if (Math.abs(gamepad1.right_stick_y) > .1)
         {
-            frontRight.setPower(-gamepad1.right_stick_y);
-            backRight.setPower(-gamepad1.right_stick_y);
+            bsgBot.frontRight.setPower(-gamepad1.right_stick_y);
+            bsgBot.backRight.setPower(-gamepad1.right_stick_y);
         }
         else
         {
-            frontRight.setPower(0);
-            backRight.setPower(0);
+            bsgBot.frontRight.setPower(0);
+            bsgBot.backRight.setPower(0);
         }
 
         //For Left Motors (KEEP IN MIND THAT LEFT MOTORS ARE SET AT REVERSE DIRECTION IN THE ROBOT OBJECT CLASS)
         if (Math.abs(gamepad1.left_stick_y) > .1)
         {
-            frontLeft.setPower(-gamepad1.left_stick_y);
-            backLeft.setPower(-gamepad1.left_stick_y);
+            bsgBot.frontLeft.setPower(-gamepad1.left_stick_y);
+            bsgBot.backLeft.setPower(-gamepad1.left_stick_y);
         }
         else
         {
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+            bsgBot.frontLeft.setPower(0);
+            bsgBot.backLeft.setPower(0);
         }
-        telemetry.addData("Front Right Value: ", frontRight.getPower());
-        telemetry.addData("Back Right Value: ", backRight.getPower());
-        telemetry.addData("Front Left Value: ", frontLeft.getPower());
-        telemetry.addData("Back  Left Value: ", backLeft.getPower());
+        telemetry.addData("Front Right Value: ", bsgBot.frontRight.getPower());
+        telemetry.addData("Back Right Value: ", bsgBot.backRight.getPower());
+        telemetry.addData("Front Left Value: ", bsgBot.frontLeft.getPower());
+        telemetry.addData("Back  Left Value: ", bsgBot.backLeft.getPower());
         telemetry.update();
 
         // TO CONTROL THE FOUNDATION SERVOS
         if (gamepad1.a) //Down Position
         {
-            rightFoundation.setPosition(1);
-            leftFoundation.setPosition(0);
+            bsgBot.rightFoundation.setPosition(1);
+            bsgBot.leftFoundation.setPosition(0);
         }
         if (gamepad1.b) //Up Position
         {
-            rightFoundation.setPosition(.1);
-            leftFoundation.setPosition(.9);
+            bsgBot.rightFoundation.setPosition(.1);
+            bsgBot.leftFoundation.setPosition(.9);
         }
+
+
 
         // BUMPERS TO CONTROL CLAW
         /*
@@ -106,40 +122,53 @@ public class TylaOp extends OpMode {
 */
         // TRIGGERS TO CONTROL THE LIFT
         //if (gamepad1.left_trigger > .1)
-        {
+        //{
             //bsgRobot.lift.setPower(-.5);
             //bsgRobot.lift.setPower(.5)
-        }
+       // }
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {
-            frontRight.setPower(-1);
-            backRight.setPower(1);
-            frontLeft.setPower(1);
-            backLeft.setPower(-1);
+            bsgBot.frontRight.setPower(-1);
+            bsgBot.backRight.setPower(1);
+            bsgBot.frontLeft.setPower(1);
+            bsgBot.backLeft.setPower(-1);
         }
         else
         {
-            frontRight.setPower(0);
-            backRight.setPower(0);
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+            bsgBot.frontRight.setPower(0);
+            bsgBot.backRight.setPower(0);
+            bsgBot.frontLeft.setPower(0);
+            bsgBot.backLeft.setPower(0);
         }
 
 
         if (gamepad1.left_trigger > .1) // strafe Left
         {
-            frontRight.setPower(1);
-            backRight.setPower(-1);
-            frontLeft.setPower(-1);
-            backLeft.setPower(1);
+            bsgBot.frontRight.setPower(1);
+            bsgBot.backRight.setPower(-1);
+            bsgBot.frontLeft.setPower(-1);
+            bsgBot.backLeft.setPower(1);
         }
         else
         {
-            frontRight.setPower(0);
-            backRight.setPower(0);
-            frontLeft.setPower(0);
-            backLeft.setPower(0);
+            bsgBot.frontRight.setPower(0);
+            bsgBot.backRight.setPower(0);
+            bsgBot.frontLeft.setPower(0);
+            bsgBot.backLeft.setPower(0);
+        }
+
+        if(gamepad1.right_bumper)
+        {
+            bsgBot.lift.setPower(1);
+        }
+        else if (gamepad1.left_bumper)
+        {
+            bsgBot.lift.setPower(-1);
+        }
+        else
+        {
+            bsgBot.lift.setPower(0);
         }
 
 

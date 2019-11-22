@@ -27,13 +27,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -63,8 +64,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="EncodersTemplate")
-public class EncodersTemplate extends LinearOpMode {
+@Autonomous(name="redFarPark")
+public class redFarPark extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -72,19 +73,19 @@ public class EncodersTemplate extends LinearOpMode {
     //for encoders...
     private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // Neverest 40
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // Neverest 40
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.7;
+    static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() {
 
-       bsgRobot.init(hardwareMap);
-        org.firstinspires.ftc.teamcode.AutoTransitioner.transitionOnStop(this, "TylaOp");
+        bsgRobot.init(hardwareMap);
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -108,23 +109,24 @@ public class EncodersTemplate extends LinearOpMode {
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
+        bsgRobot.rightFoundation.setPosition(0);
+        bsgRobot.leftFoundation.setPosition(1);
+
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  1.0,  1.0, 1.0);  // S1: Forward 47 Inches with 5 Sec timeout
-       // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(.5,  31,  31, 5);
 
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0)
-        sleep(1000);     // pause for servos to move
-         */
+        sleep(500);
 
+        strafeRight(2000);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     /*
@@ -203,8 +205,9 @@ public class EncodersTemplate extends LinearOpMode {
         }
     }
 
-   //rotate function using IMU's
-   /* private void rotate(int degrees, double power){
+    //rotate function using IMU's
+    public void rotate (int degrees, double power) {
+
         double leftPower, rightPower;
 
         //restart imu movement tracking
@@ -213,21 +216,17 @@ public class EncodersTemplate extends LinearOpMode {
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
 
-        if (degrees < 0)
-        {   // turn left.
+        if (degrees < 0) {   // turn left.
             leftPower = power;
             rightPower = .3;
             telemetry.addLine("left");
             telemetry.update();
-        }
-        else if (degrees > 0)
-        {   // turn right.
+        } else if (degrees > 0) {   // turn right.
             leftPower = -.3;
             rightPower = -power;
             telemetry.addLine("right");
             telemetry.update();
-        }
-        else return;
+        } else return;
 
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
@@ -239,12 +238,14 @@ public class EncodersTemplate extends LinearOpMode {
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {
+            }
 
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
-        }
-        else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {
+            }
+        } else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {
+            }
 
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
@@ -258,7 +259,35 @@ public class EncodersTemplate extends LinearOpMode {
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
 
-    */
-
     }
+
+    public void foundationDown(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(.8);
+        bsgRobot.leftFoundation.setPosition(.2);
+        sleep(pause);
+    }
+
+    public void foundationUp(int pause)
+    {
+        bsgRobot.rightFoundation.setPosition(.1);
+        bsgRobot.leftFoundation.setPosition(.9);
+        sleep(pause);
+    }
+    public void strafeLeft(long time){
+        bsgRobot.frontRight.setPower(1);
+        bsgRobot.backRight.setPower(-1);
+        bsgRobot.frontLeft.setPower(-1);
+        bsgRobot.backLeft.setPower(1);
+        sleep(time);
+    }
+    public void strafeRight(long time){
+        bsgRobot.frontRight.setPower(-1);
+        bsgRobot.backRight.setPower(1);
+        bsgRobot.frontLeft.setPower(1);
+        bsgRobot.backLeft.setPower(-1);
+        sleep(time);
+    }
+}
+
 

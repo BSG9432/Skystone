@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;//package org.firstinspires.ftc.teamcode.MineralMania2k19.Testing;
+package org.firstinspires.ftc.teamcode.Testing;//package org.firstinspires.ftc.teamcode.MineralMania2k19.Testing;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;

@@ -23,7 +23,7 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
- // public DcMotor lift;
+  public DcMotor lift;
 
   public BNO055IMU imu;
   public double imuAngle;
@@ -35,10 +35,6 @@ public class Robot {
   public Servo leftFoundation;
   public Servo rightFoundation;
 
-  //for grabbing stones
- /* public Servo leftClaw;
-  public Servo rightClaw;
-*/
   public static Telemetry telemetry;
 
   public Robot() { //constructor
@@ -59,7 +55,7 @@ public class Robot {
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-    //lift = hMap.dcMotor.get("lift");
+    lift = hMap.dcMotor.get("lift");
 
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
@@ -96,9 +92,9 @@ public class Robot {
 
   public void moveForward(double power) {
     frontLeft.setPower(power);
-    backLeft.setPower(-power);
+    backLeft.setPower(power);
     frontRight.setPower(power);
-    backRight.setPower(-power);
+    backRight.setPower(power);
   }
 
   public void stopWheels() {
