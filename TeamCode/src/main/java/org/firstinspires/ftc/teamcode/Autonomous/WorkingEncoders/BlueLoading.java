@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
+package org.firstinspires.ftc.teamcode.Autonomous.WorkingEncoders;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -65,8 +65,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @Disabled
-@Autonomous(name="redFarPark")
-public class redFarPark extends LinearOpMode {
+@Autonomous(name="BlueLoading")
+public class BlueLoading extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -110,19 +110,16 @@ public class redFarPark extends LinearOpMode {
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
-        bsgRobot.rightFoundation.setPosition(0);
-        bsgRobot.leftFoundation.setPosition(1);
-
-
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(.5,  31,  31, 5);
+        // Step through each leg of the path,
+        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+
+        encoderDrive(.8,  23,  23, 3); //forward 23 inches to park under alliance bridge (SET ROBOT ON START OF THE SECOND TILE)
 
         sleep(500);
 
-        strafeRight(2000);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -264,8 +261,8 @@ public class redFarPark extends LinearOpMode {
 
     public void foundationDown(int pause)
     {
-        bsgRobot.rightFoundation.setPosition(.8);
-        bsgRobot.leftFoundation.setPosition(.2);
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
         sleep(pause);
     }
 
@@ -274,20 +271,6 @@ public class redFarPark extends LinearOpMode {
         bsgRobot.rightFoundation.setPosition(.1);
         bsgRobot.leftFoundation.setPosition(.9);
         sleep(pause);
-    }
-    public void strafeLeft(long time){
-        bsgRobot.frontRight.setPower(1);
-        bsgRobot.backRight.setPower(-1);
-        bsgRobot.frontLeft.setPower(-1);
-        bsgRobot.backLeft.setPower(1);
-        sleep(time);
-    }
-    public void strafeRight(long time){
-        bsgRobot.frontRight.setPower(-1);
-        bsgRobot.backRight.setPower(1);
-        bsgRobot.frontLeft.setPower(1);
-        bsgRobot.backLeft.setPower(-1);
-        sleep(time);
     }
 }
 

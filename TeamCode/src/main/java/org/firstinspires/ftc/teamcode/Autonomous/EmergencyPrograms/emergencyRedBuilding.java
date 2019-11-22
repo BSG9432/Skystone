@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
-
+@Disabled
 @Autonomous (name="emergencyRedBuilding")
 public class emergencyRedBuilding extends LinearOpMode {
 

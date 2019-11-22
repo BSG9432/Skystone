@@ -27,10 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous.EmergencyPrograms;
+package org.firstinspires.ftc.teamcode.Testing.Encoders;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -64,23 +63,23 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@Disabled
-@Autonomous(name="redFarPark")
-public class redFarPark extends LinearOpMode {
+
+@Autonomous(name="RedBuilding")
+public class correctedEncodersTemplate extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
 
     //for encoders...
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // Neverest 40
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    static final double COUNTS_PER_MOTOR_REV = 1440;    // Neverest 40
+    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
-    static final double     TURN_SPEED              = 0.5;
+    static final double DRIVE_SPEED = 0.6;
+    static final double TURN_SPEED = 0.5;
 
     @Override
     public void runOpMode() {
@@ -103,7 +102,7 @@ public class redFarPark extends LinearOpMode {
         bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
+        telemetry.addData("Path0", "Starting at %7d :%7d",
                 bsgRobot.frontLeft.getCurrentPosition(),
                 bsgRobot.backLeft.getCurrentPosition(),
                 bsgRobot.frontRight.getCurrentPosition(),
@@ -114,15 +113,38 @@ public class redFarPark extends LinearOpMode {
         bsgRobot.leftFoundation.setPosition(1);
 
 
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(.5,  31,  31, 5);
+        // Step through each leg of the path,
+        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+
+        //fix
+        strafeRight(1000);
+//36.4 38
+        encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
-        strafeRight(2000);
+        foundationDown(2000); //grab foundation
+
+        encoderDrive(.8, -47, -47, 6); //drag foundation backwards 40 inches into build zone
+
+        sleep(500);
+
+        foundationUp(800); //let go of foundation
+
+        //fix
+        strafeLeft(3100);
+
+
+        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
+
+        // sleep(500);
+
+        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
+
+        //  sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -148,10 +170,10 @@ public class redFarPark extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget =  bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newLeftTarget =  bsgRobot.backLeft.getCurrentPosition()  + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget =  bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newRightTarget =  bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
             bsgRobot.backLeft.setTargetPosition(newLeftTarget);
@@ -180,12 +202,12 @@ public class redFarPark extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    ( bsgRobot.frontLeft.isBusy() &&  bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() &&  bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),
                         bsgRobot.frontRight.getCurrentPosition(),
@@ -207,7 +229,7 @@ public class redFarPark extends LinearOpMode {
     }
 
     //rotate function using IMU's
-    public void rotate (int degrees, double power) {
+    public void rotate(int degrees, double power) {
 
         double leftPower, rightPower;
 
@@ -262,27 +284,27 @@ public class redFarPark extends LinearOpMode {
 
     }
 
-    public void foundationDown(int pause)
-    {
+    public void foundationDown(int pause) {
         bsgRobot.rightFoundation.setPosition(.8);
         bsgRobot.leftFoundation.setPosition(.2);
         sleep(pause);
     }
 
-    public void foundationUp(int pause)
-    {
+    public void foundationUp(int pause) {
         bsgRobot.rightFoundation.setPosition(.1);
         bsgRobot.leftFoundation.setPosition(.9);
         sleep(pause);
     }
-    public void strafeLeft(long time){
+
+    public void strafeLeft(long time) {
         bsgRobot.frontRight.setPower(1);
         bsgRobot.backRight.setPower(-1);
         bsgRobot.frontLeft.setPower(-1);
         bsgRobot.backLeft.setPower(1);
         sleep(time);
     }
-    public void strafeRight(long time){
+
+    public void strafeRight(long time) {
         bsgRobot.frontRight.setPower(-1);
         bsgRobot.backRight.setPower(1);
         bsgRobot.frontLeft.setPower(1);
@@ -290,5 +312,3 @@ public class redFarPark extends LinearOpMode {
         sleep(time);
     }
 }
-
-

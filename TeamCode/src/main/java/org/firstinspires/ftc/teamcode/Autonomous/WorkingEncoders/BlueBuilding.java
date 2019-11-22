@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.WorkingEncoders;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -122,13 +122,13 @@ public class BlueBuilding extends LinearOpMode {
         //fix
         strafeLeft(1000);
 //36.4 38
-        encoderDrive(.5, 46, 46, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(.8, -43, -43, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(.8, -47, -47, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
