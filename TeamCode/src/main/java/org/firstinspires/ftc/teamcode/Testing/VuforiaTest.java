@@ -50,6 +50,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
@@ -83,6 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 @Autonomous(name="VuforiaTest")
 public class VuforiaTest extends LinearOpMode {
+    Robot bsgRobot = new Robot();
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -132,6 +134,7 @@ public class VuforiaTest extends LinearOpMode {
      */
     WebcamName webcam = null;
 
+
     private boolean targetVisible = false;
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
@@ -141,6 +144,7 @@ public class VuforiaTest extends LinearOpMode {
         /*
          * Retrieve the camera we are to use.
          */
+        bsgRobot.init(hardwareMap);
         webcam = hardwareMap.get(WebcamName.class, "webcam");
 
         /*
@@ -362,7 +366,10 @@ public class VuforiaTest extends LinearOpMode {
             }
             telemetry.update();
         }
+            if (targetVisible == true)
+            {
 
+            }
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
