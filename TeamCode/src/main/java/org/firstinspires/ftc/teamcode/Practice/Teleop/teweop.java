@@ -5,9 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+
 @Disabled
 @TeleOp (name = "teweop")
 public class teweop extends OpMode {
+    Robot bsgBot = new Robot();
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor backLeft;
