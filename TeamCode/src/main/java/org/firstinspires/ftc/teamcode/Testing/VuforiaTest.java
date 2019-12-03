@@ -324,7 +324,11 @@ public class VuforiaTest extends LinearOpMode {
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
 
+<<<<<<< HEAD
          waitForStart();
+=======
+        waitForStart();
+>>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
 
         // Note: To use the remote camera preview:
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
@@ -335,6 +339,15 @@ public class VuforiaTest extends LinearOpMode {
 
         targetsSkyStone.activate();
 
+<<<<<<< HEAD
+=======
+
+        bsgRobot.moveForward(1);
+        sleep(500);
+        bsgRobot.stopWheels();
+        sleep(500);
+
+>>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
         while (!isStopRequested()) {
 
             // check all the trackable targets to see which one (if any) is visible.
@@ -365,18 +378,34 @@ public class VuforiaTest extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
+<<<<<<< HEAD
                 bsgRobot.moveForward(1);
                 sleep(500);
                 bsgRobot.stopWheels();
+=======
+                if(targetVisible){
+                    bsgRobot.moveForward(1);
+                    sleep(2000);
+                    bsgRobot.stopWheels();
+                    break;
+                }
+                else {
+                    bsgRobot.stopWheels();
+                }
+>>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
             }
 
             else {
                 telemetry.addData("Visible Target", "none");
             }
             telemetry.update();
+
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }

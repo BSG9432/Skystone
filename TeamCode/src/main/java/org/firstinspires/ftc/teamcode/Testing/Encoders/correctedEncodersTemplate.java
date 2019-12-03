@@ -64,7 +64,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RedBuilding")
+@Autonomous(name="correctedEncodersTemplate")
 public class correctedEncodersTemplate extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
@@ -116,35 +116,9 @@ public class correctedEncodersTemplate extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-        //fix
-        strafeRight(1000);
-//36.4 38
-        encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, 10, 10, 3); //forward 40 inches towards foundation
 
         sleep(500);
-
-        foundationDown(2000); //grab foundation
-
-        encoderDrive(.8, -47, -47, 6); //drag foundation backwards 40 inches into build zone
-
-        sleep(500);
-
-        foundationUp(800); //let go of foundation
-
-        //fix
-        strafeLeft(3100);
-
-
-        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
-
-        // sleep(500);
-
-        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
-
-        //  sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -170,10 +144,10 @@ public class correctedEncodersTemplate extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newLeftTarget = 500;
+            newLeftTarget = 500;
+            newRightTarget = 500;
+            newRightTarget = 500;
 
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
             bsgRobot.backLeft.setTargetPosition(newLeftTarget);
