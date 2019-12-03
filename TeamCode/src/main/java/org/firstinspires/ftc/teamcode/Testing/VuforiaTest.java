@@ -63,7 +63,6 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  *
  * From the Audience perspective, the Red Alliance station is on the right and the
  * Blue Alliance Station is on the left.
-
  * Eight perimeter targets are distributed evenly around the four perimeter walls
  * Four Bridge targets are located on the bridge uprights.
  * Refer to the Field Setup manual for more specific location details
@@ -166,7 +165,7 @@ public class VuforiaTest extends LinearOpMode {
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
-        
+
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
         VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
@@ -324,30 +323,20 @@ public class VuforiaTest extends LinearOpMode {
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
 
-<<<<<<< HEAD
-         waitForStart();
-=======
         waitForStart();
->>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
 
         // Note: To use the remote camera preview:
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
-        bsgRobot.moveForward(1);
-        sleep(1000);
-        bsgRobot.stopWheels();
 
         targetsSkyStone.activate();
 
-<<<<<<< HEAD
-=======
 
         bsgRobot.moveForward(1);
         sleep(500);
         bsgRobot.stopWheels();
         sleep(500);
 
->>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
         while (!isStopRequested()) {
 
             // check all the trackable targets to see which one (if any) is visible.
@@ -378,11 +367,6 @@ public class VuforiaTest extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
-<<<<<<< HEAD
-                bsgRobot.moveForward(1);
-                sleep(500);
-                bsgRobot.stopWheels();
-=======
                 if(targetVisible){
                     bsgRobot.moveForward(1);
                     sleep(2000);
@@ -392,9 +376,7 @@ public class VuforiaTest extends LinearOpMode {
                 else {
                     bsgRobot.stopWheels();
                 }
->>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
             }
-
             else {
                 telemetry.addData("Visible Target", "none");
             }
@@ -402,10 +384,6 @@ public class VuforiaTest extends LinearOpMode {
 
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ba3419f1a396020c1e1ca23e752aa790759e37e8
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
