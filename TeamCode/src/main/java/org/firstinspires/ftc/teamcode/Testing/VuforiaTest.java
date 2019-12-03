@@ -324,13 +324,17 @@ public class VuforiaTest extends LinearOpMode {
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
 
-        // waitForStart();
+         waitForStart();
 
         // Note: To use the remote camera preview:
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
+        bsgRobot.moveForward(1);
+        sleep(1000);
+        bsgRobot.stopWheels();
 
         targetsSkyStone.activate();
+
         while (!isStopRequested()) {
 
             // check all the trackable targets to see which one (if any) is visible.
@@ -360,16 +364,19 @@ public class VuforiaTest extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+
+                bsgRobot.moveForward(1);
+                sleep(500);
+                bsgRobot.stopWheels();
             }
+
             else {
                 telemetry.addData("Visible Target", "none");
             }
             telemetry.update();
         }
-            if (targetVisible == true)
-            {
 
-            }
+
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
