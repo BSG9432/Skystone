@@ -88,7 +88,7 @@ public class correctedEncodersTemplate extends LinearOpMode {
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -116,7 +116,7 @@ public class correctedEncodersTemplate extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(.5, 10, 10, 3); //forward 40 inches towards foundation
+        encoderDrive(.5, 10, 10, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
@@ -144,10 +144,10 @@ public class correctedEncodersTemplate extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = 500;
-            newLeftTarget = 500;
-            newRightTarget = 500;
-            newRightTarget = 500;
+            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
             bsgRobot.backLeft.setTargetPosition(newLeftTarget);
