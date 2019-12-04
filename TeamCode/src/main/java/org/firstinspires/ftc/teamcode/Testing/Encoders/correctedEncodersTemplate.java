@@ -145,28 +145,28 @@ public class correctedEncodersTemplate extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            //newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            //newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+           // newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+           // bsgRobot.backLeft.setTargetPosition(newLeftTarget);
+           // bsgRobot.frontRight.setTargetPosition(newRightTarget);
+           // bsgRobot.backRight.setTargetPosition(newRightTarget);
 
 
             // Turn On RUN_TO_POSITION
             bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+           // bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+           // bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
             bsgRobot.frontLeft.setPower(Math.abs(speed));
-            bsgRobot.backLeft.setPower(Math.abs(speed));
-            bsgRobot.frontRight.setPower(Math.abs(speed));
-            bsgRobot.backRight.setPower(Math.abs(speed));
+            //bsgRobot.backLeft.setPower(Math.abs(speed));
+           // bsgRobot.frontRight.setPower(Math.abs(speed));
+           // bsgRobot.backRight.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -176,16 +176,16 @@ public class correctedEncodersTemplate extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() /*&& bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()*/)) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget/*, newRightTarget*/);
                 telemetry.addData("Path2", "Running at %7d :%7d",
-                        bsgRobot.frontLeft.getCurrentPosition(),
-                        bsgRobot.backLeft.getCurrentPosition(),
+                        bsgRobot.frontLeft.getCurrentPosition()//,
+                        /*bsgRobot.backLeft.getCurrentPosition(),
                         bsgRobot.frontRight.getCurrentPosition(),
-                        bsgRobot.backRight.getCurrentPosition());
+                        bsgRobot.backRight.getCurrentPosition()*/);
                 telemetry.update();
             }
 
@@ -194,9 +194,9 @@ public class correctedEncodersTemplate extends LinearOpMode {
 
             // Turn off RUN_TO_POSITION
             bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+           // bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+           // bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }
