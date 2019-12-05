@@ -102,11 +102,11 @@ public class correctedEncodersTemplate extends LinearOpMode {
         bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0", "Starting at %7d :%7d",
-                bsgRobot.frontLeft.getCurrentPosition(),
-                bsgRobot.backLeft.getCurrentPosition(),
+        telemetry.addData("Path0", "Starting at :%7d",
+                bsgRobot.frontLeft.getCurrentPosition()//,
+                /*bsgRobot.backLeft.getCurrentPosition(),
                 bsgRobot.frontRight.getCurrentPosition(),
-                bsgRobot.backRight.getCurrentPosition());
+                bsgRobot.backRight.getCurrentPosition()*/);
         telemetry.update();
 
         bsgRobot.rightFoundation.setPosition(0);
@@ -180,9 +180,9 @@ public class correctedEncodersTemplate extends LinearOpMode {
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()*/)) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget/*, newRightTarget*/);
-                telemetry.addData("Path2", "Running at %7d :%7d",
-                        bsgRobot.frontLeft.getCurrentPosition()//,
+                telemetry.addData("Path1", "Running to  :%7d", newLeftTarget/*, newRightTarget*/);
+                telemetry.addData("Path2", "Running at 3 :%7d",
+                        bsgRobot.frontLeft.getCurrentPosition()
                         /*bsgRobot.backLeft.getCurrentPosition(),
                         bsgRobot.frontRight.getCurrentPosition(),
                         bsgRobot.backRight.getCurrentPosition()*/);
