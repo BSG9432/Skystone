@@ -109,8 +109,8 @@ public class BlueBuilding extends LinearOpMode {
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
-        bsgRobot.rightFoundation.setPosition(0);
-        bsgRobot.leftFoundation.setPosition(1);
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -120,22 +120,22 @@ public class BlueBuilding extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         //fix
-        strafeLeft(1000);
+        strafeLeft(800);
 //36.4 38
-        encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, 35, 35, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(.8, -47, -47, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(1, -35, -35, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //fix
-        strafeRight(3100);
+        strafeRight(2000);
 
 
         //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
@@ -285,14 +285,14 @@ public class BlueBuilding extends LinearOpMode {
     }
 
     public void foundationDown(int pause) {
-        bsgRobot.rightFoundation.setPosition(.8);
-        bsgRobot.leftFoundation.setPosition(.2);
+        bsgRobot.rightFoundation.setPosition(.2);
+        bsgRobot.leftFoundation.setPosition(.8);
         sleep(pause);
     }
 
     public void foundationUp(int pause) {
-        bsgRobot.rightFoundation.setPosition(.1);
-        bsgRobot.leftFoundation.setPosition(.9);
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
         sleep(pause);
     }
 

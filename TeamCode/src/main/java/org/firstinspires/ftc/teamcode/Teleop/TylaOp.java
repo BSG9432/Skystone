@@ -95,12 +95,12 @@ public class TylaOp extends OpMode {
         telemetry.update();
 
         // TO CONTROL THE FOUNDATION SERVOS
-        if (gamepad1.a) //Down Position
+        if (gamepad1.a) //Up Position
         {
             bsgBot.rightFoundation.setPosition(1);
             bsgBot.leftFoundation.setPosition(0);
         }
-        if (gamepad1.b) //Up Position
+        if (gamepad1.b) //Down Position
         {
             bsgBot.rightFoundation.setPosition(.1);
             bsgBot.leftFoundation.setPosition(.9);
