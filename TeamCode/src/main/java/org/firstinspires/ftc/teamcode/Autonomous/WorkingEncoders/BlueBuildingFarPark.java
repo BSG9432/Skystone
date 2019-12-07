@@ -74,7 +74,7 @@ public class BlueBuildingFarPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -122,13 +122,13 @@ public class BlueBuildingFarPark extends LinearOpMode {
         //fix
         strafeLeft(1000);
 //36.4 38
-        encoderDrive(.5, 46, 46, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(.8, -46, -46, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(.8, -47, -47, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
