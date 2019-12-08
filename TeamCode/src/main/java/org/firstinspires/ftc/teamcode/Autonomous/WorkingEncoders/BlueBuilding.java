@@ -122,20 +122,20 @@ public class BlueBuilding extends LinearOpMode {
         //fix
         strafeLeft(800);
 //36.4 38
-        encoderDrive(.5, 35, 35, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, 35.50, 35.50, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(1, -35, -35, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(1, -35.50, -35.50, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //fix
-        strafeRight(2000);
+        strafeRight(2250);
 
 
         //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
