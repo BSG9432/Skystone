@@ -39,76 +39,80 @@ public class ArcadeModeTest extends OpMode {
 
         telemetry.update();
 
-    if (Math.abs(gamepad1.left_stick_y)> .1 && gamepad1.left_stick_x != 0) {
-            frontLeft.setPower(-gamepad1.left_stick_y);
-            backLeft.setPower(-gamepad1.left_stick_y);
-            frontRight.setPower(-gamepad1.left_stick_y);
-            backRight.setPower(-gamepad1.left_stick_y);
+    if (Math.abs(gamepad1.left_stick_y)> .1 && Math.abs(gamepad1.left_stick_x)< .3){
+            bsgBot.frontLeft.setPower(-gamepad1.left_stick_y);
+            bsgBot.backLeft.setPower(-gamepad1.left_stick_y);
+            bsgBot.frontRight.setPower(-gamepad1.left_stick_y);
+            bsgBot.backRight.setPower(-gamepad1.left_stick_y);
     }
     else {
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+        bsgBot.frontLeft.setPower(0);
+        bsgBot.backLeft.setPower(0);
+        bsgBot.frontRight.setPower(0);
+        bsgBot.backRight.setPower(0);
     }
 
         //left stick y axis power for going forwards and backwards
-    //left strafe
-    /*if (gamepad1.left_stick_x > .1) {
-        frontLeft.setPower(-gamepad1.left_stick_x);
-        backLeft.setPower(gamepad1.left_stick_x);
-        frontRight.setPower(gamepad1.left_stick_x);
-        backRight.setPower(-gamepad1.left_stick_x);
+
+
+        //Left strafe
+    if (gamepad1.left_stick_x < -.1 && Math.abs(gamepad1.left_stick_y) < .3) {
+        bsgBot.frontLeft.setPower(-gamepad1.left_stick_x);
+        bsgBot.backLeft.setPower(gamepad1.left_stick_x);
+        bsgBot.frontRight.setPower(gamepad1.left_stick_x);
+        bsgBot.backRight.setPower(-gamepad1.left_stick_x);
     }
    else {
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+        bsgBot.frontLeft.setPower(0);
+        bsgBot.backLeft.setPower(0);
+        bsgBot.frontRight.setPower(0);
+        bsgBot.backRight.setPower(0);
     }
 
-   /*if (gamepad1.left_stick_x > .1) {
-    frontLeft.setPower(gamepad1.left_stick_x);
-    backLeft.setPower(-gamepad1.left_stick_x);
-    frontRight.setPower(-gamepad1.left_stick_x);
-    backRight.setPower(gamepad1.left_stick_x);
+//right
+   if (gamepad1.left_stick_x > .1 && Math.abs(gamepad1.left_stick_y) < .3) {
+       bsgBot.frontLeft.setPower(-gamepad1.left_stick_x);
+       bsgBot.backLeft.setPower(gamepad1.left_stick_x);
+       bsgBot.frontRight.setPower(gamepad1.left_stick_x);
+       bsgBot.backRight.setPower(-gamepad1.left_stick_x);
 }
    else {
-       frontLeft.setPower(0);
-       backLeft.setPower(0);
-       frontRight.setPower(0);
-       backRight.setPower(0);
+       bsgBot.frontLeft.setPower(0);
+       bsgBot.backLeft.setPower(0);
+       bsgBot.frontRight.setPower(0);
+       bsgBot.backRight.setPower(0);
    }
         //left stick x axis power for strafe left and right
 
-  /* if (gamepad1.right_stick_x < -.1){
-        frontLeft.setPower(-gamepad1.right_stick_x);
-        backLeft.setPower(-gamepad1.right_stick_x);
-        frontRight.setPower(gamepad1.right_stick_x);
-        backRight.setPower(gamepad1.right_stick_x);
+        //L --> -
+   if (gamepad1.right_stick_x < -.1){
+       bsgBot.frontLeft.setPower(gamepad1.right_stick_x);
+       bsgBot.backLeft.setPower(gamepad1.right_stick_x);
+       bsgBot.frontRight.setPower(-gamepad1.right_stick_x);
+       bsgBot.backRight.setPower(-gamepad1.right_stick_x);
+    }
+   else {
+       bsgBot.frontLeft.setPower(0);
+       bsgBot.backLeft.setPower(0);
+       bsgBot.frontRight.setPower(0);
+       bsgBot.backRight.setPower(0);
+    }
+
+
+   if (gamepad1.right_stick_x > .1){
+       bsgBot.frontLeft.setPower(gamepad1.right_stick_x);
+       bsgBot.backLeft.setPower(gamepad1.right_stick_x);
+       bsgBot.frontRight.setPower(-gamepad1.right_stick_x);
+       bsgBot.backRight.setPower(-gamepad1.right_stick_x);
     }
     else {
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+       bsgBot.frontLeft.setPower(0);
+       bsgBot.backLeft.setPower(0);
+       bsgBot.frontRight.setPower(0);
+       bsgBot.backRight.setPower(0);
     }
 
 
-    /*if (gamepad1.right_stick_x < .1){
-        frontLeft.setPower(gamepad1.right_stick_x);
-        backLeft.setPower(gamepad1.right_stick_x);
-        frontRight.setPower(-gamepad1.right_stick_x);
-        backRight.setPower(-gamepad1.right_stick_x);
-    }
-    else {
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
-    }
-
-     */
 
 
         //right stick x axis power for pivot turns
