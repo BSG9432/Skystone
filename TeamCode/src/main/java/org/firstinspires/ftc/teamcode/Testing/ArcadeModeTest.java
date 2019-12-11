@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
+
 @TeleOp (name = "ArcadeModeTest")
 
 public class ArcadeModeTest extends OpMode {
@@ -12,20 +14,32 @@ public class ArcadeModeTest extends OpMode {
     DcMotor backLeft;
     DcMotor frontRight;
     DcMotor backRight;
+    Robot bsgBot = new Robot();
+
+
     @Override
     public void init() {
-    frontLeft = hardwareMap.dcMotor.get("frontLeft");
-    backLeft = hardwareMap.dcMotor.get("backLeft");
-    frontRight = hardwareMap.dcMotor.get("frontRight");
-    backRight = hardwareMap.dcMotor.get("backRight");
 
-    frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-    backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+    bsgBot.init(hardwareMap);
+
+    bsgBot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+    bsgBot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+    bsgBot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+    bsgBot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
     }
 
     @Override
     public void loop() {
-    if (Math.abs(gamepad1.left_stick_y)> .1) {
+        telemetry.addData("Left Stick X: ",gamepad1.left_stick_x);
+        telemetry.addData("Right Stick X: ", gamepad1.right_stick_x);
+        telemetry.addData("Left Stick Y:", gamepad1.left_stick_y);
+        telemetry.addData("Right Stick Y:", gamepad1.right_stick_y);
+
+
+        telemetry.update();
+
+    if (Math.abs(gamepad1.left_stick_y)> .1 && gamepad1.left_stick_x != 0) {
             frontLeft.setPower(-gamepad1.left_stick_y);
             backLeft.setPower(-gamepad1.left_stick_y);
             frontRight.setPower(-gamepad1.left_stick_y);
@@ -40,7 +54,7 @@ public class ArcadeModeTest extends OpMode {
 
         //left stick y axis power for going forwards and backwards
     //left strafe
-    if (gamepad1.left_stick_x > .1) {
+    /*if (gamepad1.left_stick_x > .1) {
         frontLeft.setPower(-gamepad1.left_stick_x);
         backLeft.setPower(gamepad1.left_stick_x);
         frontRight.setPower(gamepad1.left_stick_x);
@@ -53,7 +67,7 @@ public class ArcadeModeTest extends OpMode {
         backRight.setPower(0);
     }
 
-   if (gamepad1.left_stick_x > .1) {
+   /*if (gamepad1.left_stick_x > .1) {
     frontLeft.setPower(gamepad1.left_stick_x);
     backLeft.setPower(-gamepad1.left_stick_x);
     frontRight.setPower(-gamepad1.left_stick_x);
@@ -67,7 +81,7 @@ public class ArcadeModeTest extends OpMode {
    }
         //left stick x axis power for strafe left and right
 
-   if (gamepad1.right_stick_x < -.1){
+  /* if (gamepad1.right_stick_x < -.1){
         frontLeft.setPower(-gamepad1.right_stick_x);
         backLeft.setPower(-gamepad1.right_stick_x);
         frontRight.setPower(gamepad1.right_stick_x);
@@ -81,7 +95,7 @@ public class ArcadeModeTest extends OpMode {
     }
 
 
-    if (gamepad1.right_stick_x < .1){
+    /*if (gamepad1.right_stick_x < .1){
         frontLeft.setPower(gamepad1.right_stick_x);
         backLeft.setPower(gamepad1.right_stick_x);
         frontRight.setPower(-gamepad1.right_stick_x);
@@ -93,6 +107,8 @@ public class ArcadeModeTest extends OpMode {
         frontRight.setPower(0);
         backRight.setPower(0);
     }
+
+     */
 
 
         //right stick x axis power for pivot turns
