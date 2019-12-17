@@ -19,12 +19,14 @@ import java.util.Locale;
 //NOTE: This is off the top of my head
 
 public class Robot {
+  //declare hardware variables
   public DcMotor frontLeft;
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
   public DcMotor lift;
 
+  //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
 
@@ -34,7 +36,6 @@ public class Robot {
   //for moving the foundation
   public Servo leftFoundation;
   public Servo rightFoundation;
-
 
   public static Telemetry telemetry;
 
@@ -64,13 +65,14 @@ public class Robot {
     //leftClaw = hMap.servo.get("leftClaw");
     //rightClaw = hMap.servo.get("rightClaw");
 
-    //Telemetry to show on phone to confirm that  initialization occured
-    //telemetry.addLine("We done bois");//DS
+    //Telemetry to show on phone to confirm that initialization occured
+    telemetry.addLine("We done bois");//DS
     //Lines that show up in the internal log (can be accessed on the phone
     //Log.d("#BSG", "Started Encoders");
     //Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
   }
 
+  //to initialize the IMU
   public void initIMU(HardwareMap hMap) {
 
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -90,21 +92,6 @@ public class Robot {
     composeTelemetry();
 
   }
-
-  public void moveForward(double power) {
-    frontLeft.setPower(power);
-    backLeft.setPower(power);
-    frontRight.setPower(power);
-    backRight.setPower(power);
-  }
-
-  public void stopWheels() {
-    frontLeft.setPower(0);
-    backLeft.setPower(0);
-    frontRight.setPower(0);
-    backRight.setPower(0);
-  }
-
 
   public void composeTelemetry() {
 
@@ -184,5 +171,21 @@ public class Robot {
     double heading = angles.firstAngle;
     return heading;
   }
+
+  //other functions
+  public void moveForward(double power) {
+    frontLeft.setPower(power);
+    backLeft.setPower(power);
+    frontRight.setPower(power);
+    backRight.setPower(power);
+  }
+
+  public void stopWheels() {
+    frontLeft.setPower(0);
+    backLeft.setPower(0);
+    frontRight.setPower(0);
+    backRight.setPower(0);
+  }
+
 
 }
