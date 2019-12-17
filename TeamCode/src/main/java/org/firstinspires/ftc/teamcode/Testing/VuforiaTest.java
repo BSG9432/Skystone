@@ -303,7 +303,6 @@ public class VuforiaTest extends LinearOpMode {
 
         targetsSkyStone.activate();
 
-
         bsgRobot.moveForward(1);
         sleep(500);
         bsgRobot.stopWheels();
