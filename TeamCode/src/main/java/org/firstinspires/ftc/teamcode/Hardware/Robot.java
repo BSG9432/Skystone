@@ -25,11 +25,15 @@ public class Robot {
   public DcMotor backLeft;
   public DcMotor backRight;
   public DcMotor lift;
+<<<<<<< HEAD
   public DcMotor leftIntake;
   public DcMotor rightIntake;
   public Servo clampL;
   public Servo clampR;
 
+=======
+  public
+>>>>>>> 5c6fbe86cf2ca94e22f2a721d5b3155148028118
   //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
@@ -200,6 +204,30 @@ public class Robot {
     backLeft.setPower(0);
     frontRight.setPower(0);
     backRight.setPower(0);
+  }
+
+  public void foundationDown(int pause) {
+    rightFoundation.setPosition(.2);
+    leftFoundation.setPosition(.8);
+  }
+
+  public void foundationUp(int pause) {
+    rightFoundation.setPosition(1);
+    leftFoundation.setPosition(0);
+  }
+
+  public void strafeLeft(long time) {
+    frontRight.setPower(1);
+    backRight.setPower(-1);
+    frontLeft.setPower(-1);
+    backLeft.setPower(1);
+  }
+
+  public void strafeRight(long time) {
+    frontRight.setPower(-1);
+    backRight.setPower(1);
+    frontLeft.setPower(1);
+    backLeft.setPower(-1);
   }
 
 
