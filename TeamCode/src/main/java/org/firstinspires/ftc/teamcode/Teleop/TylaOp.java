@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
@@ -66,25 +67,19 @@ public class TylaOp extends OpMode {
         }
 */
         //For Right Motors
-        if (Math.abs(gamepad1.right_stick_y) > .1)
-        {
+        if (Math.abs(gamepad1.right_stick_y) > .1) {
             bsgBot.frontRight.setPower(-gamepad1.right_stick_y);
             bsgBot.backRight.setPower(-gamepad1.right_stick_y);
-        }
-        else
-        {
+        } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
         }
 
         //For Left Motors (KEEP IN MIND THAT LEFT MOTORS ARE SET AT REVERSE DIRECTION IN THE ROBOT OBJECT CLASS)
-        if (Math.abs(gamepad1.left_stick_y) > .1)
-        {
+        if (Math.abs(gamepad1.left_stick_y) > .1) {
             bsgBot.frontLeft.setPower(-gamepad1.left_stick_y);
             bsgBot.backLeft.setPower(-gamepad1.left_stick_y);
-        }
-        else
-        {
+        } else {
             bsgBot.frontLeft.setPower(0);
             bsgBot.backLeft.setPower(0);
         }
@@ -107,7 +102,6 @@ public class TylaOp extends OpMode {
         }
 
 
-
         // BUMPERS TO CONTROL CLAW
         /*
         if (gamepad1.left_bumper) {
@@ -123,9 +117,9 @@ public class TylaOp extends OpMode {
         // TRIGGERS TO CONTROL THE LIFT
         //if (gamepad1.left_trigger > .1)
         //{
-            //bsgRobot.lift.setPower(-.5);
-            //bsgRobot.lift.setPower(.5)
-       // }
+        //bsgRobot.lift.setPower(-.5);
+        //bsgRobot.lift.setPower(.5)
+        // }
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {
@@ -133,9 +127,7 @@ public class TylaOp extends OpMode {
             bsgBot.backRight.setPower(1);
             bsgBot.frontLeft.setPower(1);
             bsgBot.backLeft.setPower(-1);
-        }
-        else
-        {
+        } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
             bsgBot.frontLeft.setPower(0);
@@ -149,29 +141,45 @@ public class TylaOp extends OpMode {
             bsgBot.backRight.setPower(-1);
             bsgBot.frontLeft.setPower(-1);
             bsgBot.backLeft.setPower(1);
-        }
-        else
-        {
+        } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
             bsgBot.frontLeft.setPower(0);
             bsgBot.backLeft.setPower(0);
         }
-
-        if(gamepad1.right_bumper)
-        {
-            bsgBot.lift.setPower(1);
+        //move lift up and down
+        if (Math.abs(gamepad2.left_stick_y) > .1) {
+            bsgBot.lift.setPower(-gamepad1.left_stick_y);
         }
-        else if (gamepad1.left_bumper)
-        {
-            bsgBot.lift.setPower(-1);
-        }
-        else
-        {
+        else {
             bsgBot.lift.setPower(0);
         }
+        //wheel intake
+        if (Math.abs(gamepad2.left_trigger) > .1){
+            bsgBot.leftIntake.setPower(gamepad2.left_trigger);
+        }
+        else {
+            bsgBot.leftIntake.setPower(0);
+        }
+        //wheel outtake
+        if (Math.abs(gamepad2.right_trigger) > .1){
+            bsgBot.rightIntake.setPower(-gamepad2.right_trigger);
+        }
+        else {
+            bsgBot.rightIntake.setPower(0);
+        }
 
-
+        //close intake
+        if (gamepad2.left_bumper){
+            bsgBot.clampL.setPosition(1);
+            bsgBot.clampR.setPosition(1);
+        }
+        //open intake
+        if (gamepad2.right_bumper) {
+            bsgBot.clampR.setPosition(0);
+            bsgBot.clampL.setPosition(0);
+        }
 
     }
+
 }

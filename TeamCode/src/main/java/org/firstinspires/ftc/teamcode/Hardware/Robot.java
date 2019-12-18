@@ -24,6 +24,10 @@ public class Robot {
   public DcMotor backLeft;
   public DcMotor backRight;
   public DcMotor lift;
+  public DcMotor leftIntake;
+  public DcMotor rightIntake;
+  public Servo clampL;
+  public Servo clampR;
 
   public BNO055IMU imu;
   public double imuAngle;
@@ -47,6 +51,11 @@ public class Robot {
     backLeft = hMap.dcMotor.get("backLeft");
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
+    leftIntake = hMap.dcMotor.get("leftIntake");
+    rightIntake = hMap.dcMotor.get("rightIntake");
+    clampL = hMap.servo.get("clampL");
+    clampR = hMap.servo.get("clampR");
+
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,6 +64,12 @@ public class Robot {
     backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+    leftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+    rightIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+
 
     lift = hMap.dcMotor.get("lift");
 
