@@ -25,15 +25,12 @@ public class Robot {
   public DcMotor backLeft;
   public DcMotor backRight;
   public DcMotor lift;
-<<<<<<< HEAD
+
   public DcMotor leftIntake;
   public DcMotor rightIntake;
   public Servo clampL;
   public Servo clampR;
 
-=======
-  public
->>>>>>> 5c6fbe86cf2ca94e22f2a721d5b3155148028118
   //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
@@ -56,10 +53,16 @@ public class Robot {
     backLeft = hMap.dcMotor.get("backLeft");
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
+
     leftIntake = hMap.dcMotor.get("leftIntake");
     rightIntake = hMap.dcMotor.get("rightIntake");
     clampL = hMap.servo.get("clampL");
     clampR = hMap.servo.get("clampR");
+
+    lift = hMap.dcMotor.get("lift");
+
+    leftFoundation = hMap.servo.get("leftFoundation");
+    rightFoundation = hMap.servo.get("rightFoundation");
 
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -75,17 +78,11 @@ public class Robot {
     rightIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
 
-
-    lift = hMap.dcMotor.get("lift");
-
-    leftFoundation = hMap.servo.get("leftFoundation");
-    rightFoundation = hMap.servo.get("rightFoundation");
-
     //leftClaw = hMap.servo.get("leftClaw");
     //rightClaw = hMap.servo.get("rightClaw");
 
     //Telemetry to show on phone to confirm that initialization occured
-    telemetry.addLine("We done bois");//DS
+    //telemetry.addLine("We done bois");//DS
     //Lines that show up in the internal log (can be accessed on the phone
     //Log.d("#BSG", "Started Encoders");
     //Log.d("#ROBOTSTUFF", "Robot Initalized");//Internal Log
@@ -228,6 +225,10 @@ public class Robot {
     backRight.setPower(1);
     frontLeft.setPower(1);
     backLeft.setPower(-1);
+  }
+
+  public void intakeOpen() {
+
   }
 
 

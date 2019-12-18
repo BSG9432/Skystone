@@ -37,21 +37,7 @@ public class TylaOp extends OpMode {
         bsgBot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         bsgBot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         bsgBot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        /*
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");'
-        backLeft = hardwareMap.dcMotor.get("backLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
-        backRight = hardwareMap.dcMotor.get("backRight");
 
-        lift = hardwareMap.dcMotor.get("lift");
-
-        bsgBot.frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        bsgBot.backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
-        bsgBot.leftFoundation = hardwareMap.servo.get("leftFoundation");
-        bsgBot.rightFoundation = hardwareMap.servo.get("rightFoundation");
-        */
     }
 
     @Override
@@ -68,8 +54,8 @@ public class TylaOp extends OpMode {
 */
         //For Right Motors
         if (Math.abs(gamepad1.right_stick_y) > .1) {
-            bsgBot.frontRight.setPower(-gamepad1.right_stick_y);
-            bsgBot.backRight.setPower(-gamepad1.right_stick_y);
+            bsgBot.frontRight.setPower(gamepad1.right_stick_y);
+            bsgBot.backRight.setPower(gamepad1.right_stick_y);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
@@ -149,21 +135,24 @@ public class TylaOp extends OpMode {
         }
         //move lift up and down
         if (Math.abs(gamepad2.left_stick_y) > .1) {
-            bsgBot.lift.setPower(-gamepad1.left_stick_y);
+            bsgBot.lift.setPower(-gamepad2.left_stick_y);
         }
         else {
             bsgBot.lift.setPower(0);
         }
+
         //wheel intake
         if (Math.abs(gamepad2.left_trigger) > .1){
             bsgBot.leftIntake.setPower(gamepad2.left_trigger);
+            bsgBot.rightIntake.setPower(-gamepad2.left_trigger);
         }
         else {
             bsgBot.leftIntake.setPower(0);
         }
         //wheel outtake
         if (Math.abs(gamepad2.right_trigger) > .1){
-            bsgBot.rightIntake.setPower(-gamepad2.right_trigger);
+            bsgBot.leftIntake.setPower(-gamepad2.right_trigger);
+            bsgBot.rightIntake.setPower(gamepad2.right_trigger);
         }
         else {
             bsgBot.rightIntake.setPower(0);
@@ -171,14 +160,20 @@ public class TylaOp extends OpMode {
 
         //close intake
         if (gamepad2.left_bumper){
-            bsgBot.clampL.setPosition(1);
+            bsgBot.clampL.setPosition(0);
             bsgBot.clampR.setPosition(1);
+
         }
+        telemetry.addData("IntakeL: ", bsgBot.clampL.getPosition());
+        telemetry.addData("IntakeR: ", bsgBot.clampR.getPosition());
         //open intake
         if (gamepad2.right_bumper) {
+            bsgBot.clampL.setPosition(1);
             bsgBot.clampR.setPosition(0);
-            bsgBot.clampL.setPosition(0);
+
         }
+
+
 
     }
 
