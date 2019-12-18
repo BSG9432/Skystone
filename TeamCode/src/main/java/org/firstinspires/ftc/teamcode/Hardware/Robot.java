@@ -25,7 +25,7 @@ public class Robot {
   public DcMotor backLeft;
   public DcMotor backRight;
   public DcMotor lift;
-
+  public
   //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
@@ -185,6 +185,30 @@ public class Robot {
     backLeft.setPower(0);
     frontRight.setPower(0);
     backRight.setPower(0);
+  }
+
+  public void foundationDown(int pause) {
+    rightFoundation.setPosition(.2);
+    leftFoundation.setPosition(.8);
+  }
+
+  public void foundationUp(int pause) {
+    rightFoundation.setPosition(1);
+    leftFoundation.setPosition(0);
+  }
+
+  public void strafeLeft(long time) {
+    frontRight.setPower(1);
+    backRight.setPower(-1);
+    frontLeft.setPower(-1);
+    backLeft.setPower(1);
+  }
+
+  public void strafeRight(long time) {
+    frontRight.setPower(-1);
+    backRight.setPower(1);
+    frontLeft.setPower(1);
+    backLeft.setPower(-1);
   }
 
 
