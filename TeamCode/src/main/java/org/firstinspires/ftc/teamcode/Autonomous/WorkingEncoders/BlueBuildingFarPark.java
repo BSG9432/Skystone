@@ -121,7 +121,7 @@ public class BlueBuildingFarPark extends LinearOpMode {
 
         //fix
         strafeLeft(1000);
-//36.4 38
+
         encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
 
         sleep(500);

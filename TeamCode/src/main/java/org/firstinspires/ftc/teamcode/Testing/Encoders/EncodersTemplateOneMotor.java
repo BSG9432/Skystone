@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.Testing.Encoders;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -64,8 +65,9 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="correctedEncodersTemplate")
-public class correctedEncodersTemplate extends LinearOpMode {
+@Disabled
+@Autonomous(name="EncodersTemplateOneMotor")
+public class EncodersTemplateOneMotor extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
