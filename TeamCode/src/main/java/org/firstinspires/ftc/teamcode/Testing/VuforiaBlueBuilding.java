@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -114,9 +115,10 @@ public class VuforiaBlueBuilding extends LinearOpMode {
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
-    //******************
+    //************************************************************************
     //Encoders
-    //******************
+    //************************************************************************
+
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
@@ -305,6 +307,30 @@ public class VuforiaBlueBuilding extends LinearOpMode {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
+        //************************************************************************
+        //Encoders
+        //************************************************************************
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.update();
+
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Send telemetry message to indicate successful Encoder reset
+        telemetry.addData("Path0", "Starting at %7d :%7d",
+                bsgRobot.frontLeft.getCurrentPosition(),
+                bsgRobot.backLeft.getCurrentPosition(),
+                bsgRobot.frontRight.getCurrentPosition(),
+                bsgRobot.backRight.getCurrentPosition());
+        telemetry.update();
 
         // WARNING:
         // In this sample, we do not wait for PLAY to be pressed.  Target Tracking is started immediately when INIT is pressed.
@@ -319,6 +345,7 @@ public class VuforiaBlueBuilding extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsSkyStone.activate();
+
 
 
         bsgRobot.moveForward(1);

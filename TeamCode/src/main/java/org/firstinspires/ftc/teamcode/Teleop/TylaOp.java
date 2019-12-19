@@ -54,8 +54,8 @@ public class TylaOp extends OpMode {
 */
         //For Right Motors
         if (Math.abs(gamepad1.right_stick_y) > .1) {
-            bsgBot.frontRight.setPower(gamepad1.right_stick_y);
-            bsgBot.backRight.setPower(gamepad1.right_stick_y);
+            bsgBot.frontRight.setPower(-gamepad1.right_stick_y);
+            bsgBot.backRight.setPower(-gamepad1.right_stick_y);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
@@ -135,7 +135,7 @@ public class TylaOp extends OpMode {
         }
         //move lift up and down
         if (Math.abs(gamepad2.left_stick_y) > .1) {
-            bsgBot.lift.setPower(-gamepad2.left_stick_y);
+            bsgBot.lift.setPower(gamepad2.left_stick_y);
         }
         else {
             bsgBot.lift.setPower(0);
@@ -156,24 +156,20 @@ public class TylaOp extends OpMode {
         }
         else {
             bsgBot.rightIntake.setPower(0);
+            bsgBot.rightIntake.setPower(0);
         }
 
-        //close intake
-        if (gamepad2.left_bumper){
-            bsgBot.clampL.setPosition(0);
-            bsgBot.clampR.setPosition(1);
-
-        }
         telemetry.addData("IntakeL: ", bsgBot.clampL.getPosition());
         telemetry.addData("IntakeR: ", bsgBot.clampR.getPosition());
+
         //open intake
         if (gamepad2.right_bumper) {
-            bsgBot.clampL.setPosition(1);
-            bsgBot.clampR.setPosition(0);
-
+           bsgBot.openClamp();
         }
-
-
+        //close intake
+        if (gamepad2.left_bumper){
+            bsgBot.closeClamp();
+        }
 
     }
 
