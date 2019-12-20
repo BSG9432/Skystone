@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Testing;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -16,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,6 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
@@ -346,12 +345,16 @@ public class VuforiaBlueBuilding extends LinearOpMode {
 
         targetsSkyStone.activate();
 
+        //lift up
+        bsgRobot.lift.setPower(.5);
+        sleep(1000);
 
+        //move forward toward stones
+        encoderDrive(.6, 37, 37, 3);
 
-        bsgRobot.moveForward(1);
-        sleep(500);
-        bsgRobot.stopWheels();
-        sleep(500);
+        //rotate clockwise for hopefully 90 degrees
+        encoderDrive(.5, 14, -14, 2);
+
 
         while (!isStopRequested()) {
 
@@ -383,12 +386,51 @@ public class VuforiaBlueBuilding extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
+               //**********************************************************
+                //Ryssa's attempt at encoders
+                //*********************************************************
+
                 if(targetVisible){
-                    bsgRobot.moveForward(1);
-                    sleep(2000);
-                    bsgRobot.stopWheels();
+
+                    //Rotate 180 degrees
+                    encoderDrive(.5, 12, -12, 2);
+
+                    //strafe towards stones
+                    bsgRobot.strafeRight(750);
+
+                    //lift down
+                    bsgRobot.lift.setPower(.5);
+                    sleep(750);
+
+                    //close clamp
+                    bsgRobot.closeClamp();
+                    sleep(500);
+
+                    //intake stone
+                    bsgRobot.intake(1);
+
+                    //strafe left
+                    bsgRobot.strafeLeft(750);
+
+                    //back up past bridge (idk the numbers)
+                    encoderDrive(.6, 47, 47, 6);
+
+                    //rotate clockwise 90 degrees
+                   encoderDrive(.5, 16, -16, 2);
+
+                   //open clamp to outtake stone
+                    bsgRobot.openClamp();
+                    sleep(1000);
+
+                    //lift up
+                    bsgRobot.lift.setPower(.5);
+                    sleep(750);
+
+                    //Rotate CCW 90 Degrees
+                    encoderDrive(.5, 16, 16, 2);
                     break;
                 }
+                else if ()
                 else {
                     bsgRobot.stopWheels();
                 }
@@ -402,5 +444,128 @@ public class VuforiaBlueBuilding extends LinearOpMode {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
+    }
+    public void encoderDrive(double speed,
+                             double leftInches, double rightInches,
+                             double timeoutS) {
+        int newLeftTarget;
+        int newRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+
+            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newRightTarget);
+            bsgRobot.backRight.setTargetPosition(newRightTarget);
+
+
+            // Turn On RUN_TO_POSITION
+            bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            bsgRobot.frontLeft.setPower(Math.abs(speed));
+            bsgRobot.backLeft.setPower(Math.abs(speed));
+            bsgRobot.frontRight.setPower(Math.abs(speed));
+            bsgRobot.backRight.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        bsgRobot.frontLeft.getCurrentPosition(),
+                        bsgRobot.backLeft.getCurrentPosition(),
+                        bsgRobot.frontRight.getCurrentPosition(),
+                        bsgRobot.backRight.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            bsgRobot.stopWheels();
+
+            // Turn off RUN_TO_POSITION
+            bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+    //rotate function using IMU's
+    public void rotate(int degrees, double power) {
+
+        double leftPower, rightPower;
+
+        //restart imu movement tracking
+        bsgRobot.resetAngle();
+
+        // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+        // clockwise (right).
+
+        if (degrees < 0) {   // turn left.
+            leftPower = power;
+            rightPower = .3;
+            telemetry.addLine("left");
+            telemetry.update();
+        } else if (degrees > 0) {   // turn right.
+            leftPower = -.3;
+            rightPower = -power;
+            telemetry.addLine("right");
+            telemetry.update();
+        } else return;
+
+        // set power to rotate.
+        bsgRobot.frontLeft.setPower(leftPower);
+        bsgRobot.backLeft.setPower(leftPower);
+        bsgRobot.frontRight.setPower(rightPower);
+        bsgRobot.backRight.setPower(rightPower);
+
+        // rotate until turn is completed.
+        if (degrees < 0) //-10
+        {
+            // On left turn we have to get off zero first.
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {
+            }
+
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {
+            }
+        } else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {
+            }
+
+        // turn the motors off.
+        bsgRobot.frontLeft.setPower(0);
+        bsgRobot.backLeft.setPower(0);
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.backRight.setPower(0);
+
+        // wait for rotation to stop.
+        sleep(1000);
+
+        // reset angle tracking on new heading.
+        bsgRobot.resetAngle();
+
     }
 }
