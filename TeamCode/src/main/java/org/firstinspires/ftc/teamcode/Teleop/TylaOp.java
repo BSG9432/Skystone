@@ -133,7 +133,8 @@ public class TylaOp extends OpMode {
             bsgBot.frontLeft.setPower(0);
             bsgBot.backLeft.setPower(0);
         }
-        //move lift up and down
+        
+        /*//move lift up and down
         if (Math.abs(gamepad2.left_stick_y) > .1) {
             bsgBot.lift.setPower(-gamepad2.left_stick_y);
         }
@@ -162,7 +163,6 @@ public class TylaOp extends OpMode {
         if (gamepad2.left_bumper){
             bsgBot.clampL.setPosition(0);
             bsgBot.clampR.setPosition(1);
-
         }
         telemetry.addData("IntakeL: ", bsgBot.clampL.getPosition());
         telemetry.addData("IntakeR: ", bsgBot.clampR.getPosition());
@@ -173,8 +173,7 @@ public class TylaOp extends OpMode {
 
         }
 
-
-
+         */
     }
 
 }
