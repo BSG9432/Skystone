@@ -41,7 +41,7 @@ public class TylaOp extends OpMode {
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
 
-        bsgBot.openClamp();
+       // bsgBot.openClamp();
     }
 
     @Override

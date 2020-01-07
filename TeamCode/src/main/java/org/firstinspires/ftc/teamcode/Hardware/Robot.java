@@ -24,13 +24,13 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-  public DcMotor lift;
+  //public DcMotor lift;
 
-  public DcMotor leftIntake;
+  /* public DcMotor leftIntake;
   public DcMotor rightIntake;
   public Servo clampL;
   public Servo clampR;
-
+ */
   //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
@@ -54,13 +54,13 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
-    leftIntake = hMap.dcMotor.get("leftIntake");
+    /* leftIntake = hMap.dcMotor.get("leftIntake");
     rightIntake = hMap.dcMotor.get("rightIntake");
     clampL = hMap.servo.get("clampL");
     clampR = hMap.servo.get("clampR");
 
     lift = hMap.dcMotor.get("lift");
-
+    */
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
 
@@ -72,11 +72,11 @@ public class Robot {
     backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-    leftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+    /*leftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     rightIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
+     */
 
     //leftClaw = hMap.servo.get("leftClaw");
     //rightClaw = hMap.servo.get("rightClaw");
@@ -227,7 +227,7 @@ public class Robot {
     backLeft.setPower(-1);
   }
 
-  public void openClamp() {
+  /* public void openClamp() {
     clampL.setPosition(1);
     clampR.setPosition(0);
 
@@ -245,4 +245,6 @@ public class Robot {
     leftIntake.setPower(power);
     rightIntake.setPower(-power);
   }
+
+   */
 }
