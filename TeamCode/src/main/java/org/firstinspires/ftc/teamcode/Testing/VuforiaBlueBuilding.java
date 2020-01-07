@@ -430,10 +430,7 @@ public class VuforiaBlueBuilding extends LinearOpMode {
                     encoderDrive(.5, 16, 16, 2);
                     break;
                 }
-                else if ()
-                else {
-                    bsgRobot.stopWheels();
-                }
+
             }
             else {
                 telemetry.addData("Visible Target", "none");

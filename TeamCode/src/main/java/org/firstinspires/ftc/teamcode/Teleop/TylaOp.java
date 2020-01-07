@@ -38,6 +38,10 @@ public class TylaOp extends OpMode {
         bsgBot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         bsgBot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
+        bsgBot.rightFoundation.setPosition(1);
+        bsgBot.leftFoundation.setPosition(0);
+
+        bsgBot.openClamp();
     }
 
     @Override
@@ -83,8 +87,8 @@ public class TylaOp extends OpMode {
         }
         if (gamepad1.b) //Down Position
         {
-            bsgBot.rightFoundation.setPosition(.1);
-            bsgBot.leftFoundation.setPosition(.9);
+            bsgBot.rightFoundation.setPosition(0);
+            bsgBot.leftFoundation.setPosition(1);
         }
 
 
