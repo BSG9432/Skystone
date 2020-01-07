@@ -227,9 +227,22 @@ public class Robot {
     backLeft.setPower(-1);
   }
 
-  public void intakeOpen() {
+  public void openClamp() {
+    clampL.setPosition(1);
+    clampR.setPosition(0);
 
   }
+  public void closeClamp() {
+    clampL.setPosition(.75);
+    clampR.setPosition(.35);
 
-
+  }
+  public void intake(double power) {
+    leftIntake.setPower(-power);
+    rightIntake.setPower(power);
+  }
+  public void outtake(double power) {
+    leftIntake.setPower(power);
+    rightIntake.setPower(-power);
+  }
 }
