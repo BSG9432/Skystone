@@ -40,7 +40,7 @@ public class TylaOp extends OpMode {
 
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
-        bsgBot.sideArm.setPosition(1);
+        bsgBot.clamp.setPosition(1);
 
        // bsgBot.openClamp();
     }
@@ -93,12 +93,26 @@ public class TylaOp extends OpMode {
         }
         if (gamepad1.y)
         {
-            bsgBot.sideArm.setPosition(.3);
+            bsgBot.clamp.setPosition(.3);
         }
         if (gamepad1.x)
         {
-            bsgBot.sideArm.setPosition(.7);
+            bsgBot.clamp.setPosition(.7);
         }
+
+        if (gamepad1.left_bumper) {
+            bsgBot.sideArm.setPower(1);
+        }
+        else {
+            bsgBot.sideArm.setPower(0);
+        }
+        if (gamepad1.right_bumper) {
+            bsgBot.sideArm.setPower(-.3);
+        }
+        else {
+            bsgBot.sideArm.setPower(0);
+        }
+
         // BUMPERS TO CONTROL CLAW
         /*
         if (gamepad1.left_bumper) {

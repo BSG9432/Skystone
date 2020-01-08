@@ -24,7 +24,8 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-  //public DcMotor lift;
+
+  public DcMotor sideArm;
 
   /* public DcMotor leftIntake;
   public DcMotor rightIntake;
@@ -41,7 +42,7 @@ public class Robot {
   //for moving the foundation
   public Servo leftFoundation;
   public Servo rightFoundation;
-  public Servo sideArm;
+  public Servo clamp;
 
   public static Telemetry telemetry;
 
@@ -55,6 +56,7 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
+    sideArm = hMap.dcMotor.get("sideArm");
 
     /* leftIntake = hMap.dcMotor.get("leftIntake");
     rightIntake = hMap.dcMotor.get("rightIntake");
@@ -65,8 +67,7 @@ public class Robot {
     */
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
-    sideArm = hMap.servo.get("sideArm");
-
+    clamp = hMap.servo.get("clamp");
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
