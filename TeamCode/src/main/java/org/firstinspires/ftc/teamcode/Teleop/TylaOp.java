@@ -113,10 +113,10 @@ public class TylaOp extends OpMode {
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {
-            bsgBot.frontRight.setPower(-1);
-            bsgBot.backRight.setPower(1);
-            bsgBot.frontLeft.setPower(1);
-            bsgBot.backLeft.setPower(-1);
+            bsgBot.frontRight.setPower(-gamepad1.right_trigger);
+            bsgBot.backRight.setPower(gamepad1.right_trigger);
+            bsgBot.frontLeft.setPower(gamepad1.right_trigger);
+            bsgBot.backLeft.setPower(-gamepad1.right_trigger);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
@@ -127,10 +127,10 @@ public class TylaOp extends OpMode {
 
         if (gamepad1.left_trigger > .1) // strafe Left
         {
-            bsgBot.frontRight.setPower(1);
-            bsgBot.backRight.setPower(-1);
-            bsgBot.frontLeft.setPower(-1);
-            bsgBot.backLeft.setPower(1);
+            bsgBot.frontRight.setPower(gamepad1.left_trigger);
+            bsgBot.backRight.setPower(-gamepad1.left_trigger);
+            bsgBot.frontLeft.setPower(-gamepad1.left_trigger);
+            bsgBot.backLeft.setPower(gamepad1.left_trigger);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
