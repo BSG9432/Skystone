@@ -40,6 +40,7 @@ public class TylaOp extends OpMode {
 
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
+        bsgBot.sideArm.setPosition(1);
 
        // bsgBot.openClamp();
     }
@@ -90,8 +91,14 @@ public class TylaOp extends OpMode {
             bsgBot.rightFoundation.setPosition(0);
             bsgBot.leftFoundation.setPosition(1);
         }
-
-
+        if (gamepad1.y)
+        {
+            bsgBot.sideArm.setPosition(.3);
+        }
+        if (gamepad1.x)
+        {
+            bsgBot.sideArm.setPosition(.7);
+        }
         // BUMPERS TO CONTROL CLAW
         /*
         if (gamepad1.left_bumper) {
@@ -113,10 +120,10 @@ public class TylaOp extends OpMode {
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {
-            bsgBot.frontRight.setPower(-1);
-            bsgBot.backRight.setPower(1);
-            bsgBot.frontLeft.setPower(1);
-            bsgBot.backLeft.setPower(-1);
+            bsgBot.frontRight.setPower(-gamepad1.right_trigger);
+            bsgBot.backRight.setPower(gamepad1.right_trigger);
+            bsgBot.frontLeft.setPower(gamepad1.right_trigger);
+            bsgBot.backLeft.setPower(-gamepad1.right_trigger);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
@@ -127,10 +134,10 @@ public class TylaOp extends OpMode {
 
         if (gamepad1.left_trigger > .1) // strafe Left
         {
-            bsgBot.frontRight.setPower(1);
-            bsgBot.backRight.setPower(-1);
-            bsgBot.frontLeft.setPower(-1);
-            bsgBot.backLeft.setPower(1);
+            bsgBot.frontRight.setPower(gamepad1.left_trigger);
+            bsgBot.backRight.setPower(-gamepad1.left_trigger);
+            bsgBot.frontLeft.setPower(-gamepad1.left_trigger);
+            bsgBot.backLeft.setPower(gamepad1.left_trigger);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
