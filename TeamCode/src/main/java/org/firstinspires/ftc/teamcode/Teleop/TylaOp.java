@@ -40,6 +40,7 @@ public class TylaOp extends OpMode {
 
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
+        bsgBot.sideArm.setPosition(1);
 
        // bsgBot.openClamp();
     }
@@ -90,8 +91,14 @@ public class TylaOp extends OpMode {
             bsgBot.rightFoundation.setPosition(0);
             bsgBot.leftFoundation.setPosition(1);
         }
-
-
+        if (gamepad1.y)
+        {
+            bsgBot.sideArm.setPosition(.3);
+        }
+        if (gamepad1.x)
+        {
+            bsgBot.sideArm.setPosition(.7);
+        }
         // BUMPERS TO CONTROL CLAW
         /*
         if (gamepad1.left_bumper) {
