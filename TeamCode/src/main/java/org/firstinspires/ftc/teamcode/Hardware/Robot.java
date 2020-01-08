@@ -36,7 +36,7 @@ public class Robot {
   public double imuAngle;
 
   public static Orientation angles;
-  Acceleration gravity;
+  public Acceleration gravity;
 
   //for moving the foundation
   public Servo leftFoundation;
