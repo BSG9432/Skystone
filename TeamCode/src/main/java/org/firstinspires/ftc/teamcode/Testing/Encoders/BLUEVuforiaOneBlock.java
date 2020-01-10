@@ -24,6 +24,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -339,7 +341,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         //side arm down
 
         //drive forward towards block
-        encoderDrive(.5, 11, 12.75, 3);
+        encoderDrive(.5, 11.25, 13, 4);
         sideArmDown();
         sleep(250);
 
@@ -348,17 +350,18 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         sleep(250);
 
         bsgRobot.openClamp();
+        sleep(250);
         //drive forward maybe 5 inches
-        encoderDrive(.5, 2.9, 3.60,1.0);
+        encoderDrive(1, 3.05, 4.75,1.0);
         //arm down
         sideArmDown();
-
+        sleep(250);
 
         //start looking for skystones
         targetsSkyStone.activate();
-
-        //bsgRobot.closeClamp();
-        //sleep(500);
+        sleep(250);
+        bsgRobot.closeClamp();
+        sleep(500);
 
         //encoderDrive(.6, -20, -20, 3);
 
@@ -433,7 +436,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
-
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
 
