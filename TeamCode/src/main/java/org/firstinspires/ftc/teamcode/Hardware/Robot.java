@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -231,17 +232,17 @@ public class Robot {
     backLeft.setPower(-1);
   }
 
-  /* public void openClamp() {
-    clampL.setPosition(1);
-    clampR.setPosition(0);
+ public void openClamp() {
+    clamp.setPosition(.4);
+
 
   }
   public void closeClamp() {
-    clampL.setPosition(.75);
-    clampR.setPosition(.35);
+    clamp.setPosition(.7);
+
 
   }
-  public void intake(double power) {
+   /* public void intake(double power) {
     leftIntake.setPower(-power);
     rightIntake.setPower(power);
   }
