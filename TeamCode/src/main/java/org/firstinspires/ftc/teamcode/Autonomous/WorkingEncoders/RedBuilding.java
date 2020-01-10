@@ -122,14 +122,14 @@ public class RedBuilding extends LinearOpMode {
         //fix
         strafeLeft(800);
 //36.4 38
-        encoderDrive(.5, -35.50, -35.50, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, -36.0, -35.50, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
         //35.5 originially
-        encoderDrive(1, 36.50, 36.50, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(.6, 36.5, 36.50, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
@@ -298,18 +298,18 @@ public class RedBuilding extends LinearOpMode {
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(1);
-        bsgRobot.backRight.setPower(-1);
-        bsgRobot.frontLeft.setPower(-1);
-        bsgRobot.backLeft.setPower(1);
+        bsgRobot.frontRight.setPower(.8);
+        bsgRobot.backRight.setPower(-.8);
+        bsgRobot.frontLeft.setPower(-.8);
+        bsgRobot.backLeft.setPower(.8);
         sleep(time);
     }
 
     public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-1);
-        bsgRobot.backRight.setPower(1);
-        bsgRobot.frontLeft.setPower(1);
-        bsgRobot.backLeft.setPower(-1);
+        bsgRobot.frontRight.setPower(-.8);
+        bsgRobot.backRight.setPower(.8);
+        bsgRobot.frontLeft.setPower(.8);
+        bsgRobot.backLeft.setPower(-.8);
         sleep(time);
     }
 }

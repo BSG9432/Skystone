@@ -124,7 +124,7 @@ public class BlueBuilding extends LinearOpMode {
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(1, 36.50, 36.50, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(.6, 36.50, 36.5, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
@@ -284,18 +284,18 @@ public class BlueBuilding extends LinearOpMode {
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(1);
-        bsgRobot.backRight.setPower(-1);
-        bsgRobot.frontLeft.setPower(-1);
-        bsgRobot.backLeft.setPower(1);
+        bsgRobot.frontRight.setPower(.8);
+        bsgRobot.backRight.setPower(-.8);
+        bsgRobot.frontLeft.setPower(-.8);
+        bsgRobot.backLeft.setPower(.8);
         sleep(time);
     }
 
     public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-1);
-        bsgRobot.backRight.setPower(1);
-        bsgRobot.frontLeft.setPower(1);
-        bsgRobot.backLeft.setPower(-1);
+        bsgRobot.frontRight.setPower(-.8);
+        bsgRobot.backRight.setPower(.8);
+        bsgRobot.frontLeft.setPower(.8);
+        bsgRobot.backLeft.setPower(-.8);
         sleep(time);
     }
 }

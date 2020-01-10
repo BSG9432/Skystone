@@ -55,13 +55,13 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * is explained below.
  */
 
-@Autonomous(name="VuforiaOneBlock", group="testing")
-public class VuforiaOneBlock extends LinearOpMode {
+@Autonomous(name="BLUEVuforiaOneBlock", group="testing")
+public class BLUEVuforiaOneBlock extends LinearOpMode {
     Robot bsgRobot = new Robot();
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = false  ;
+    private static final boolean PHONE_IS_PORTRAIT = false;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -80,8 +80,8 @@ public class VuforiaOneBlock extends LinearOpMode {
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
-    private static final float mmPerInch        = 25.4f;
-    private static final float mmTargetHeight   = 52;    // the height of the center of the target image above the floor
+    private static final float mmPerInch = 25.4f;
+    private static final float mmTargetHeight = 52;    // the height of the center of the target image above the floor
 
     // Constant for Stone Target
     private static final float stoneZ = 2.00f * mmPerInch;
@@ -95,7 +95,7 @@ public class VuforiaOneBlock extends LinearOpMode {
 
     // Constants for perimeter targets
     private static final float halfField = 72 * mmPerInch;
-    private static final float quadField  = 36 * mmPerInch;
+    private static final float quadField = 36 * mmPerInch;
 
     // Class Members
     private OpenGLMatrix lastLocation = null;
@@ -109,9 +109,9 @@ public class VuforiaOneBlock extends LinearOpMode {
 
 
     private boolean targetVisible = false;
-    private float phoneXRotate    = 0;
-    private float phoneYRotate    = 0;
-    private float phoneZRotate    = 0;
+    private float phoneXRotate = 0;
+    private float phoneYRotate = 0;
+    private float phoneZRotate = 0;
 
     /*
     *
@@ -132,7 +132,7 @@ public class VuforiaOneBlock extends LinearOpMode {
     Integer cpr = 28; //counts per rotation originally 28
     Integer gearratio = 40; //IDK IT WAS ORIGINALLY 40
     Double diameter = 4.0;
-    Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
+    Double cpi = (cpr * gearratio) / (Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
     Double bias = 0.8;//default 0.8
     Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)
     //
@@ -140,15 +140,16 @@ public class VuforiaOneBlock extends LinearOpMode {
     Boolean exit = false;
 
 
-
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
         /*
          * Retrieve the camera we are to use.
          */
         bsgRobot.init(hardwareMap);
         webcam = hardwareMap.get(WebcamName.class, "webcam");
 
-        bsgRobot.foundationDown();
+        bsgRobot.foundationUp();
+        bsgRobot.closeClamp();
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -258,7 +259,7 @@ public class VuforiaOneBlock extends LinearOpMode {
 
         front1.setLocation(OpenGLMatrix
                 .translation(-halfField, -quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90)));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
 
         front2.setLocation(OpenGLMatrix
                 .translation(-halfField, quadField, mmTargetHeight)
@@ -274,7 +275,7 @@ public class VuforiaOneBlock extends LinearOpMode {
 
         rear1.setLocation(OpenGLMatrix
                 .translation(halfField, quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , -90)));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
         rear2.setLocation(OpenGLMatrix
                 .translation(halfField, -quadField, mmTargetHeight)
@@ -303,14 +304,14 @@ public class VuforiaOneBlock extends LinearOpMode {
 
         // Rotate the phone vertical about the X axis if it's in portrait mode
         if (PHONE_IS_PORTRAIT) {
-            phoneXRotate = 90 ;
+            phoneXRotate = 90;
         }
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
+        final float CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
         final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
@@ -333,47 +334,48 @@ public class VuforiaOneBlock extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        //side arm shaft points left
+        //side arm shaft points left + = down; - = up
 
-        sideArmEncoder(.3, 360, 1.5);
+        //side arm down
 
-        encoderDrive(.6, 20, 20, 3);
+        //drive forward towards block
+        encoderDrive(.5, 11, 12.75, 3);
+        sideArmDown();
+        sleep(250);
 
+        //arm up
+        sideArmUp();
+        sleep(250);
 
-        sideArmEncoder(.2, -375, 1.5);
-
-        bsgRobot.closeClamp();
-        sleep(500);
-
-        encoderDrive(.6, -20, -20, 3);
-
-
-
-
-
-
-
-
-        /*targetsSkyStone.activate();
+        bsgRobot.openClamp();
+        //drive forward maybe 5 inches
+        encoderDrive(.5, 2.9, 3.60,1.0);
+        //arm down
+        sideArmDown();
 
 
-        bsgRobot.moveForward(1);
-        sleep(500);
-        bsgRobot.stopWheels();
-        sleep(500);
+        //start looking for skystones
+        targetsSkyStone.activate();
+
+        //bsgRobot.closeClamp();
+        //sleep(500);
+
+        //encoderDrive(.6, -20, -20, 3);
+
+
 
         while (!isStopRequested()) {
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                     telemetry.addData("Visible Target", trackable.getName());
                     targetVisible = true;
 
                     // getUpdatedRobotLocation() will return null if no new information is available since
                     // the last time that call was made, or if the trackable is not currently visible.
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
                     if (robotLocationTransform != null) {
                         lastLocation = robotLocationTransform;
                     }
@@ -392,17 +394,37 @@ public class VuforiaOneBlock extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
-                if(targetVisible){
-                    bsgRobot.moveForward(1);
-                    sleep(2000);
-                    bsgRobot.stopWheels();
+                if (targetVisible == true) {
+                    //arm up
+                    sideArmUp();
+                    sleep(250);
+                    //drive forward maybe 5 inches
+                    encoderDrive(.5, 5, 5,1.0);
+                    //arm down
+                    sideArmDown();
+                    //close clamp
+                    //drive backwards 9 inches
+                    //turn ccw -90 degrees
+                    //drive forward towards middle of foundation
+                    //turn cw 90 degrees
+                    //drive forward until foundation (idk random guess 10 inches)
+                    //arm down
+                    //open clamp
+                    //arm up
+                    //turn 180
+                    //drag foundation
+                    //ideally strafe under bridge
+
+
                     break;
-                }
-                else {
+                } else if (targetVisible == false) {
+                    //strafe right 8 inches
+                    strafeToPosition(.5, 8);
+
+                } else {
                     bsgRobot.stopWheels();
                 }
-            }
-            else {
+            } else {
                 telemetry.addData("Visible Target", "none");
             }
             telemetry.update();
@@ -412,10 +434,7 @@ public class VuforiaOneBlock extends LinearOpMode {
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
 
-         */
     }
-
-
 
 
     /*
@@ -497,9 +516,9 @@ public class VuforiaOneBlock extends LinearOpMode {
     }
 
     //strafing with encoders
-    public void strafeToPosition(double inches, double speed){
+    public void strafeToPosition(double inches, double speed) {
         //
-        int move = (int)(Math.round(inches * cpi * meccyBias * 1.265));
+        int move = (int) (Math.round(inches * cpi * meccyBias * 1.265));
         //
         bsgRobot.backLeft.setTargetPosition(bsgRobot.backLeft.getCurrentPosition() - move);
         bsgRobot.frontLeft.setTargetPosition(bsgRobot.frontLeft.getCurrentPosition() + move);
@@ -517,7 +536,8 @@ public class VuforiaOneBlock extends LinearOpMode {
         bsgRobot.backRight.setPower(speed);
         //
         while (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()){}
+                bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()) {
+        }
         bsgRobot.frontRight.setPower(0);
         bsgRobot.frontLeft.setPower(0);
         bsgRobot.backRight.setPower(0);
@@ -528,13 +548,13 @@ public class VuforiaOneBlock extends LinearOpMode {
 
     //encoders for arm
     public void sideArmEncoder(double speed,
-                             int targetTicks, double timeoutS) {
+                               int targetTicks, double timeoutS) {
         int newTarget;
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newTarget = bsgRobot.sideArm.getCurrentPosition() +(int) (targetTicks);
+            newTarget = bsgRobot.sideArm.getCurrentPosition() + (int) (targetTicks);
             //newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             //newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             // newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
@@ -591,4 +611,13 @@ public class VuforiaOneBlock extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+
+    public void sideArmUp() {
+        sideArmEncoder(.4, -360, 2);
+    }
+
+    public void sideArmDown(){
+        sideArmEncoder(.4,420,2);
+    }
+
 }
