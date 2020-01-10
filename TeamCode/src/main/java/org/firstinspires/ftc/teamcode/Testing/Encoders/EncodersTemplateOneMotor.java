@@ -118,7 +118,7 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        encoderDrive(.5, 10, 10, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, 10, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
@@ -137,21 +137,20 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+                             double targetInches, double timeoutS) {
+        int newTarget;
+
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newTarget = bsgRobot.frontLeft.getCurrentPosition() + (int)(targetInches * COUNTS_PER_INCH);
             //newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             //newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
            // newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
+            bsgRobot.frontLeft.setTargetPosition(newTarget);
            // bsgRobot.backLeft.setTargetPosition(newLeftTarget);
            // bsgRobot.frontRight.setTargetPosition(newRightTarget);
            // bsgRobot.backRight.setTargetPosition(newRightTarget);
@@ -182,7 +181,7 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()*/)) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to  :%7d", newLeftTarget/*, newRightTarget*/);
+                telemetry.addData("Path1", "Running to  :%7d", newTarget/*, newRightTarget*/);
                 telemetry.addData("Path2", "Running at 3 :%7d",
                         bsgRobot.frontLeft.getCurrentPosition()
                         /*bsgRobot.backLeft.getCurrentPosition(),

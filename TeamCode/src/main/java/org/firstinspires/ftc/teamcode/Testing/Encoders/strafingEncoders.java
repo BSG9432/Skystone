@@ -22,8 +22,8 @@ public class strafingEncoders extends LinearOpMode {
     DcMotor backRight;
     //28 * 20 / (2ppi * 4.125)
     Double width = 18.0; //inches
-    Integer cpr = 280; //counts per rotation originally 28
-    Integer gearratio = 1; //IDK IT WAS ORIGINALLY 40
+    Integer cpr = 28; //counts per rotation originally 28
+    Integer gearratio = 40; //IDK IT WAS ORIGINALLY 40
     Double diameter = 4.0;
     Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
     Double bias = 0.8;//default 0.8
@@ -47,9 +47,15 @@ public class strafingEncoders extends LinearOpMode {
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //
         waitForStart();
 
+        //4/5ths --> 1.265
         strafeToPosition(10,.5);
         frontLeft.setPower(0);
         frontRight.setPower(0);
@@ -216,7 +222,7 @@ public class strafingEncoders extends LinearOpMode {
      */
     public void strafeToPosition(double inches, double speed){
         //
-        int move = (int)(Math.round(inches * cpi * meccyBias));
+        int move = (int)(Math.round(inches * cpi * meccyBias * 1.265));
         //
         backLeft.setTargetPosition(backLeft.getCurrentPosition() - move);
         frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + move);
