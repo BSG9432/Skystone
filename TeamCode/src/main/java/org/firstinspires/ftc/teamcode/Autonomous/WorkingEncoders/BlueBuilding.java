@@ -116,26 +116,21 @@ public class BlueBuilding extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        strafeRight(800);
 
-        //fix
-        strafeLeft(800);
-//36.4 38
-        encoderDrive(.5, 35.50, 35.50, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, -35.50, -36, 6); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(1, -35.50, -35.50, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(1, 36.50, 36.50, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
-        //fix
-        strafeRight(2250);
+        strafeLeft(2250);
 
 
         //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
@@ -152,14 +147,6 @@ public class BlueBuilding extends LinearOpMode {
         AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
-    /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {

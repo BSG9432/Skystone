@@ -219,17 +219,17 @@ public class Robot {
   }
 
   public void strafeLeft(long time) {
-    frontRight.setPower(1);
-    backRight.setPower(-1);
-    frontLeft.setPower(-1);
-    backLeft.setPower(1);
+    frontRight.setPower(.8);
+    backRight.setPower(-.8);
+    frontLeft.setPower(-.8);
+    backLeft.setPower(.8);
   }
 
   public void strafeRight(long time) {
-    frontRight.setPower(-1);
-    backRight.setPower(1);
-    frontLeft.setPower(1);
-    backLeft.setPower(-1);
+    frontRight.setPower(-.8);
+    backRight.setPower(.8);
+    frontLeft.setPower(.8);
+    backLeft.setPower(-.8);
   }
 
  public void openClamp() {
