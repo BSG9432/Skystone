@@ -148,6 +148,8 @@ public class VuforiaOneBlock extends LinearOpMode {
         bsgRobot.init(hardwareMap);
         webcam = hardwareMap.get(WebcamName.class, "webcam");
 
+        bsgRobot.foundationDown();
+
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -332,14 +334,22 @@ public class VuforiaOneBlock extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         //side arm shaft points left
-        sideArmEncoder(.2, 400, 3);
+
+        sideArmEncoder(.3, 360, 1.5);
+
+        encoderDrive(.6, 20, 20, 3);
+
+
+        sideArmEncoder(.2, -375, 1.5);
 
         bsgRobot.closeClamp();
         sleep(500);
 
-        sideArmEncoder(.3, -400, 3);
+        encoderDrive(.6, -20, -20, 3);
 
-       
+
+
+
 
 
 

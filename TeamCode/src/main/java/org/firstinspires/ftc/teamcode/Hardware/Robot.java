@@ -208,12 +208,12 @@ public class Robot {
     backRight.setPower(0);
   }
 
-  public void foundationDown(int pause) {
+  public void foundationDown() {
     rightFoundation.setPosition(.2);
     leftFoundation.setPosition(.8);
   }
 
-  public void foundationUp(int pause) {
+  public void foundationUp() {
     rightFoundation.setPosition(1);
     leftFoundation.setPosition(0);
   }
