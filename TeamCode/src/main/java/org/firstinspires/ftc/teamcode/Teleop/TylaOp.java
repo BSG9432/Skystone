@@ -94,7 +94,7 @@ public class TylaOp extends OpMode {
         //open clamp
         if (gamepad1.y)
         {
-            bsgBot.clamp.setPosition(.4);
+            bsgBot.clamp.setPosition(.35);
         }
         //close clamp
         if (gamepad1.x)
