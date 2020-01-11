@@ -110,7 +110,7 @@ public class TylaOp extends OpMode {
         }
         //side arm up
         else if (gamepad1.left_bumper) {
-            bsgBot.sideArm.setPower(-.5);
+            bsgBot.sideArm.setPower(-.3);
             telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
             telemetry.addData("bumperValue", gamepad1.right_bumper);
         }
