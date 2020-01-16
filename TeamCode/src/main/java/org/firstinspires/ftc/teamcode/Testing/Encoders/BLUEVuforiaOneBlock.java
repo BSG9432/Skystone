@@ -340,19 +340,22 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         //side arm down
 
-        //drive forward towards block
-        encoderDrive(.5, 11.25, 13, 4);
+        //drive forward towards blocks
+        //13    1.25, 15
+        encoderDrive(.5, 11.25, 12.5, 4);
+
+        //open clamp
+        bsgRobot.clamp.setPosition(1);
         sideArmDown();
-        sleep(250);
+        sleep(500);
+
+        bsgRobot.closeClamp();
+        sleep (500);
 
         //arm up
         sideArmUp();
         sleep(250);
 
-        bsgRobot.openClamp();
-        sleep(250);
-        //drive forward maybe 5 inches
-        encoderDrive(1, 3.05, 4.75,1.0);
         //arm down
         sideArmDown();
         sleep(250);
