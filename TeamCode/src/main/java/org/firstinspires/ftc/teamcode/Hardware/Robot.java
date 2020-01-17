@@ -233,12 +233,12 @@ public class Robot {
   }
 
  public void openClamp() {
-    clamp.setPosition(.4);
+    clamp.setPosition(.7);
 
 
   }
   public void closeClamp() {
-    clamp.setPosition(.7);
+    clamp.setPosition(.35);
 
 
   }
