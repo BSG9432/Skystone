@@ -35,5 +35,5 @@ public class Challenge2 extends LinearOpMode {
         backLeft.setPower(.5);
         sleep(4000);
     }
-    }
+
 }

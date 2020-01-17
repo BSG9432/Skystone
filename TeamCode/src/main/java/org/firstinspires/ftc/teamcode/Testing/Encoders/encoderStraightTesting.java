@@ -64,7 +64,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuilding")
+@Autonomous(name="encoderStraightTesting")
 public class encoderStraightTesting extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
@@ -118,7 +118,7 @@ public class encoderStraightTesting extends LinearOpMode {
 
 
 
-        encoderDrive(.5, 35.50, 36, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.5, 14, 17, 6); //forward 35.5 inches towards foundation
 
 
         telemetry.addData("Path", "Complete");

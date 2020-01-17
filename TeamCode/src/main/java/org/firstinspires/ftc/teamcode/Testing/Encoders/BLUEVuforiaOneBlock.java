@@ -152,6 +152,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         bsgRobot.foundationUp();
         bsgRobot.closeClamp();
+        sideArmUp();
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -341,24 +342,29 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         //side arm down
 
         //drive forward towards blocks
-        //13    1.25, 15
-        encoderDrive(.5, 11.25, 12.5, 4);
+        //13.25, 15
+        //11.25 12.5
+        encoderDrive(.5, 14, 17, 4);
 
         //open clamp
         bsgRobot.clamp.setPosition(1);
+
         sideArmDown();
-        sleep(500);
+        sleep(1000);
 
         bsgRobot.closeClamp();
-        sleep (500);
+        sleep (1000);
+
+        encoderDrive(.5, -12.5, -12.5, 3.0);
 
         //arm up
         sideArmUp();
-        sleep(250);
+        sleep(1000);
 
         //arm down
         sideArmDown();
         sleep(250);
+
 
         //start looking for skystones
         targetsSkyStone.activate();
@@ -439,6 +445,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
+        //auto transitioner to automatically switch to TeleOp
         AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
