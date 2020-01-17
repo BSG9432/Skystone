@@ -2,18 +2,21 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Tired extends OpMode {
     DcMotor backLeft;
     DcMotor backRight;
     DcMotor frontLeft;
     DcMotor frontRight;
+    Servo servoBoi;
     @Override
     public void init() {
         backLeft = hardwareMap.dcMotor.get("backLeft");
         backRight = hardwareMap.dcMotor.get("backRight");
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
+        servoBoi = hardwareMap.servo.get("servoBoi");
     }
 
     @Override
