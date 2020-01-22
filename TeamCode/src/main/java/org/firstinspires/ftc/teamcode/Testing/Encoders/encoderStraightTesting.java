@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous.WorkingEncoders;
+package org.firstinspires.ftc.teamcode.Testing.Encoders;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -64,7 +64,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="encoderStraightTesting")
+@Autonomous(name="encoderStraightTesting", group = "testing")
 public class encoderStraightTesting extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
@@ -116,9 +116,13 @@ public class encoderStraightTesting extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        //13, 16.75
+        encoderDrive(.5, 13, 13, 6); //forward 35.5 inches towards foundation
 
+        bsgRobot.stopWheels();
+        sleep(1000);
 
-        encoderDrive(.5, 14, 17, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.5, -13, -13, 6);
 
 
         telemetry.addData("Path", "Complete");

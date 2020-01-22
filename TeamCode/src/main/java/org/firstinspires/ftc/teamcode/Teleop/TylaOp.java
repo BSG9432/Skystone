@@ -118,24 +118,6 @@ public class TylaOp extends OpMode {
             bsgBot.sideArm.setPower(0);
         }
 
-        // BUMPERS TO CONTROL CLAW
-        /*
-        if (gamepad1.left_bumper) {
-        bsgRobot.rightClaw.setPosition(.4);
-        bsgRobot.leftClaw.setPosition(.6);
-        }
-        if(gamepad1.right_bumper)
-        {
-            bsgRobot.rightClaw.setPosition(.9);
-            bsgRobot.leftClaw.setPosition(.1);
-        }
-*/
-        // TRIGGERS TO CONTROL THE LIFT
-        //if (gamepad1.left_trigger > .1)
-        //{
-        //bsgRobot.lift.setPower(-.5);
-        //bsgRobot.lift.setPower(.5)
-        // }
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {
@@ -164,50 +146,16 @@ public class TylaOp extends OpMode {
             bsgBot.backLeft.setPower(0);
         }
 
-        /*//move lift up and down
-        if (Math.abs(gamepad2.left_stick_y) > .1) {
-            bsgBot.lift.setPower(gamepad2.left_stick_y);
+
+        if (gamepad1.dpad_up){
+            bsgBot.lift.setPower(.5);
+        }
+        else if (gamepad1.dpad_down){
+            bsgBot.lift.setPower(-.5);
         }
         else {
             bsgBot.lift.setPower(0);
         }
-
-        //wheel intake
-        if (Math.abs(gamepad2.left_trigger) > .1){
-            bsgBot.leftIntake.setPower(gamepad2.left_trigger);
-            bsgBot.rightIntake.setPower(-gamepad2.left_trigger);
-        }
-        else {
-            bsgBot.leftIntake.setPower(0);
-        }
-        //wheel outtake
-        if (Math.abs(gamepad2.right_trigger) > .1){
-            bsgBot.leftIntake.setPower(-gamepad2.right_trigger);
-            bsgBot.rightIntake.setPower(gamepad2.right_trigger);
-        }
-        else {
-            bsgBot.rightIntake.setPower(0);
-            bsgBot.rightIntake.setPower(0);
-        }
-
-        //close intake
-        if (gamepad2.left_bumper){
-            bsgBot.clampL.setPosition(0);
-            bsgBot.clampR.setPosition(1);
-        }
-        telemetry.addData("IntakeL: ", bsgBot.clampL.getPosition());
-        telemetry.addData("IntakeR: ", bsgBot.clampR.getPosition());
-
-        //open intake
-        if (gamepad2.right_bumper) {
-           bsgBot.openClamp();
-        }
-        //close intake
-        if (gamepad2.left_bumper){
-            bsgBot.closeClamp();
-        }
-
-         */
     }
 
 }

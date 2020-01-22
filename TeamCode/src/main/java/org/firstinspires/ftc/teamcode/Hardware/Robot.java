@@ -27,12 +27,8 @@ public class Robot {
   public DcMotor backRight;
 
   public DcMotor sideArm;
+  public DcMotor lift;
 
-  /* public DcMotor leftIntake;
-  public DcMotor rightIntake;
-  public Servo clampL;
-  public Servo clampR;
- */
   //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
@@ -58,6 +54,7 @@ public class Robot {
     backRight = hMap.dcMotor.get("backRight");
 
     sideArm = hMap.dcMotor.get("sideArm");
+    lift = hMap.dcMotor.get("lift");
 
     /* leftIntake = hMap.dcMotor.get("leftIntake");
     rightIntake = hMap.dcMotor.get("rightIntake");
@@ -68,6 +65,7 @@ public class Robot {
     */
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
+
     clamp = hMap.servo.get("clamp");
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
