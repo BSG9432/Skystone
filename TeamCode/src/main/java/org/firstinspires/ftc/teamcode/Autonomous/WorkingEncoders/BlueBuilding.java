@@ -74,12 +74,11 @@ public class BlueBuilding extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    //static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double DRIVE_SPEED = 0.3;
+    static final double TURN_SPEED = 0.4;
 
     @Override
     public void runOpMode() {
@@ -116,21 +115,21 @@ public class BlueBuilding extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        strafeRight(800);
+       // strafeRight(800);
 
-        encoderDrive(.5, -35.50, -36, 6); //forward 35.5 inches towards foundation
+        encoderDrive(DRIVE_SPEED, -15, -15, 2.0); //forward 35.5 inches towards foundation
 
-        sleep(500);
-
-        foundationDown(2000); //grab foundation
-
-        encoderDrive(.6, 36.50, 36.5, 6); //drag foundation backwards 35.5 inches into build zone
-
-        sleep(500);
-
-        foundationUp(800); //let go of foundation
-
-        strafeLeft(2250);
+//        sleep(500);
+//
+//        foundationDown(2000); //grab foundation
+//
+//        encoderDrive(.6, 22.50, 22.5, 6); //drag foundation backwards 35.5 inches into build zone
+//
+//        sleep(500);
+//
+//        foundationUp(800); //let go of foundation
+//
+//        strafeLeft(2250);
 
 
         //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
@@ -181,12 +180,6 @@ public class BlueBuilding extends LinearOpMode {
             bsgRobot.frontRight.setPower(Math.abs(speed));
             bsgRobot.backRight.setPower(Math.abs(speed));
 
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
