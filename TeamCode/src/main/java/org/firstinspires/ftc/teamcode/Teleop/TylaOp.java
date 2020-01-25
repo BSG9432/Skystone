@@ -94,14 +94,12 @@ public class TylaOp extends OpMode {
         //close clamp
         if (gamepad1.y)
         {
-\
-            bsgBot.clamp.setPosition(.7);
         }
         //open clamp
         if (gamepad1.x)
-        {
+        {//.35
+            bsgBot.clamp.setPosition(0);
 
-            bsgBot.clamp.setPosition(.35);
         }
 
         //side arm down
@@ -150,10 +148,10 @@ public class TylaOp extends OpMode {
 
 
         if (gamepad1.dpad_up){
-            bsgBot.lift.setPower(.5);
+            bsgBot.lift.setPower(-.5);
         }
         else if (gamepad1.dpad_down){
-            bsgBot.lift.setPower(-.5);
+            bsgBot.lift.setPower(.5);
         }
         else {
             bsgBot.lift.setPower(0);
