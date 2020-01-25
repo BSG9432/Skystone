@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous.WorkingEncoders;
+package org.firstinspires.ftc.teamcode.Testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -64,8 +64,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuilding")
-public class BlueBuilding extends LinearOpMode {
+@Autonomous(name="TwoEncoderBlueBuilding", group = "YEET")
+public class TwoEncodersBlueBuilding extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -92,21 +92,21 @@ public class BlueBuilding extends LinearOpMode {
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bsgRobot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //bsgRobot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bsgRobot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bsgRobot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //bsgRobot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 bsgRobot.frontLeft.getCurrentPosition(),
-                bsgRobot.backLeft.getCurrentPosition(),
-                bsgRobot.frontRight.getCurrentPosition(),
-                bsgRobot.backRight.getCurrentPosition());
+                //bsgRobot.backLeft.getCurrentPosition(),
+                bsgRobot.frontRight.getCurrentPosition());
+                //bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
         bsgRobot.rightFoundation.setPosition(1);
@@ -130,16 +130,22 @@ public class BlueBuilding extends LinearOpMode {
 
         foundationUp(800); //let go of foundation
 
+        strafeLeft(2250);strafeRight(800);
+
+        encoderDrive(.5, -35.50, -36, 6); //forward 35.5 inches towards foundation
+
+        sleep(500);
+
+        foundationDown(2000); //grab foundation
+
+        encoderDrive(.6, 36.50, 36.5, 6); //drag foundation backwards 35.5 inches into build zone
+
+        sleep(500);
+
+        foundationUp(800); //let go of foundation
+
         strafeLeft(2250);
 
-
-        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
-
-        // sleep(500);
-
-        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
-
-        //  sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -158,28 +164,28 @@ public class BlueBuilding extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            //newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
             newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+           // newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
+           // bsgRobot.backLeft.setTargetPosition(newLeftTarget);
             bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+           // bsgRobot.backRight.setTargetPosition(newRightTarget);
 
 
             // Turn On RUN_TO_POSITION
             bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+           // bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
             bsgRobot.frontLeft.setPower(Math.abs(speed));
-            bsgRobot.backLeft.setPower(Math.abs(speed));
+           // bsgRobot.backLeft.setPower(Math.abs(speed));
             bsgRobot.frontRight.setPower(Math.abs(speed));
-            bsgRobot.backRight.setPower(Math.abs(speed));
+           // bsgRobot.backRight.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -189,16 +195,16 @@ public class BlueBuilding extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() /*&&
+                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()*/)) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
-                        bsgRobot.backLeft.getCurrentPosition(),
-                        bsgRobot.frontRight.getCurrentPosition(),
-                        bsgRobot.backRight.getCurrentPosition());
+                        //bsgRobot.backLeft.getCurrentPosition(),
+                        bsgRobot.frontRight.getCurrentPosition());
+                       // bsgRobot.backRight.getCurrentPosition());
                 telemetry.update();
             }
 
@@ -207,9 +213,9 @@ public class BlueBuilding extends LinearOpMode {
 
             // Turn off RUN_TO_POSITION
             bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+           // bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }

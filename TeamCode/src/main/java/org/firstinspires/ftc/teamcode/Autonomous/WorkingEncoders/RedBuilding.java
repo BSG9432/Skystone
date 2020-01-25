@@ -120,22 +120,23 @@ public class RedBuilding extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         //fix
-        strafeRight(800);
+        strafeLeft(800);
 //36.4 38
-        encoderDrive(.5, 35.50, 35.50, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, -36.0, -35.50, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(1, -35.50, -35.50, 6); //drag foundation backwards 40 inches into build zone
+        //35.5 originially
+        encoderDrive(.6, 36.5, 36.50, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //fix
-        strafeLeft(2250);
+        strafeRight(2250);
 
 
         //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
@@ -297,18 +298,18 @@ public class RedBuilding extends LinearOpMode {
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(1);
-        bsgRobot.backRight.setPower(-1);
-        bsgRobot.frontLeft.setPower(-1);
-        bsgRobot.backLeft.setPower(1);
+        bsgRobot.frontRight.setPower(.8);
+        bsgRobot.backRight.setPower(-.8);
+        bsgRobot.frontLeft.setPower(-.8);
+        bsgRobot.backLeft.setPower(.8);
         sleep(time);
     }
 
     public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-1);
-        bsgRobot.backRight.setPower(1);
-        bsgRobot.frontLeft.setPower(1);
-        bsgRobot.backLeft.setPower(-1);
+        bsgRobot.frontRight.setPower(-.8);
+        bsgRobot.backRight.setPower(.8);
+        bsgRobot.frontLeft.setPower(.8);
+        bsgRobot.backLeft.setPower(-.8);
         sleep(time);
     }
 }

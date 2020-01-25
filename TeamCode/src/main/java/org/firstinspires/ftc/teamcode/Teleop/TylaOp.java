@@ -40,7 +40,7 @@ public class TylaOp extends OpMode {
 
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
-        bsgBot.sideArm.setPosition(1);
+        bsgBot.clamp.setPosition(.4);
 
        // bsgBot.openClamp();
     }
@@ -91,39 +91,42 @@ public class TylaOp extends OpMode {
             bsgBot.rightFoundation.setPosition(0);
             bsgBot.leftFoundation.setPosition(1);
         }
+        //close clamp
         if (gamepad1.y)
         {
-            bsgBot.sideArm.setPosition(0);
+\
+            bsgBot.clamp.setPosition(.7);
         }
+        //open clamp
         if (gamepad1.x)
         {
-            bsgBot.sideArm.setPosition(.3);
+
+            bsgBot.clamp.setPosition(.35);
         }
-        // BUMPERS TO CONTROL CLAW
-        /*
-        if (gamepad1.left_bumper) {
-        bsgRobot.rightClaw.setPosition(.4);
-        bsgRobot.leftClaw.setPosition(.6);
+
+        //side arm down
+        if (gamepad1.right_bumper) {
+            bsgBot.sideArm.setPower(.3);
+            telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
+            telemetry.addData("bumperValue", gamepad1.left_bumper);
         }
-        if(gamepad1.right_bumper)
-        {
-            bsgRobot.rightClaw.setPosition(.9);
-            bsgRobot.leftClaw.setPosition(.1);
+        //side arm up
+        else if (gamepad1.left_bumper) {
+            bsgBot.sideArm.setPower(-.5);
+            telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
+            telemetry.addData("bumperValue", gamepad1.right_bumper);
         }
-*/
-        // TRIGGERS TO CONTROL THE LIFT
-        //if (gamepad1.left_trigger > .1)
-        //{
-        //bsgRobot.lift.setPower(-.5);
-        //bsgRobot.lift.setPower(.5)
-        // }
+        else {
+            bsgBot.sideArm.setPower(0);
+        }
+
 
         if (gamepad1.right_trigger > .1) // strafe Right
         {
-            bsgBot.frontRight.setPower(-1);
-            bsgBot.backRight.setPower(1);
-            bsgBot.frontLeft.setPower(1);
-            bsgBot.backLeft.setPower(-1);
+            bsgBot.frontRight.setPower(-gamepad1.right_trigger);
+            bsgBot.backRight.setPower(gamepad1.right_trigger);
+            bsgBot.frontLeft.setPower(gamepad1.right_trigger);
+            bsgBot.backLeft.setPower(-gamepad1.right_trigger);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
@@ -134,10 +137,10 @@ public class TylaOp extends OpMode {
 
         if (gamepad1.left_trigger > .1) // strafe Left
         {
-            bsgBot.frontRight.setPower(1);
-            bsgBot.backRight.setPower(-1);
-            bsgBot.frontLeft.setPower(-1);
-            bsgBot.backLeft.setPower(1);
+            bsgBot.frontRight.setPower(gamepad1.left_trigger);
+            bsgBot.backRight.setPower(-gamepad1.left_trigger);
+            bsgBot.frontLeft.setPower(-gamepad1.left_trigger);
+            bsgBot.backLeft.setPower(gamepad1.left_trigger);
         } else {
             bsgBot.frontRight.setPower(0);
             bsgBot.backRight.setPower(0);
@@ -145,50 +148,16 @@ public class TylaOp extends OpMode {
             bsgBot.backLeft.setPower(0);
         }
 
-        /*//move lift up and down
-        if (Math.abs(gamepad2.left_stick_y) > .1) {
-            bsgBot.lift.setPower(gamepad2.left_stick_y);
+
+        if (gamepad1.dpad_up){
+            bsgBot.lift.setPower(.5);
+        }
+        else if (gamepad1.dpad_down){
+            bsgBot.lift.setPower(-.5);
         }
         else {
             bsgBot.lift.setPower(0);
         }
-
-        //wheel intake
-        if (Math.abs(gamepad2.left_trigger) > .1){
-            bsgBot.leftIntake.setPower(gamepad2.left_trigger);
-            bsgBot.rightIntake.setPower(-gamepad2.left_trigger);
-        }
-        else {
-            bsgBot.leftIntake.setPower(0);
-        }
-        //wheel outtake
-        if (Math.abs(gamepad2.right_trigger) > .1){
-            bsgBot.leftIntake.setPower(-gamepad2.right_trigger);
-            bsgBot.rightIntake.setPower(gamepad2.right_trigger);
-        }
-        else {
-            bsgBot.rightIntake.setPower(0);
-            bsgBot.rightIntake.setPower(0);
-        }
-
-        //close intake
-        if (gamepad2.left_bumper){
-            bsgBot.clampL.setPosition(0);
-            bsgBot.clampR.setPosition(1);
-        }
-        telemetry.addData("IntakeL: ", bsgBot.clampL.getPosition());
-        telemetry.addData("IntakeR: ", bsgBot.clampR.getPosition());
-
-        //open intake
-        if (gamepad2.right_bumper) {
-           bsgBot.openClamp();
-        }
-        //close intake
-        if (gamepad2.left_bumper){
-            bsgBot.closeClamp();
-        }
-
-         */
     }
 
 }

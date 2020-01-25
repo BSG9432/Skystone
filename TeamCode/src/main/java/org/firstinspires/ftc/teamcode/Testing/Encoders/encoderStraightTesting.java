@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Autonomous.WorkingEncoders;
+package org.firstinspires.ftc.teamcode.Testing.Encoders;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -64,8 +64,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuilding")
-public class BlueBuilding extends LinearOpMode {
+@Autonomous(name="encoderStraightTesting", group = "testing")
+public class encoderStraightTesting extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -116,30 +116,14 @@ public class BlueBuilding extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        strafeRight(800);
+        //13, 16.75
+        encoderDrive(.5, 13, 13, 6); //forward 35.5 inches towards foundation
 
-        encoderDrive(.5, -35.50, -36, 6); //forward 35.5 inches towards foundation
+        bsgRobot.stopWheels();
+        sleep(1000);
 
-        sleep(500);
+        encoderDrive(.5, -13, -13, 6);
 
-        foundationDown(2000); //grab foundation
-
-        encoderDrive(.6, 36.50, 36.5, 6); //drag foundation backwards 35.5 inches into build zone
-
-        sleep(500);
-
-        foundationUp(800); //let go of foundation
-
-        strafeLeft(2250);
-
-
-        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
-
-        // sleep(500);
-
-        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
-
-        //  sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

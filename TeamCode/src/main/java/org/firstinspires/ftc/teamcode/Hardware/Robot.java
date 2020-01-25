@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -24,24 +25,21 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-  //public DcMotor lift;
 
-  /* public DcMotor leftIntake;
-  public DcMotor rightIntake;
-  public Servo clampL;
-  public Servo clampR;
- */
+  public DcMotor sideArm;
+  public DcMotor lift;
+
   //variables to use IMU's
   public BNO055IMU imu;
   public double imuAngle;
 
   public static Orientation angles;
-  Acceleration gravity;
+  public Acceleration gravity;
 
   //for moving the foundation
   public Servo leftFoundation;
   public Servo rightFoundation;
-  public Servo sideArm;
+  public Servo clamp;
 
   public static Telemetry telemetry;
 
@@ -55,6 +53,8 @@ public class Robot {
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
 
+    sideArm = hMap.dcMotor.get("sideArm");
+    lift = hMap.dcMotor.get("lift");
 
     /* leftIntake = hMap.dcMotor.get("leftIntake");
     rightIntake = hMap.dcMotor.get("rightIntake");
@@ -65,8 +65,8 @@ public class Robot {
     */
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
-    sideArm = hMap.servo.get("sideArm");
 
+    clamp = hMap.servo.get("clamp");
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -206,41 +206,41 @@ public class Robot {
     backRight.setPower(0);
   }
 
-  public void foundationDown(int pause) {
+  public void foundationDown() {
     rightFoundation.setPosition(.2);
     leftFoundation.setPosition(.8);
   }
 
-  public void foundationUp(int pause) {
+  public void foundationUp() {
     rightFoundation.setPosition(1);
     leftFoundation.setPosition(0);
   }
 
   public void strafeLeft(long time) {
-    frontRight.setPower(1);
-    backRight.setPower(-1);
-    frontLeft.setPower(-1);
-    backLeft.setPower(1);
+    frontRight.setPower(.8);
+    backRight.setPower(-.8);
+    frontLeft.setPower(-.8);
+    backLeft.setPower(.8);
   }
 
   public void strafeRight(long time) {
-    frontRight.setPower(-1);
-    backRight.setPower(1);
-    frontLeft.setPower(1);
-    backLeft.setPower(-1);
+    frontRight.setPower(-.8);
+    backRight.setPower(.8);
+    frontLeft.setPower(.8);
+    backLeft.setPower(-.8);
   }
 
-  /* public void openClamp() {
-    clampL.setPosition(1);
-    clampR.setPosition(0);
+ public void openClamp() {
+    clamp.setPosition(.7);
+
 
   }
   public void closeClamp() {
-    clampL.setPosition(.75);
-    clampR.setPosition(.35);
+    clamp.setPosition(.35);
+
 
   }
-  public void intake(double power) {
+   /* public void intake(double power) {
     leftIntake.setPower(-power);
     rightIntake.setPower(power);
   }
