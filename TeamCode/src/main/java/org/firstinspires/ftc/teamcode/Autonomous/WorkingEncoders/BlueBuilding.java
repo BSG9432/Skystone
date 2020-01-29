@@ -119,26 +119,26 @@ public class BlueBuilding extends LinearOpMode {
 
         encoderDrive(DRIVE_SPEED, -15, -15, 2.0); //forward 35.5 inches towards foundation
 
-//        sleep(500);
-//
-//        foundationDown(2000); //grab foundation
-//
-//        encoderDrive(.6, 22.50, 22.5, 6); //drag foundation backwards 35.5 inches into build zone
-//
-//        sleep(500);
-//
-//        foundationUp(800); //let go of foundation
-//
-//        strafeLeft(2250);
+sleep(500);
+
+foundationDown(2000); //grab foundation
+
+       encoderDrive(.6, 22.50, 22.5, 6); //drag foundation backwards 35.5 inches into build zone
+
+       sleep(500);
+
+      foundationUp(800); //let go of foundation
+
+      strafeLeft(2250);
 
 
-        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
+        rotate(-90, .8); //rotate LEFT to face towards alliance bridge
 
-        // sleep(500);
+        sleep(500);
 
-        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
+        encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
 
-        //  sleep(500);
+          sleep(500);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
