@@ -123,7 +123,7 @@ sleep(500);
 
 foundationDown(2000); //grab foundation
 
-       encoderDrive(.6, 22.50, 22.5, 6); //drag foundation backwards 35.5 inches into build zone
+       encoderDrive(.6, 15, 15, 6); //drag foundation backwards 35.5 inches into build zone
 
        sleep(500);
 

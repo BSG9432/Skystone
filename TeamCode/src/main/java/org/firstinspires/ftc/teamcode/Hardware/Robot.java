@@ -25,7 +25,7 @@ public class Robot {
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
-
+  public DcMotor measuringTape;
   public DcMotor sideArm;
   public DcMotor lift;
 
@@ -52,6 +52,7 @@ public class Robot {
     backLeft = hMap.dcMotor.get("backLeft");
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
+    measuringTape = hMap.dcMotor.get("measuringTape");
 
     sideArm = hMap.dcMotor.get("sideArm");
     lift = hMap.dcMotor.get("lift");
