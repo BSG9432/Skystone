@@ -115,7 +115,7 @@ public class encoderStraightTesting extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+/*
         //13, 16.75
         encoderDrive(.5, 13, 13, 6); //forward 35.5 inches towards foundation
 
@@ -123,7 +123,9 @@ public class encoderStraightTesting extends LinearOpMode {
         sleep(1000);
 
         encoderDrive(.5, -13, -13, 6);
-
+*/
+        rotate(90, .5);
+        rotate(-90, .5);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

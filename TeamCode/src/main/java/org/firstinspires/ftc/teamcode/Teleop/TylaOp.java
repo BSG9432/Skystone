@@ -159,7 +159,13 @@ public class TylaOp extends OpMode {
             bsgBot.lift.setPower(0);
         }
         if (gamepad1.dpad_right) {
-            bsgBot.measuringTape.setPower(.5);
+            bsgBot.measuringTape.setPower(1);
+        }
+        else if (gamepad1.dpad_left) {
+            bsgBot.measuringTape.setPower(-1);
+        }
+        else {
+            bsgBot.measuringTape.setPower(0);
         }
     }
 
