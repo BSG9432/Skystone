@@ -139,14 +139,6 @@ public class RedBuilding extends LinearOpMode {
         strafeRight(2250);
 
 
-        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
-
-        // sleep(500);
-
-        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
-
-        //  sleep(500);
-
         telemetry.addData("Path", "Complete");
         telemetry.update();
 

@@ -56,7 +56,7 @@ public class strafingEncoders extends LinearOpMode {
         waitForStart();
 
         //4/5ths --> 1.265
-        strafeToPosition(10,.5);
+        strafeToPosition(20,1);
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
