@@ -72,11 +72,13 @@ public class Robot {
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-    frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   /* frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+    */
 
     /*leftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     rightIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);

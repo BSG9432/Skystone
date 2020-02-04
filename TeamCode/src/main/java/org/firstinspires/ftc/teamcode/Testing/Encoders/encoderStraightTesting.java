@@ -85,6 +85,11 @@ public class encoderStraightTesting extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
+        bsgRobot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
@@ -117,12 +122,14 @@ public class encoderStraightTesting extends LinearOpMode {
         waitForStart();
 
         //13, 16.75
-        encoderDrive(.5, 13, 13, 6); //forward 35.5 inches towards foundation
+        //encoderDrive(.5, 13, 13, 6); //forward 35.5 inches towards foundation
 
+        strafeLeft(2000);
+        strafeRight(2000);
         bsgRobot.stopWheels();
         sleep(1000);
 
-        encoderDrive(.5, -13, -13, 6);
+        //encoderDrive(.5, -13, -13, 6);
 
         //rotate(90, .5);
         //rotate(-90, .5);
@@ -270,18 +277,18 @@ public class encoderStraightTesting extends LinearOpMode {
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(.8);
-        bsgRobot.backRight.setPower(-.8);
-        bsgRobot.frontLeft.setPower(-.8);
-        bsgRobot.backLeft.setPower(.8);
+        bsgRobot.frontRight.setPower(.7);
+        bsgRobot.backRight.setPower(-.3);
+        bsgRobot.frontLeft.setPower(-.7);
+        bsgRobot.backLeft.setPower(.3);
         sleep(time);
     }
 
     public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-.8);
-        bsgRobot.backRight.setPower(.8);
+        bsgRobot.frontRight.setPower(-.7);
+        bsgRobot.backRight.setPower(.1);
         bsgRobot.frontLeft.setPower(.8);
-        bsgRobot.backLeft.setPower(-.8);
+        bsgRobot.backLeft.setPower(-.3);
         sleep(time);
     }
 }
