@@ -22,14 +22,19 @@ public class Challenge1 extends LinearOpMode{
 
     waitForStart();
     //forward at .25 speed for 3 seconds
-        bsgRobot.frontLeft.setPower(.5);
-        bsgRobot. backLeft.setPower(.5);
-        bsgRobot.frontRight.setPower(.5);
-        bsgRobot.backRight.setPower(.5);
+        bsgRobot.strafeRight(1000);
+        sleep(500);
+        bsgRobot.strafeLeft(1500);
+
+        bsgRobot.frontLeft.setPower(-1);
+        bsgRobot. backLeft.setPower(-1);
+        bsgRobot.frontRight.setPower(-1);
+        bsgRobot.backRight.setPower(-1);
         sleep(1500);
 
- AutoTransitioner.transitionOnStop(this, "TylaOp");
 
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
 
 
     }
