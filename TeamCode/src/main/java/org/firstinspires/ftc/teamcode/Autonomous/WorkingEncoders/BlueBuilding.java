@@ -115,21 +115,21 @@ public class BlueBuilding extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        strafeRight(800);
+        strafeRight(1000);
 
-        encoderDrive(DRIVE_SPEED, -35.5, -35.5, 2.0); //forward 35.5 inches towards foundation
+        encoderDrive(DRIVE_SPEED, -25.5, -30.5, 2.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-       encoderDrive(.6, 35.5, 35.5, 6); //drag foundation backwards 35.5 inches into build zone
+       encoderDrive(.6, 25.5, 25.5, 6); //drag foundation backwards 35.5 inches into build zone
 
        sleep(500);
 
       foundationUp(800); //let go of foundation
 
-      strafeLeft(2250);
+      strafeLeft(1500);
 
 
         telemetry.addData("Path", "Complete");
@@ -269,18 +269,18 @@ public class BlueBuilding extends LinearOpMode {
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(.8);
-        bsgRobot.backRight.setPower(-.8);
-        bsgRobot.frontLeft.setPower(-.8);
-        bsgRobot.backLeft.setPower(.8);
+        bsgRobot.frontRight.setPower(1);//1
+        bsgRobot.backRight.setPower(-.4);
+        bsgRobot.frontLeft.setPower(-.9);//1
+        bsgRobot.backLeft.setPower(.6);
         sleep(time);
     }
 
     public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-.8);
-        bsgRobot.backRight.setPower(.8);
+        bsgRobot.frontRight.setPower(-.7);
+        bsgRobot.backRight.setPower(.1);
         bsgRobot.frontLeft.setPower(.8);
-        bsgRobot.backLeft.setPower(-.8);
+        bsgRobot.backLeft.setPower(-.3);
         sleep(time);
     }
 }

@@ -85,10 +85,10 @@ public class encoderStraightTesting extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
-        bsgRobot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bsgRobot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bsgRobot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bsgRobot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
@@ -122,10 +122,16 @@ public class encoderStraightTesting extends LinearOpMode {
         waitForStart();
 
         //13, 16.75
-        //encoderDrive(.5, 13, 13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.7,.4, 13, 13, 6); //forward 35.5 inches towards foundation
 
-        strafeLeft(2000);
-        strafeRight(2000);
+        sleep(1000);
+
+        encoderDrive(.7,.4, -13, -13, 6); //forward 35.5 inches towards foundation
+
+        bsgRobot.stopWheels();
+        sleep(500);
+        //strafeLeft(2000);
+        //strafeRight(2000);
         bsgRobot.stopWheels();
         sleep(1000);
 
@@ -140,7 +146,7 @@ public class encoderStraightTesting extends LinearOpMode {
         AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
-    public void encoderDrive(double speed,
+    public void encoderDrive(double leftSpeed, double rightSpeed,
                              double leftInches, double rightInches,
                              double timeoutS) {
         int newLeftTarget;
@@ -169,10 +175,10 @@ public class encoderStraightTesting extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bsgRobot.frontLeft.setPower(Math.abs(speed));
-            bsgRobot.backLeft.setPower(Math.abs(speed));
-            bsgRobot.frontRight.setPower(Math.abs(speed));
-            bsgRobot.backRight.setPower(Math.abs(speed));
+            bsgRobot.frontLeft.setPower(Math.abs(leftSpeed));
+            bsgRobot.backLeft.setPower(Math.abs(leftSpeed));
+            bsgRobot.frontRight.setPower(Math.abs(rightSpeed));
+            bsgRobot.backRight.setPower(Math.abs(rightSpeed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -277,10 +283,10 @@ public class encoderStraightTesting extends LinearOpMode {
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(.7);
-        bsgRobot.backRight.setPower(-.3);
-        bsgRobot.frontLeft.setPower(-.7);
-        bsgRobot.backLeft.setPower(.3);
+        bsgRobot.frontRight.setPower(1);//1
+        bsgRobot.backRight.setPower(-.4);
+        bsgRobot.frontLeft.setPower(-.9);//1
+        bsgRobot.backLeft.setPower(.6);
         sleep(time);
     }
 

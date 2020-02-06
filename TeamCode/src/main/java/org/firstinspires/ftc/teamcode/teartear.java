@@ -1,40 +1,39 @@
 /* Copyright (c) 2017 FIRST. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted (subject to the limitations in the disclaimer below) provided that
+ * the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the name of FIRST nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.
+ *
+ * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+ * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-        * Redistribution and use in source and binary forms, with or without modification,
-        * are permitted (subject to the limitations in the disclaimer below) provided that
-        * the following conditions are met:
-        *
-        * Redistributions of source code must retain the above copyright notice, this list
-        * of conditions and the following disclaimer.
-        *
-        * Redistributions in binary form must reproduce the above copyright notice, this
-        * list of conditions and the following disclaimer in the documentation and/or
-        * other materials provided with the distribution.
-        *
-        * Neither the name of FIRST nor the names of its contributors may be used to endorse or
-        * promote products derived from this software without specific prior written permission.
-        *
-        * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
-        * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-        * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-        * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-        * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-        * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-        * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-        * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-        * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-        * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-        * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-        */
-
-        package org.firstinspires.ftc.teamcode.Autonomous.WorkingEncoders;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -64,28 +63,28 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="RedBuilding")
-public class RedBuilding extends LinearOpMode {
+@Autonomous(name="teartear", group = "tear")
+public class teartear extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
 
     //for encoders...
-    private ElapsedTime runtime = new ElapsedTime();
+    private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // Neverest 40
+    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+    static final double     DRIVE_SPEED             = 0.7;
+    static final double     TURN_SPEED              = 0.5;
 
     @Override
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+        org.firstinspires.ftc.teamcode.AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -102,47 +101,32 @@ public class RedBuilding extends LinearOpMode {
         bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0", "Starting at %7d :%7d",
+        telemetry.addData("Path0",  "Starting at %7d :%7d",
                 bsgRobot.frontLeft.getCurrentPosition(),
                 bsgRobot.backLeft.getCurrentPosition(),
                 bsgRobot.frontRight.getCurrentPosition(),
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
-        bsgRobot.rightFoundation.setPosition(1);
-        bsgRobot.leftFoundation.setPosition(0);
-
-
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        encoderDrive(.7, .4, 12.0,  12.0, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(.7, .4, -12.0,  -12.0, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
 
-        //fix
-        strafeLeft(800);
-//36.4 38
-        encoderDrive(.5, -36.0, -35.50, 6); //forward 40 inches towards foundation
+        // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        sleep(500);
-
-        foundationDown(2000); //grab foundation
-
-        //35.5 originially
-        encoderDrive(.6, 36.5, 36.50, 6); //drag foundation backwards 40 inches into build zone
-
-        sleep(500);
-
-        foundationUp(800); //let go of foundation
-
-        //fix
-        strafeRight(2250);
+        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
+        robot.rightClaw.setPosition(0.0)
+        sleep(1000);     // pause for servos to move
+         */
 
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
-
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     /*
@@ -153,7 +137,7 @@ public class RedBuilding extends LinearOpMode {
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderDrive(double speed,
+    public void encoderDrive(double leftSpeed, double rightSpeed,
                              double leftInches, double rightInches,
                              double timeoutS) {
         int newLeftTarget;
@@ -163,10 +147,10 @@ public class RedBuilding extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newLeftTarget =  bsgRobot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newLeftTarget =  bsgRobot.backLeft.getCurrentPosition()  + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget =  bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newRightTarget =  bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
             bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
             bsgRobot.backLeft.setTargetPosition(newLeftTarget);
@@ -182,10 +166,10 @@ public class RedBuilding extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bsgRobot.frontLeft.setPower(Math.abs(speed));
-            bsgRobot.backLeft.setPower(Math.abs(speed));
-            bsgRobot.frontRight.setPower(Math.abs(speed));
-            bsgRobot.backRight.setPower(Math.abs(speed));
+            bsgRobot.frontLeft.setPower(Math.abs(leftSpeed));
+            bsgRobot.backLeft.setPower(Math.abs(leftSpeed));
+            bsgRobot.frontRight.setPower(Math.abs(rightSpeed));
+            bsgRobot.backRight.setPower(Math.abs(rightSpeed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -195,12 +179,12 @@ public class RedBuilding extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    ( bsgRobot.frontLeft.isBusy() &&  bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() &&  bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d",
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),
                         bsgRobot.frontRight.getCurrentPosition(),
@@ -222,8 +206,7 @@ public class RedBuilding extends LinearOpMode {
     }
 
     //rotate function using IMU's
-    public void rotate(int degrees, double power) {
-
+   /* private void rotate(int degrees, double power){
         double leftPower, rightPower;
 
         //restart imu movement tracking
@@ -232,17 +215,21 @@ public class RedBuilding extends LinearOpMode {
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
 
-        if (degrees < 0) {   // turn left.
+        if (degrees < 0)
+        {   // turn left.
             leftPower = power;
             rightPower = .3;
             telemetry.addLine("left");
             telemetry.update();
-        } else if (degrees > 0) {   // turn right.
+        }
+        else if (degrees > 0)
+        {   // turn right.
             leftPower = -.3;
             rightPower = -power;
             telemetry.addLine("right");
             telemetry.update();
-        } else return;
+        }
+        else return;
 
         // set power to rotate.
         bsgRobot.frontLeft.setPower(leftPower);
@@ -254,14 +241,12 @@ public class RedBuilding extends LinearOpMode {
         if (degrees < 0) //-10
         {
             // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {
-            }
+            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
 
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {
-            }
-        } else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {
-            }
+            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
+        }
+        else    // right turn.
+            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
 
         // turn the motors off.
         bsgRobot.frontLeft.setPower(0);
@@ -275,33 +260,7 @@ public class RedBuilding extends LinearOpMode {
         // reset angle tracking on new heading.
         bsgRobot.resetAngle();
 
-    }
+    */
 
-    public void foundationDown(int pause) {
-        bsgRobot.rightFoundation.setPosition(.2);
-        bsgRobot.leftFoundation.setPosition(.8);
-        sleep(pause);
-    }
-
-    public void foundationUp(int pause) {
-        bsgRobot.rightFoundation.setPosition(1);
-        bsgRobot.leftFoundation.setPosition(0);
-        sleep(pause);
-    }
-
-    public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(1);//1
-        bsgRobot.backRight.setPower(-.4);
-        bsgRobot.frontLeft.setPower(-.9);//1
-        bsgRobot.backLeft.setPower(.6);
-        sleep(time);
-    }
-
-    public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-.7);
-        bsgRobot.backRight.setPower(.1);
-        bsgRobot.frontLeft.setPower(.8);
-        bsgRobot.backLeft.setPower(-.3);
-        sleep(time);
-    }
 }
+

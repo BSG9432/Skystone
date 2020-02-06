@@ -150,10 +150,10 @@ public class TylaOp extends OpMode {
 
 
         if (gamepad1.dpad_up){
-            bsgBot.lift.setPower(-.5);
+            bsgBot.lift.setPower(-1);
         }
         else if (gamepad1.dpad_down){
-            bsgBot.lift.setPower(.5);
+            bsgBot.lift.setPower(1);
         }
         else {
             bsgBot.lift.setPower(0);
