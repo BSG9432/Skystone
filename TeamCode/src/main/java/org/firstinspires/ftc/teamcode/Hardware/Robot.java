@@ -40,6 +40,7 @@ public class Robot {
   public Servo leftFoundation;
   public Servo rightFoundation;
   public Servo clamp;
+  public Servo armStop;
 
   public static Telemetry telemetry;
 
@@ -54,6 +55,7 @@ public class Robot {
     backRight = hMap.dcMotor.get("backRight");
     measuringTape = hMap.dcMotor.get("measuringTape");
 
+
     sideArm = hMap.dcMotor.get("sideArm");
     lift = hMap.dcMotor.get("lift");
 
@@ -66,7 +68,7 @@ public class Robot {
     */
     leftFoundation = hMap.servo.get("leftFoundation");
     rightFoundation = hMap.servo.get("rightFoundation");
-
+    armStop = hMap.servo.get("armStop");
     clamp = hMap.servo.get("clamp");
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -243,7 +245,14 @@ public class Robot {
 
 
   }
-   /* public void intake(double power) {
+  public void armStopUp(){
+    armStop.setPosition(1);
+  }
+  public void armStopDown (){
+    armStop.setPosition(.5);
+  }
+
+/* power) {
     leftIntake.setPower(-power);
     rightIntake.setPower(power);
   }

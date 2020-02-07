@@ -110,6 +110,7 @@ public class BlueBuilding extends LinearOpMode {
 
         bsgRobot.rightFoundation.setPosition(1);
         bsgRobot.leftFoundation.setPosition(0);
+        bsgRobot.armStop.setPosition(1);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -130,6 +131,10 @@ public class BlueBuilding extends LinearOpMode {
       foundationUp(800); //let go of foundation
 
       strafeLeft(1500);
+
+      bsgRobot.armStopUp();
+      sleep(500);
+
 
 
         telemetry.addData("Path", "Complete");
