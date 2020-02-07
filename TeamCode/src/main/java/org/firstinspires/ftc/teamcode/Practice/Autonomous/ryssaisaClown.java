@@ -24,7 +24,6 @@ public class ryssaisaClown extends LinearOpMode {
         //forward at .25 speed for 3 seconds
         bsgRobot.strafeRight(1000);
         sleep(500);
-        bsgRobot.strafeLeft(1500);
 
 
 
@@ -32,16 +31,16 @@ public class ryssaisaClown extends LinearOpMode {
         bsgRobot.backLeft.setPower(-.5);
         bsgRobot.frontRight.setPower(-.5);
         bsgRobot.backRight.setPower(-.5);
-        sleep(750);
+        sleep(1000);
 
         bsgRobot.foundationDown();
-        sleep(500);
+        sleep(2000);
         bsgRobot.moveForward(.5);
-        sleep(2000);
+        sleep(2500);
         bsgRobot.foundationUp();
-        sleep(500);
-        bsgRobot.strafeLeft(1000);
         sleep(2000);
+        bsgRobot.strafeLeft(1000);
+        sleep(2500);
 
 
 
