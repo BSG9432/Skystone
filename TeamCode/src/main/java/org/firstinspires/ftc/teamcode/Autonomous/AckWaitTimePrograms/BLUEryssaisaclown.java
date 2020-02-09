@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Practice.Autonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.AckWaitTimePrograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
-@Autonomous (name = "ryssaisaClown")
-public class ryssaisaClown extends LinearOpMode {
+@Autonomous (name = "BLUEryssaisaclown")
+public class BLUEryssaisaclown extends LinearOpMode {
 
 
     Robot bsgRobot = new Robot();
@@ -21,28 +21,29 @@ public class ryssaisaClown extends LinearOpMode {
 
 
         waitForStart();
-        //forward at .25 speed for 3 seconds
-        bsgRobot.strafeRight(1000);
+
+        bsgRobot.strafeLeft(1000);
         sleep(500);
 
-
-
-        bsgRobot.frontLeft.setPower(-.5);
-        bsgRobot.backLeft.setPower(-.5);
-        bsgRobot.frontRight.setPower(-.5);
-        bsgRobot.backRight.setPower(-.5);
-        sleep(1000);
+        //move backwards
+        bsgRobot.moveForward(-.5);
+        sleep(500);
 
         bsgRobot.foundationDown();
         sleep(2000);
+
+        bsgRobot.stopWheels();
+        sleep(500);
+
+        //moveforward
         bsgRobot.moveForward(.5);
-        sleep(2500);
+        sleep(500);
+
         bsgRobot.foundationUp();
         sleep(2000);
-        bsgRobot.strafeLeft(1000);
+
+        bsgRobot.strafeRight(1000);
         sleep(2500);
-
-
 
 
     }

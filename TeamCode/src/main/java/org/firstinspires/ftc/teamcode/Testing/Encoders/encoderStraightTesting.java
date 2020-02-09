@@ -149,22 +149,24 @@ public class encoderStraightTesting extends LinearOpMode {
     public void encoderDrive(double leftSpeed, double rightSpeed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
 
 
             // Turn On RUN_TO_POSITION
@@ -191,8 +193,13 @@ public class encoderStraightTesting extends LinearOpMode {
                     (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
+                //NOTES FROM ALEX
+                // O ack wheeze
+                // try that or first and then just like try FrL || BaL && "right motors"
+                //( ( frontLeft.isBusy() || backLeft.isBusy() ) && ( ( frontRight.isBusy() || backRight.isBusy() )
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path1", "Running to %7d :%7d",
+                        newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),

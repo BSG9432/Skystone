@@ -14,20 +14,6 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 public class TylaOp extends OpMode {
     Robot bsgBot = new Robot();
-   // public int speed = 1;
-
-   /* public DcMotor frontLeft;
-    public DcMotor frontRight;
-    public DcMotor backLeft;
-    public DcMotor backRight;
-
-    public Servo leftFoundation;
-    public Servo rightFoundation;
-
-    public DcMotor lift;
-
-    */
-
 
     @Override
     public void init() {
@@ -41,6 +27,7 @@ public class TylaOp extends OpMode {
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
         bsgBot.clamp.setPosition(.4);
+        bsgBot.armStopDown();
 
        // bsgBot.openClamp();
     }
