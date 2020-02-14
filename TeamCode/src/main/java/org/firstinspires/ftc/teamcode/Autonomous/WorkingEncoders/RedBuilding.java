@@ -86,6 +86,7 @@ public class RedBuilding extends LinearOpMode {
 
         bsgRobot.init(hardwareMap);
         AutoTransitioner.transitionOnStop(this, "TylaOp");
+        bsgRobot.armStopUp();
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -120,16 +121,22 @@ public class RedBuilding extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         //fix
+
+        encoderDrive(.5, -1, -1, 6);
+
+        bsgRobot.stopWheels();
+        sleep(1000);
+
         strafeLeft(800);
 //36.4 38
-        encoderDrive(.5, -36.0, -35.50, 6); //forward 40 inches towards foundation
+        encoderDrive(.5, -15, -15, 6); //forward 40 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
         //35.5 originially
-        encoderDrive(.6, 36.5, 36.50, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(.6, 20, 20, 6); //drag foundation backwards 40 inches into build zone
 
         sleep(500);
 
@@ -156,22 +163,24 @@ public class RedBuilding extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
 
 
             // Turn On RUN_TO_POSITION
@@ -199,7 +208,8 @@ public class RedBuilding extends LinearOpMode {
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newFrontRightTarget,
+                        newBackLeftTarget, newBackRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),

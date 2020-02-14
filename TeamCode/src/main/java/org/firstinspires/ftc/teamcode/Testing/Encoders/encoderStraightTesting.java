@@ -122,11 +122,13 @@ public class encoderStraightTesting extends LinearOpMode {
         waitForStart();
 
         //13, 16.75
-        encoderDrive(.7,.4, 13, 13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.45, .55,.7, .7,
+                13, 13, 6); //forward 35.5 inches towards foundation
 
         sleep(1000);
 
-        encoderDrive(.7,.4, -13, -13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.45, .55,.7, .7,
+                -13, -13, 6); //forward 35.5 inches towards foundation
 
         bsgRobot.stopWheels();
         sleep(500);
@@ -146,9 +148,11 @@ public class encoderStraightTesting extends LinearOpMode {
         AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
-    public void encoderDrive(double leftSpeed, double rightSpeed,
+    public void encoderDrive(double frontLeftSpeed, double frontRightSpeed,
+                             double backLeftSpeed, double backRightSpeed,
                              double leftInches, double rightInches,
                              double timeoutS) {
+
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;
@@ -177,10 +181,10 @@ public class encoderStraightTesting extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bsgRobot.frontLeft.setPower(Math.abs(leftSpeed));
-            bsgRobot.backLeft.setPower(Math.abs(leftSpeed));
-            bsgRobot.frontRight.setPower(Math.abs(rightSpeed));
-            bsgRobot.backRight.setPower(Math.abs(rightSpeed));
+            bsgRobot.frontLeft.setPower(Math.abs(frontLeftSpeed));
+            bsgRobot.backLeft.setPower(Math.abs(backLeftSpeed));
+            bsgRobot.frontRight.setPower(Math.abs(frontRightSpeed));
+            bsgRobot.backRight.setPower(Math.abs(backRightSpeed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits

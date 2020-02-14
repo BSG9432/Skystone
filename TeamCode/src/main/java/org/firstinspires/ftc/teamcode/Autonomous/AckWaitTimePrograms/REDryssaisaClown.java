@@ -22,12 +22,16 @@ public class REDryssaisaClown extends LinearOpMode {
 
         waitForStart();
 
-        bsgRobot.strafeRight(1000);
+        bsgRobot.moveForward(50);
+        bsgRobot.strafeLeft(2000);
         sleep(500);
 
         //move backwards
         bsgRobot.moveForward(-.5);
-        sleep(500);
+        sleep(2000);
+
+        bsgRobot.stopWheels();
+        sleep(2000);
 
         bsgRobot.foundationDown();
         sleep(2000);
@@ -37,14 +41,20 @@ public class REDryssaisaClown extends LinearOpMode {
 
         //moveforward
         bsgRobot.moveForward(.5);
-        sleep(500);
+        sleep(3000);
+
+        bsgRobot.stopWheels();
+        sleep(2000);
 
         bsgRobot.foundationUp();
         sleep(2000);
 
-        bsgRobot.strafeLeft(1000);
-        sleep(2500);
+        bsgRobot.strafeRight(1000);
+        sleep(000);
 
 
     }
 }
+
+
+// Shawn wishes u good luck *quack*

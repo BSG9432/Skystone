@@ -74,11 +74,13 @@ public class Robot {
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-    frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+   /* frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+    */
 
 
 
@@ -236,12 +238,12 @@ public class Robot {
   }
 
  public void openClamp() {
-    clamp.setPosition(.7);
+    clamp.setPosition(.65);
 
 
   }
   public void closeClamp() {
-    clamp.setPosition(.35);
+    clamp.setPosition(0);
 
 
   }

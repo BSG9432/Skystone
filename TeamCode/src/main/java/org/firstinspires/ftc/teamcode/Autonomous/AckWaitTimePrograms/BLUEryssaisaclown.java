@@ -18,16 +18,22 @@ public class BLUEryssaisaclown extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         bsgRobot.init(hardwareMap);
+        bsgRobot.foundationUp();
+        bsgRobot.armStopUp();
 
 
         waitForStart();
 
-        bsgRobot.strafeLeft(1000);
+        bsgRobot.moveForward(50);
+        bsgRobot.strafeRight(1000);
         sleep(500);
 
         //move backwards
         bsgRobot.moveForward(-.5);
-        sleep(500);
+        sleep(2000);
+
+        bsgRobot.stopWheels();
+        sleep(2000);
 
         bsgRobot.foundationDown();
         sleep(2000);
@@ -37,13 +43,16 @@ public class BLUEryssaisaclown extends LinearOpMode {
 
         //moveforward
         bsgRobot.moveForward(.5);
-        sleep(500);
+        sleep(3000);
+
+        bsgRobot.stopWheels();
+        sleep(2000);
 
         bsgRobot.foundationUp();
         sleep(2000);
 
-        bsgRobot.strafeRight(1000);
-        sleep(2500);
+        bsgRobot.strafeLeft(1000);
+        sleep(4000);
 
 
     }
