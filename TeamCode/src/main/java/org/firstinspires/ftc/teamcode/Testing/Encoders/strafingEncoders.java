@@ -6,20 +6,21 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 @Autonomous(name="strafingEncoders", group="chad")
 public class strafingEncoders extends LinearOpMode {
     //
-    DcMotor frontLeft;
-    DcMotor frontRight;
-    DcMotor backLeft;
-    DcMotor backRight;
+    Robot bsgRobot = new Robot();
+
+
     //28 * 20 / (2ppi * 4.125)
     Double width = 18.0; //inches
     Integer cpr = 28; //counts per rotation originally 28
@@ -35,33 +36,38 @@ public class strafingEncoders extends LinearOpMode {
     BNO055IMU imu;
     Orientation angles;
     Acceleration gravity;
+
+    private ElapsedTime runtime = new ElapsedTime();
+
+    static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
+    //static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double DRIVE_SPEED = 0.3;
+    static final double TURN_SPEED = 0.4;
     //
     public void runOpMode(){
         //
         initGyro();
         //
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
-        frontRight = hardwareMap.dcMotor.get("frontRight");
-        backLeft = hardwareMap.dcMotor.get("backLeft");
-        backRight = hardwareMap.dcMotor.get("backRight");
+        bsgRobot.init(hardwareMap);
 
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //
         waitForStart();
 
         //4/5ths --> 1.265
         strafeToPosition(20,1);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
-        //
+
+
+
+
+        bsgRobot.stopWheels();
+        sleep(1000);
 
     }
     //
@@ -73,34 +79,34 @@ public class strafingEncoders extends LinearOpMode {
         //
         int move = (int)(Math.round(inches*conversion));
         //
-        backLeft.setTargetPosition(backLeft.getCurrentPosition() + move);
-        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + move);
-        backRight.setTargetPosition(backRight.getCurrentPosition() + move);
-        frontRight.setTargetPosition(frontRight.getCurrentPosition() + move);
+        bsgRobot.backLeft.setTargetPosition(bsgRobot.backLeft.getCurrentPosition() + move);
+        bsgRobot.frontLeft.setTargetPosition(bsgRobot.frontLeft.getCurrentPosition() + move);
+        bsgRobot.backRight.setTargetPosition(bsgRobot.backRight.getCurrentPosition() + move);
+        bsgRobot.frontRight.setTargetPosition(bsgRobot.frontRight.getCurrentPosition() + move);
         //
-        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //
-        frontLeft.setPower(speed);
-        backLeft.setPower(speed);
-        frontRight.setPower(speed);
-        backRight.setPower(speed);
+        bsgRobot.frontLeft.setPower(speed);
+        bsgRobot.backLeft.setPower(speed);
+        bsgRobot.frontRight.setPower(speed);
+        bsgRobot.backRight.setPower(speed);
         //
-        while (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()){
+        while (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() && bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()){
             if (exit){
-                frontRight.setPower(0);
-                frontLeft.setPower(0);
-                backRight.setPower(0);
-                backLeft.setPower(0);
+                bsgRobot.frontRight.setPower(0);
+                bsgRobot.frontLeft.setPower(0);
+                bsgRobot.backRight.setPower(0);
+                bsgRobot.backLeft.setPower(0);
                 return;
             }
         }
-        frontRight.setPower(0);
-        frontLeft.setPower(0);
-        backRight.setPower(0);
-        backLeft.setPower(0);
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.frontLeft.setPower(0);
+        bsgRobot.backRight.setPower(0);
+        bsgRobot.backLeft.setPower(0);
         return;
     }
     //
@@ -199,21 +205,21 @@ public class strafingEncoders extends LinearOpMode {
                 telemetry.addData("second after", convertify(second));
                 telemetry.update();
             }
-            frontLeft.setPower(0);
-            frontRight.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
+            bsgRobot.frontLeft.setPower(0);
+            bsgRobot.frontRight.setPower(0);
+            bsgRobot.backLeft.setPower(0);
+            bsgRobot.backRight.setPower(0);
         }
         //</editor-fold>
         //
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     //
     /*
@@ -224,26 +230,26 @@ public class strafingEncoders extends LinearOpMode {
         //
         int move = (int)(Math.round(inches * cpi * meccyBias * 1.265));
         //
-        backLeft.setTargetPosition(backLeft.getCurrentPosition() - move);
-        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + move);
-        backRight.setTargetPosition(backRight.getCurrentPosition() + move);
-        frontRight.setTargetPosition(frontRight.getCurrentPosition() - move);
+        bsgRobot.backLeft.setTargetPosition(bsgRobot.backLeft.getCurrentPosition() - move);
+        bsgRobot.frontLeft.setTargetPosition(bsgRobot.frontLeft.getCurrentPosition() + move);
+        bsgRobot.backRight.setTargetPosition(bsgRobot.backRight.getCurrentPosition() + move);
+        bsgRobot.frontRight.setTargetPosition(bsgRobot.frontRight.getCurrentPosition() - move);
         //
-        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //
-        frontLeft.setPower(speed);
-        backLeft.setPower(speed);
-        frontRight.setPower(speed);
-        backRight.setPower(speed);
+        bsgRobot.frontLeft.setPower(speed);
+        bsgRobot.backLeft.setPower(speed);
+        bsgRobot.frontRight.setPower(speed);
+        bsgRobot.backRight.setPower(speed);
         //
-        while (frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()){}
-        frontRight.setPower(0);
-        frontLeft.setPower(0);
-        backRight.setPower(0);
-        backLeft.setPower(0);
+        while (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() && bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()){}
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.frontLeft.setPower(0);
+        bsgRobot.backRight.setPower(0);
+        bsgRobot.backLeft.setPower(0);
         return;
     }
 
@@ -291,15 +297,84 @@ public class strafingEncoders extends LinearOpMode {
     encoder mode and turn.
      */
     public void turnWithEncoder(double input){
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //
-        frontLeft.setPower(input);
-        backLeft.setPower(input);
-        frontRight.setPower(-input);
-        backRight.setPower(-input);
+        bsgRobot.frontLeft.setPower(input);
+        bsgRobot.backLeft.setPower(input);
+        bsgRobot.frontRight.setPower(-input);
+        bsgRobot.backRight.setPower(-input);
     }
-    //
+    public void encoderDrive(double speed,
+                             double leftInches, double rightInches,
+                             double timeoutS) {
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
+
+
+            // Turn On RUN_TO_POSITION
+            bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            bsgRobot.frontLeft.setPower(Math.abs(speed));
+            bsgRobot.backLeft.setPower(Math.abs(speed));
+            bsgRobot.frontRight.setPower(Math.abs(speed));
+            bsgRobot.backRight.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
+                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newFrontRightTarget,
+                        newBackLeftTarget, newBackRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
+                        bsgRobot.frontLeft.getCurrentPosition(),
+                        bsgRobot.backLeft.getCurrentPosition(),
+                        bsgRobot.frontRight.getCurrentPosition(),
+                        bsgRobot.backRight.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            bsgRobot.stopWheels();
+
+            // Turn off RUN_TO_POSITION
+            bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
 }

@@ -93,7 +93,7 @@ public class encoderStraightTesting extends LinearOpMode {
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,13 +122,13 @@ public class encoderStraightTesting extends LinearOpMode {
         waitForStart();
 
         //13, 16.75
-        encoderDrive(.45, .55,.7, .7,
-                13, 13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.3, 1,.3, 1,
+                20, 20, 6); //forward 35.5 inches towards foundation
 
         sleep(1000);
 
-        encoderDrive(.45, .55,.7, .7,
-                -13, -13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.3, 1,.3, 1,
+                -20, -20, 6); //forward 35.5 inches towards foundation
 
         bsgRobot.stopWheels();
         sleep(500);
@@ -145,7 +145,7 @@ public class encoderStraightTesting extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
 
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+        //AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
     public void encoderDrive(double frontLeftSpeed, double frontRightSpeed,
