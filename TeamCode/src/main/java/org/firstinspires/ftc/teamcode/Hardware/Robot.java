@@ -21,13 +21,26 @@ import java.util.Locale;
 
 public class Robot {
   //declare hardware variables
+  //for the drive train
   public DcMotor frontLeft;
   public DcMotor frontRight;
   public DcMotor backLeft;
   public DcMotor backRight;
+
+  //measuring tape for parking in the building zone
   public DcMotor measuringTape;
-  public DcMotor sideArm;
+
+  //intake system
+  public DcMotor arm;
   public DcMotor lift;
+  public Servo clamp;
+  public Servo armStop;
+
+
+  //for moving the foundation
+  public Servo leftFoundation;
+  public Servo rightFoundation;
+
 
   //variables to use IMU's
   public BNO055IMU imu;
@@ -35,63 +48,46 @@ public class Robot {
 
   public static Orientation angles;
   public Acceleration gravity;
-
-  //for moving the foundation
-  public Servo leftFoundation;
-  public Servo rightFoundation;
-  public Servo clamp;
-  public Servo armStop;
-
   public static Telemetry telemetry;
 
-  public Robot() { //constructor
+  //constructor
+  public Robot() {
 
   }
 
   public void init(HardwareMap hMap) {
+    //drive train
     frontLeft = hMap.dcMotor.get("frontLeft");
+
     backLeft = hMap.dcMotor.get("backLeft");
     frontRight = hMap.dcMotor.get("frontRight");
     backRight = hMap.dcMotor.get("backRight");
-    measuringTape = hMap.dcMotor.get("measuringTape");
-
-
-    sideArm = hMap.dcMotor.get("sideArm");
-    lift = hMap.dcMotor.get("lift");
-
-    /* leftIntake = hMap.dcMotor.get("leftIntake");
-    rightIntake = hMap.dcMotor.get("rightIntake");
-    clampL = hMap.servo.get("clampL");
-    clampR = hMap.servo.get("clampR");
-
-    lift = hMap.dcMotor.get("lift");
-    */
-    leftFoundation = hMap.servo.get("leftFoundation");
-    rightFoundation = hMap.servo.get("rightFoundation");
-    armStop = hMap.servo.get("armStop");
-    clamp = hMap.servo.get("clamp");
 
     frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
     backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-   /* frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+    //measuring tape
+    measuringTape = hMap.dcMotor.get("measuringTape");
+
+    //intake system
+    arm = hMap.dcMotor.get("arm");
+    lift = hMap.dcMotor.get("lift");
+    clamp = hMap.servo.get("clamp");
+    armStop = hMap.servo.get("armStop");
+
     lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-    */
+    //foundation grabbers
+    leftFoundation = hMap.servo.get("leftFoundation");
+    rightFoundation = hMap.servo.get("rightFoundation");
 
 
-
-    /*leftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-    rightIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-     */
-
-    //leftClaw = hMap.servo.get("leftClaw");
-    //rightClaw = hMap.servo.get("rightClaw");
-
-    //Telemetry to show on phone to confirm that initialization occured
+    //Telemetry to show on phone to confirm that initialization occurred
     //telemetry.addLine("We done bois");//DS
     //Lines that show up in the internal log (can be accessed on the phone
     //Log.d("#BSG", "Started Encoders");
@@ -199,7 +195,7 @@ public class Robot {
   }
 
   //other functions
-  public void moveForward(double power) {
+  public void drive(double power) {
     frontLeft.setPower(power);
     backLeft.setPower(power);
     frontRight.setPower(power);
@@ -237,21 +233,24 @@ public class Robot {
     backLeft.setPower(-.8);
   }
 
+
+
  public void openClamp() {
     clamp.setPosition(.65);
 
-
   }
+
   public void closeClamp() {
-    clamp.setPosition(0);
-
-
+      clamp.setPosition(0);
   }
+
+  //arm stop functions
   public void armStopUp(){
-    armStop.setPosition(1);
+      armStop.setPosition(1);
   }
+
   public void armStopDown (){
-    armStop.setPosition(.5);
+      armStop.setPosition(.5);
   }
 
 /* power) {

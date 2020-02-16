@@ -60,6 +60,7 @@ public class TylaOp extends OpMode {
             bsgBot.frontLeft.setPower(0);
             bsgBot.backLeft.setPower(0);
         }
+
         telemetry.addData("Front Right Value: ", bsgBot.frontRight.getPower());
         telemetry.addData("Back Right Value: ", bsgBot.backRight.getPower());
         telemetry.addData("Front Left Value: ", bsgBot.frontLeft.getPower());
@@ -92,18 +93,18 @@ public class TylaOp extends OpMode {
 
         //side arm down
         if (gamepad1.right_bumper) {
-            bsgBot.sideArm.setPower(.3);
-            telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
+            bsgBot.arm.setPower(.3);
+            telemetry.addData("Arm Power",bsgBot.arm.getPower());
             telemetry.addData("bumperValue", gamepad1.left_bumper);
         }
         //side arm up
         else if (gamepad1.left_bumper) {
-            bsgBot.sideArm.setPower(-.5);
-            telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
+            bsgBot.arm.setPower(-.5);
+            telemetry.addData("Arm Power",bsgBot.arm.getPower());
             telemetry.addData("bumperValue", gamepad1.right_bumper);
         }
         else {
-            bsgBot.sideArm.setPower(0);
+            bsgBot.arm.setPower(0);
         }
 
 

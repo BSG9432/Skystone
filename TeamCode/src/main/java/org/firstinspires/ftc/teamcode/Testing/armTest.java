@@ -10,9 +10,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
-@Autonomous (name="sideArmTest") //jk its testing the side arm
+@Autonomous (name="armTest") //jk its testing the side arm
 @Disabled
-public class sideArmTest extends LinearOpMode {
+public class armTest extends LinearOpMode {
     Robot bsgbot = new Robot();
 
     @Override
@@ -31,10 +31,10 @@ public class sideArmTest extends LinearOpMode {
 
         waitForStart();
 
-        bsgbot.sideArm.setPower(.5);
+        bsgbot.arm.setPower(.5);
         sleep(1000);
 
-        bsgbot.sideArm.setPower(-.5);
+        bsgbot.arm.setPower(-.5);
         sleep(1000);
 
     }

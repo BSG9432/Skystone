@@ -24,12 +24,12 @@ public class BLUEryssaisaclown extends LinearOpMode {
 
         waitForStart();
 
-        bsgRobot.moveForward(50);
+        bsgRobot.drive(50);
         bsgRobot.strafeRight(1000);
         sleep(500);
 
         //move backwards
-        bsgRobot.moveForward(-.5);
+        bsgRobot.drive(-.5);
         sleep(2000);
 
         bsgRobot.stopWheels();
@@ -41,8 +41,8 @@ public class BLUEryssaisaclown extends LinearOpMode {
         bsgRobot.stopWheels();
         sleep(500);
 
-        //moveforward
-        bsgRobot.moveForward(.5);
+        //move forward
+        bsgRobot.drive(.5);
         sleep(3000);
 
         bsgRobot.stopWheels();

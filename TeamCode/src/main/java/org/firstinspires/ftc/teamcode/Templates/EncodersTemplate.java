@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -65,6 +65,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 @Autonomous(name="EncodersTemplate")
 public class EncodersTemplate extends LinearOpMode {
+
+//This template utilizes our hardware class
 
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
@@ -114,10 +116,10 @@ public class EncodersTemplate extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  1.0,  1.0, 1.0);  // S1: Forward 47 Inches with 5 Sec timeout
-       // encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        //encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
+        /*robot.leftClaw.setPosition(1.0);            S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0)
         sleep(1000);     // pause for servos to move
          */
@@ -202,63 +204,5 @@ public class EncodersTemplate extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
-
-   //rotate function using IMU's
-   /* private void rotate(int degrees, double power){
-        double leftPower, rightPower;
-
-        //restart imu movement tracking
-        bsgRobot.resetAngle();
-
-        // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-        // clockwise (right).
-
-        if (degrees < 0)
-        {   // turn left.
-            leftPower = power;
-            rightPower = .3;
-            telemetry.addLine("left");
-            telemetry.update();
-        }
-        else if (degrees > 0)
-        {   // turn right.
-            leftPower = -.3;
-            rightPower = -power;
-            telemetry.addLine("right");
-            telemetry.update();
-        }
-        else return;
-
-        // set power to rotate.
-        bsgRobot.frontLeft.setPower(leftPower);
-        bsgRobot.backLeft.setPower(leftPower);
-        bsgRobot.frontRight.setPower(rightPower);
-        bsgRobot.backRight.setPower(rightPower);
-
-        // rotate until turn is completed.
-        if (degrees < 0) //-10
-        {
-            // On left turn we have to get off zero first.
-            while (opModeIsActive() && bsgRobot.getHeading() == 0) {}
-
-            while (opModeIsActive() && bsgRobot.getHeading() < degrees) {}
-        }
-        else    // right turn.
-            while (opModeIsActive() && bsgRobot.getHeading() > degrees) {}
-
-        // turn the motors off.
-        bsgRobot.frontLeft.setPower(0);
-        bsgRobot.backLeft.setPower(0);
-        bsgRobot.frontRight.setPower(0);
-        bsgRobot.backRight.setPower(0);
-
-        // wait for rotation to stop.
-        sleep(1000);
-
-        // reset angle tracking on new heading.
-        bsgRobot.resetAngle();
-
-    */
-
-    }
+}
 

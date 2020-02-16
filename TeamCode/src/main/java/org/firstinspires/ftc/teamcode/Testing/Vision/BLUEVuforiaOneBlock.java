@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Testing.Encoders;
+package org.firstinspires.ftc.teamcode.Testing.Vision;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -152,7 +152,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         bsgRobot.foundationUp();
         bsgRobot.closeClamp();
-        sideArmUp();
+        armUp();
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -349,7 +349,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         //open clamp
         bsgRobot.clamp.setPosition(1);
 
-        sideArmDown();
+        armDown();
         sleep(1000);
 
         bsgRobot.closeClamp();
@@ -358,11 +358,11 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         encoderDrive(.5, -12.5, -12.5, 3.0);
 
         //arm up
-        sideArmUp();
+        armUp();
         sleep(1000);
 
         //arm down
-        sideArmDown();
+        armDown();
         sleep(250);
 
 
@@ -408,12 +408,12 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
                 if (targetVisible == true) {
                     //arm up
-                    sideArmUp();
+                    armUp();
                     sleep(250);
                     //drive forward maybe 5 inches
                     encoderDrive(.5, 5, 5,1.0);
                     //arm down
-                    sideArmDown();
+                    armDown();
                     //close clamp
                     //drive backwards 9 inches
                     //turn ccw -90 degrees
@@ -560,33 +560,33 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
     }
 
     //encoders for arm
-    public void sideArmEncoder(double speed,
+    public void armEncoder(double speed,
                                int targetTicks, double timeoutS) {
         int newTarget;
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newTarget = bsgRobot.sideArm.getCurrentPosition() + (int) (targetTicks);
+            newTarget = bsgRobot.arm.getCurrentPosition() + (int) (targetTicks);
             //newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             //newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
             // newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.sideArm.setTargetPosition(newTarget);
+            bsgRobot.arm.setTargetPosition(newTarget);
             // bsgRobot.backLeft.setTargetPosition(newLeftTarget);
             // bsgRobot.frontRight.setTargetPosition(newRightTarget);
             // bsgRobot.backRight.setTargetPosition(newRightTarget);
 
 
             // Turn On RUN_TO_POSITION
-            bsgRobot.sideArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bsgRobot.sideArm.setPower(Math.abs(speed));
+            bsgRobot.arm.setPower(Math.abs(speed));
             //bsgRobot.backLeft.setPower(Math.abs(speed));
             // bsgRobot.frontRight.setPower(Math.abs(speed));
             // bsgRobot.backRight.setPower(Math.abs(speed));
@@ -599,13 +599,13 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.sideArm.isBusy() /*&& bsgRobot.frontRight.isBusy() &&
+                    (bsgRobot.arm.isBusy() /*&& bsgRobot.frontRight.isBusy() &&
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()*/)) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to  :%7d", targetTicks);
                 telemetry.addData("Path2", "Running at 3 :%7d",
-                        bsgRobot.sideArm.getCurrentPosition()
+                        bsgRobot.arm.getCurrentPosition()
                         /*bsgRobot.backLeft.getCurrentPosition(),
                         bsgRobot.frontRight.getCurrentPosition(),
                         bsgRobot.backRight.getCurrentPosition()*/);
@@ -613,10 +613,10 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
             }
 
             // Stop all motion;
-            bsgRobot.sideArm.setPower(0);
+            bsgRobot.arm.setPower(0);
 
             // Turn off RUN_TO_POSITION
-            bsgRobot.sideArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             // bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             // bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -625,12 +625,12 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         }
     }
 
-    public void sideArmUp() {
-        sideArmEncoder(.4, -360, 2);
+    public void armUp() {
+        armEncoder(.4, -360, 2);
     }
 
-    public void sideArmDown(){
-        sideArmEncoder(.4,420,2);
+    public void armDown(){
+        armEncoder(.4,420,2);
     }
 
 }

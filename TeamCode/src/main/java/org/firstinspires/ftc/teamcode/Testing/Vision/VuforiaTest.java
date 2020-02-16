@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Testing;
+package org.firstinspires.ftc.teamcode.Testing.Vision;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -304,7 +304,7 @@ public class VuforiaTest extends LinearOpMode {
         targetsSkyStone.activate();
 
 
-        /*bsgRobot.moveForward(1);
+        /*bsgRobot.drive(1);
         sleep(500);
         bsgRobot.stopWheels();
         sleep(500);
@@ -342,7 +342,7 @@ public class VuforiaTest extends LinearOpMode {
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
                 if(targetVisible){
-                    bsgRobot.moveForward(1);
+                    bsgRobot.drive(1);
                     sleep(2000);
                     bsgRobot.stopWheels();
                     break;
