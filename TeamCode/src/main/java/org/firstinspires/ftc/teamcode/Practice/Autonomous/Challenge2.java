@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Disabled
-@Autonomous(name = "Challenge2")
+@Autonomous(name = "Challenge 2")
 
 public class Challenge2 extends LinearOpMode {
     DcMotor frontLeft;
