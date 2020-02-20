@@ -62,6 +62,7 @@ public class strafingEncoders extends LinearOpMode {
 
         //4/5ths --> 1.265
         strafeToPosition(20,1);
+        strafeToPosition(-20, 1);
 
 
 

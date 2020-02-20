@@ -26,6 +26,7 @@ public class TylaOp extends OpMode {
 
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
+
         bsgBot.armStopDown();
 
         bsgBot.openClamp();
@@ -153,6 +154,13 @@ public class TylaOp extends OpMode {
         }
         else {
             bsgBot.measuringTape.setPower(0);
+        }
+
+        if (gamepad2.a) {
+            bsgBot.armStopDown();
+        }
+        if (gamepad2.b) {
+            bsgBot.armStopUp();
         }
     }
 

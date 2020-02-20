@@ -344,7 +344,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         //drive forward towards blocks
         //13.25, 15
         //11.25 12.5
-        encoderDrive(.5, 13.5, 17.25, 4);
+        encoderDrive(.5, 13.5, 13.25, 4);
 
         //open clamp
         bsgRobot.clamp.setPosition(1);
@@ -357,13 +357,16 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         encoderDrive(.5, -12.5, -12.5, 3.0);
 
+        strafeToPosition(55, .3);
+
+        bsgRobot.openClamp();
+        sleep(1000);
+
         //arm up
         armUp();
         sleep(1000);
 
-        //arm down
-        armDown();
-        sleep(250);
+        strafeToPosition(28, .4);
 
 
         //start looking for skystones
@@ -630,7 +633,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
     }
 
     public void armDown(){
-        armEncoder(.4,420,2);
+        armEncoder(.4,400,2);
     }
 
 }

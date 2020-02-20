@@ -52,7 +52,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  *   The desired path in this example is:
  *   - Drive forward for 48 inches
  *   - Spin right for 12 Inches
- *   - Drive Backwards for 24 inches
+ *   - Drive frontwards for 24 inches
  *   - Stop and close the claw.
  *
  *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
@@ -92,14 +92,14 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
         telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
-        bsgRobot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0", "Starting at :%7d",
-                bsgRobot.backRight.getCurrentPosition());
+                bsgRobot.frontRight.getCurrentPosition());
 
         telemetry.update();
 
@@ -134,20 +134,20 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newTarget = bsgRobot.backRight.getCurrentPosition() + (int)(targetInches * COUNTS_PER_INCH);
+            newTarget = bsgRobot.frontRight.getCurrentPosition() + (int)(targetInches * COUNTS_PER_INCH);
 
 
-            bsgRobot.backRight.setTargetPosition(newTarget);
+            bsgRobot.frontRight.setTargetPosition(newTarget);
 
 
 
             // Turn On RUN_TO_POSITION
-            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bsgRobot.backRight.setPower(Math.abs(speed));
+            bsgRobot.frontRight.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -157,12 +157,12 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontRight.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to  :%7d", newTarget);
                 telemetry.addData("Path2", "Running at  :%7d",
-                        bsgRobot.backRight.getCurrentPosition());
+                        bsgRobot.frontRight.getCurrentPosition());
 
                 telemetry.update();
             }
@@ -171,7 +171,7 @@ public class EncodersTemplateOneMotor extends LinearOpMode {
             bsgRobot.stopWheels();
 
             // Turn off RUN_TO_POSITION
-            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
     }

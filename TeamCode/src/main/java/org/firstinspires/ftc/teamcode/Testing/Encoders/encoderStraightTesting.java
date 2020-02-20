@@ -74,7 +74,7 @@ public class encoderStraightTesting extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -122,20 +122,15 @@ public class encoderStraightTesting extends LinearOpMode {
         waitForStart();
 
         //13, 16.75
-        encoderDrive(.5,
-                20, 20, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.5, 20, 20, 6); //forward 35.5 inches towards foundation
 
         sleep(1000);
 
-        encoderDrive(.5,
-                -20, -20, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.5, -20, -20, 6); //forward 35.5 inches towards foundation
 
         bsgRobot.stopWheels();
         sleep(500);
-        //strafeLeft(2000);
-        //strafeRight(2000);
-        bsgRobot.stopWheels();
-        sleep(1000);
+
 
         //encoderDrive(.5, -13, -13, 6);
 
@@ -193,8 +188,8 @@ public class encoderStraightTesting extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() || bsgRobot.frontRight.isBusy() ||
+                            bsgRobot.backLeft.isBusy() || bsgRobot.backRight.isBusy())) {
 
                 //NOTES FROM ALEX
                 // O ack wheeze
@@ -217,9 +212,9 @@ public class encoderStraightTesting extends LinearOpMode {
 
             // Turn off RUN_TO_POSITION
             bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            //bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            //bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             //  sleep(250);   // optional pause after each move
         }
