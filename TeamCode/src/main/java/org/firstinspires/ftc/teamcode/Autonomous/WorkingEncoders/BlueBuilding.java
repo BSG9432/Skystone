@@ -121,31 +121,31 @@ public class BlueBuilding extends LinearOpMode {
 
         bsgRobot.rightFoundation.setPosition(1);
         bsgRobot.leftFoundation.setPosition(0);
-        bsgRobot.armStop.setPosition(1);
+        bsgRobot.armStopDown();
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         //strafe right
-        strafeToPosition(15, .3);
+        strafeToPosition(20, .3);
 
         //strafeRight(1000);
 
-        encoderDrive(DRIVE_SPEED, -35, -35, 2.0); //forward 35.5 inches towards foundation
+        encoderDrive(DRIVE_SPEED, -44, -44, 2.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(DRIVE_SPEED, 25.5, 25.5, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(DRIVE_SPEED, 39, 39, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //strafe left
-        strafeToPosition(-25, .3);
+        strafeToPosition(-40, .3);
         //strafeLeft(1500);
 
         bsgRobot.armStopDown();
