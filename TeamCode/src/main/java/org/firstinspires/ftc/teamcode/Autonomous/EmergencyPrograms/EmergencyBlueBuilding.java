@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
+import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
 @Disabled
 @Autonomous (name="emergencyBlueBuilding")
 public class EmergencyBlueBuilding extends LinearOpMode {

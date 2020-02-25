@@ -14,20 +14,6 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 public class TylaOp extends OpMode {
     Robot bsgBot = new Robot();
-   // public int speed = 1;
-
-   /* public DcMotor frontLeft;
-    public DcMotor frontRight;
-    public DcMotor backLeft;
-    public DcMotor backRight;
-
-    public Servo leftFoundation;
-    public Servo rightFoundation;
-
-    public DcMotor lift;
-
-    */
-
 
     @Override
     public void init() {
@@ -40,9 +26,10 @@ public class TylaOp extends OpMode {
 
         bsgBot.rightFoundation.setPosition(1);
         bsgBot.leftFoundation.setPosition(0);
-        bsgBot.clamp.setPosition(.4);
 
-       // bsgBot.openClamp();
+        bsgBot.armStopDown();
+
+        bsgBot.openClamp();
     }
 
     @Override
@@ -74,6 +61,7 @@ public class TylaOp extends OpMode {
             bsgBot.frontLeft.setPower(0);
             bsgBot.backLeft.setPower(0);
         }
+
         telemetry.addData("Front Right Value: ", bsgBot.frontRight.getPower());
         telemetry.addData("Back Right Value: ", bsgBot.backRight.getPower());
         telemetry.addData("Front Left Value: ", bsgBot.frontLeft.getPower());
@@ -91,33 +79,33 @@ public class TylaOp extends OpMode {
             bsgBot.rightFoundation.setPosition(0);
             bsgBot.leftFoundation.setPosition(1);
         }
-        //close clamp
+        //open clamp
         if (gamepad1.y)
         {
-            bsgBot.clamp.setPosition(.8);
+            bsgBot.openClamp();
 
         }
-        //open clamp
+        //close clamp
         if (gamepad1.x)
         {//.35
-            bsgBot.clamp.setPosition(0);
+            bsgBot.closeClamp();
 
         }
 
         //side arm down
         if (gamepad1.right_bumper) {
-            bsgBot.sideArm.setPower(.3);
-            telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
+            bsgBot.arm.setPower(.3);
+            telemetry.addData("Arm Power",bsgBot.arm.getPower());
             telemetry.addData("bumperValue", gamepad1.left_bumper);
         }
         //side arm up
         else if (gamepad1.left_bumper) {
-            bsgBot.sideArm.setPower(-.5);
-            telemetry.addData("sideArm Power",bsgBot.sideArm.getPower());
+            bsgBot.arm.setPower(-.5);
+            telemetry.addData("Arm Power",bsgBot.arm.getPower());
             telemetry.addData("bumperValue", gamepad1.right_bumper);
         }
         else {
-            bsgBot.sideArm.setPower(0);
+            bsgBot.arm.setPower(0);
         }
 
 
@@ -166,6 +154,13 @@ public class TylaOp extends OpMode {
         }
         else {
             bsgBot.measuringTape.setPower(0);
+        }
+
+        if (gamepad2.a) {
+            bsgBot.armStopDown();
+        }
+        if (gamepad2.b) {
+            bsgBot.armStopUp();
         }
     }
 

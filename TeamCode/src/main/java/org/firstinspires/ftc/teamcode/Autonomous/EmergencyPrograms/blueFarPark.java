@@ -35,7 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
+import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -68,6 +68,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @Autonomous(name="blueFarPark")
 public class blueFarPark extends LinearOpMode {
 
+    //for parking on the far side of the alliance skybridge (closest to the neutral bridge)
+
     //taking the hardware from our Robot class with our hardware
     Robot bsgRobot = new Robot();
 
@@ -89,7 +91,7 @@ public class blueFarPark extends LinearOpMode {
         AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

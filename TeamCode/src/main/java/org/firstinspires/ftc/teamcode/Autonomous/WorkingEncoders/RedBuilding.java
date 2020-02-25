@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
+import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -81,11 +81,19 @@ public class RedBuilding extends LinearOpMode {
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.5;
 
+    Integer cpr = 28; //counts per rotation originally 28
+    Integer gearratio = 40; //IDK IT WAS ORIGINALLY 40
+    Double diameter = 4.0;
+    Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
+    Double bias = 0.8;//default 0.8
+    Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)3
+
     @Override
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
         AutoTransitioner.transitionOnStop(this, "TylaOp");
+        bsgRobot.armStopUp();
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -119,24 +127,29 @@ public class RedBuilding extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        //fix
-        strafeLeft(800);
-//36.4 38
-        encoderDrive(.5, -36.0, -35.50, 6); //forward 40 inches towards foundation
+
+        //strafe left
+        strafeToPosition(-15, .3);
+        //strafeLeft(1000);
+
+        encoderDrive(DRIVE_SPEED, -35, -35, 2.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        //35.5 originially
-        encoderDrive(.6, 36.5, 36.50, 6); //drag foundation backwards 40 inches into build zone
+        encoderDrive(DRIVE_SPEED, 25.5, 25.5, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
-        //fix
-        strafeRight(2250);
+        //strafe right
+        strafeToPosition(25, .3);
+        //strafeRight(1500);
+
+        bsgRobot.armStopDown();
+        sleep(1000);
 
 
         telemetry.addData("Path", "Complete");
@@ -156,22 +169,24 @@ public class RedBuilding extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
 
 
             // Turn On RUN_TO_POSITION
@@ -199,7 +214,8 @@ public class RedBuilding extends LinearOpMode {
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newFrontRightTarget,
+                        newBackLeftTarget, newBackRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),
@@ -219,6 +235,33 @@ public class RedBuilding extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
+    }
+
+    public void strafeToPosition(double inches, double speed){
+        //
+        int move = (int)(Math.round(inches * cpi * meccyBias * 1.265));
+        //
+        bsgRobot.backLeft.setTargetPosition(bsgRobot.backLeft.getCurrentPosition() - move);
+        bsgRobot.frontLeft.setTargetPosition(bsgRobot.frontLeft.getCurrentPosition() + move);
+        bsgRobot.backRight.setTargetPosition(bsgRobot.backRight.getCurrentPosition() + move);
+        bsgRobot.frontRight.setTargetPosition(bsgRobot.frontRight.getCurrentPosition() - move);
+        //
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //
+        bsgRobot.frontLeft.setPower(speed);
+        bsgRobot.backLeft.setPower(speed);
+        bsgRobot.frontRight.setPower(speed);
+        bsgRobot.backRight.setPower(speed);
+        //
+        while (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() && bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()){}
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.frontLeft.setPower(0);
+        bsgRobot.backRight.setPower(0);
+        bsgRobot.backLeft.setPower(0);
+        return;
     }
 
     //rotate function using IMU's

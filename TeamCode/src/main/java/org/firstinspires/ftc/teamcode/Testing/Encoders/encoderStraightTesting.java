@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.AutoTransitioner;
+import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
@@ -74,7 +74,7 @@ public class encoderStraightTesting extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
-    static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -85,15 +85,15 @@ public class encoderStraightTesting extends LinearOpMode {
     public void runOpMode() {
 
         bsgRobot.init(hardwareMap);
-        bsgRobot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bsgRobot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bsgRobot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bsgRobot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bsgRobot.frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        bsgRobot.backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+        //AutoTransitioner.transitionOnStop(this, "TylaOp");
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
+        telemetry.addData("Status", "Resetting Encoders");
         telemetry.update();
 
         bsgRobot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -107,7 +107,7 @@ public class encoderStraightTesting extends LinearOpMode {
         bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0", "Starting at %7d :%7d",
+        telemetry.addData("Path0", "Starting at %7d :%7d :%7d :%7d",
                 bsgRobot.frontLeft.getCurrentPosition(),
                 bsgRobot.backLeft.getCurrentPosition(),
                 bsgRobot.frontRight.getCurrentPosition(),
@@ -122,18 +122,15 @@ public class encoderStraightTesting extends LinearOpMode {
         waitForStart();
 
         //13, 16.75
-        encoderDrive(.7,.4, 13, 13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.5, 20, 20, 6); //forward 35.5 inches towards foundation
 
         sleep(1000);
 
-        encoderDrive(.7,.4, -13, -13, 6); //forward 35.5 inches towards foundation
+        encoderDrive(.5, -20, -20, 6); //forward 35.5 inches towards foundation
 
         bsgRobot.stopWheels();
         sleep(500);
-        //strafeLeft(2000);
-        //strafeRight(2000);
-        bsgRobot.stopWheels();
-        sleep(1000);
+
 
         //encoderDrive(.5, -13, -13, 6);
 
@@ -143,28 +140,31 @@ public class encoderStraightTesting extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
 
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+        //AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
-    public void encoderDrive(double leftSpeed, double rightSpeed,
+    public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
 
 
             // Turn On RUN_TO_POSITION
@@ -175,10 +175,10 @@ public class encoderStraightTesting extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
-            bsgRobot.frontLeft.setPower(Math.abs(leftSpeed));
-            bsgRobot.backLeft.setPower(Math.abs(leftSpeed));
-            bsgRobot.frontRight.setPower(Math.abs(rightSpeed));
-            bsgRobot.backRight.setPower(Math.abs(rightSpeed));
+            bsgRobot.frontLeft.setPower(Math.abs(speed));
+            bsgRobot.backLeft.setPower(Math.abs(speed));
+            bsgRobot.frontRight.setPower(Math.abs(speed));
+            bsgRobot.backRight.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -188,15 +188,21 @@ public class encoderStraightTesting extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() &&
-                            bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
+                    (bsgRobot.frontLeft.isBusy() || bsgRobot.frontRight.isBusy() ||
+                            bsgRobot.backLeft.isBusy() || bsgRobot.backRight.isBusy())) {
 
+                //NOTES FROM ALEX
+                // O ack wheeze
+                // try that or first and then just like try FrL || BaL && "right motors"
+                //( ( frontLeft.isBusy() || backLeft.isBusy() ) && ( ( frontRight.isBusy() || backRight.isBusy() )
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d",
+                        newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
+                telemetry.addData("frontLeft/frontRight", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
+                        bsgRobot.frontRight.getCurrentPosition());
+                telemetry.addData("backLeft/backRight", "Running at %7d :%7d",
                         bsgRobot.backLeft.getCurrentPosition(),
-                        bsgRobot.frontRight.getCurrentPosition(),
                         bsgRobot.backRight.getCurrentPosition());
                 telemetry.update();
             }
