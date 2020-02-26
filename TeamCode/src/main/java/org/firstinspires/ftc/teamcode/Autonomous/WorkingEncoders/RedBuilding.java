@@ -119,37 +119,35 @@ public class RedBuilding extends LinearOpMode {
 
         bsgRobot.rightFoundation.setPosition(1);
         bsgRobot.leftFoundation.setPosition(0);
+        bsgRobot.armStopDown();
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        //strafe right
+        strafeToPosition(-16, .3);
 
+        //strafeRight(1000);
 
-        //strafe left
-        strafeToPosition(-15, .3);
-        //strafeLeft(1000);
-
-        encoderDrive(DRIVE_SPEED, -35, -35, 2.0); //forward 35.5 inches towards foundation
+        encoderDrive(DRIVE_SPEED, -47/2, -47/2, 5.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(DRIVE_SPEED, 25.5, 25.5, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(DRIVE_SPEED, 47/2, 47/2, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
-        //strafe right
-        strafeToPosition(25, .3);
-        //strafeRight(1500);
+        //strafe left
+        strafeToPosition(48, .3);
+        //strafeLeft(1500);
 
         bsgRobot.armStopDown();
-        sleep(1000);
+        sleep(1000);;
 
 
         telemetry.addData("Path", "Complete");
@@ -197,6 +195,7 @@ public class RedBuilding extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
+
             bsgRobot.frontLeft.setPower(Math.abs(speed));
             bsgRobot.backLeft.setPower(Math.abs(speed));
             bsgRobot.frontRight.setPower(Math.abs(speed));
@@ -236,6 +235,7 @@ public class RedBuilding extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+
 
     public void strafeToPosition(double inches, double speed){
         //
