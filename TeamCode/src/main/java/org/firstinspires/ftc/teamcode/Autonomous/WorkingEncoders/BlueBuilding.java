@@ -127,24 +127,24 @@ public class BlueBuilding extends LinearOpMode {
         waitForStart();
 
         //strafe right
-        strafeToPosition(18, .5);
+        strafeToPosition(16, .3);
 
         //strafeRight(1000);
 
-        encoderDrive(.7, -38, -38, 2.0); //forward 35.5 inches towards foundation
+        encoderDrive(DRIVE_SPEED, -47, -47, 5.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(.7, 37, 37, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(DRIVE_SPEED, 40, 40, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //strafe left
-        strafeToPosition(-43, .5);
+        strafeToPosition(-48, .3);
         //strafeLeft(1500);
 
         bsgRobot.armStopDown();

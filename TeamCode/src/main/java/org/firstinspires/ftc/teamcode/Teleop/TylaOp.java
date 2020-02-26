@@ -29,7 +29,7 @@ public class TylaOp extends OpMode {
 
         bsgBot.armStopUp();
 
-        bsgBot.openClamp();
+        bsgBot.closeClamp();
     }
 
     @Override
