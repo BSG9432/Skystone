@@ -152,7 +152,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         bsgRobot.foundationUp();
         bsgRobot.closeClamp();
-        armUp();
+        bsgRobot.armStopDown();
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -358,6 +358,8 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         encoderDrive(.5, -12.5, -12.5, 3.0);
 
         strafeToPosition(55, .3);
+        //OR encoderDrive(.5, -12, 12, 3.0);
+        //encoderDrive(.5,
 
         bsgRobot.openClamp();
         sleep(1000);

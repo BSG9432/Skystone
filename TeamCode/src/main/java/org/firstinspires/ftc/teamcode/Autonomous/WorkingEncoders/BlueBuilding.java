@@ -85,8 +85,7 @@ public class BlueBuilding extends LinearOpMode {
     Double diameter = 4.0;
     Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
     Double bias = 0.8;//default 0.8
-    Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)
-
+    Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)3
 
     //
 
@@ -121,31 +120,31 @@ public class BlueBuilding extends LinearOpMode {
 
         bsgRobot.rightFoundation.setPosition(1);
         bsgRobot.leftFoundation.setPosition(0);
-        bsgRobot.armStop.setPosition(1);
+        bsgRobot.armStopDown();
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         //strafe right
-        strafeToPosition(15, .3);
+        strafeToPosition(18, .5);
 
         //strafeRight(1000);
 
-        encoderDrive(DRIVE_SPEED, -35, -35, 2.0); //forward 35.5 inches towards foundation
+        encoderDrive(.7, -38, -38, 2.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(DRIVE_SPEED, 25.5, 25.5, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(.7, 37, 37, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //strafe left
-        strafeToPosition(-25, .3);
+        strafeToPosition(-43, .5);
         //strafeLeft(1500);
 
         bsgRobot.armStopDown();
