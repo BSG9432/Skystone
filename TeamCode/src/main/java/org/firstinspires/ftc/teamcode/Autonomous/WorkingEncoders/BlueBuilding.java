@@ -85,8 +85,7 @@ public class BlueBuilding extends LinearOpMode {
     Double diameter = 4.0;
     Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
     Double bias = 0.8;//default 0.8
-    Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)
-
+    Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)3
 
     //
 
