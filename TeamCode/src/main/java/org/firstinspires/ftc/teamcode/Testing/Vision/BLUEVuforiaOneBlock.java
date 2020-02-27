@@ -152,7 +152,6 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         bsgRobot.foundationUp();
         bsgRobot.closeClamp();
-        armUp();
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -339,34 +338,39 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         //side arm shaft points left + = down; - = up
 
-        //side arm down
 
-        //drive forward towards blocks
-        //13.25, 15
-        //11.25 12.5
-        encoderDrive(.5, 13.5, 13.25, 4);
-
-        //open clamp
-        bsgRobot.clamp.setPosition(1);
+        bsgRobot.armStopUp();
+        sleep(500);
 
         armDown();
-        sleep(1000);
+        sleep(500);
+        bsgRobot.openClamp();
+        sleep(750);
+
+        encoderDrive(.8, 18, 18, 4);
+
+        //open clamp
 
         bsgRobot.closeClamp();
-        sleep (1000);
+        sleep (600);
 
-        encoderDrive(.5, -12.5, -12.5, 3.0);
+        encoderDrive(.7, -10, -10, 3.0);
 
-        strafeToPosition(55, .3);
+        strafeToPosition(-55, .4);
 
         bsgRobot.openClamp();
-        sleep(1000);
+        sleep(600);
 
         //arm up
-        armUp();
-        sleep(1000);
 
-        strafeToPosition(28, .4);
+        encoderDrive(.8, -8.5, -7.5, 3.0);
+
+
+        strafeToPosition(55, .8);
+        //28 to park
+
+        encoderDrive(.8, 7.5, 7.5, 3.0);
+
 
 
         //start looking for skystones
@@ -449,7 +453,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
         //auto transitioner to automatically switch to TeleOp
-        AutoTransitioner.transitionOnStop(this, "TylaOp");
+       // AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
 
@@ -466,22 +470,24 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
 
 
             // Turn On RUN_TO_POSITION
@@ -492,6 +498,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
+
             bsgRobot.frontLeft.setPower(Math.abs(speed));
             bsgRobot.backLeft.setPower(Math.abs(speed));
             bsgRobot.frontRight.setPower(Math.abs(speed));
@@ -509,7 +516,8 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newFrontRightTarget,
+                        newBackLeftTarget, newBackRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),
