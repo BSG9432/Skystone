@@ -347,7 +347,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         bsgRobot.openClamp();
         sleep(750);
 
-        encoderDrive(.8, 18, 18, 4);
+        encoderDrive(.6, 18, 18, 4);
 
         //open clamp
 
