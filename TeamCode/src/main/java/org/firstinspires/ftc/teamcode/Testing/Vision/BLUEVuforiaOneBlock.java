@@ -354,22 +354,26 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         bsgRobot.closeClamp();
         sleep (600);
 
-        encoderDrive(.7, -10, -10, 3.0);
+        encoderDrive(.7, -2.5, -2.5, 3.0);
 
-        strafeToPosition(-55, .4);
+       encoderDrive(.7,-10, 10, 3.0);
+       encoderDrive(.7, 25, 25, 3.0);
+
+
 
         bsgRobot.openClamp();
         sleep(600);
 
+        encoderDrive(.7, -12, -12,3.0);
         //arm up
 
-        encoderDrive(.8, -8.5, -7.5, 3.0);
+       // encoderDrive(.8, -8.5, -7.5, 3.0);
 
 
-        strafeToPosition(55, .8);
+        //strafeToPosition(55, .8);
         //28 to park
 
-        encoderDrive(.8, 7.5, 7.5, 3.0);
+       // encoderDrive(.8, 7.5, 7.5, 3.0);
 
 
 
