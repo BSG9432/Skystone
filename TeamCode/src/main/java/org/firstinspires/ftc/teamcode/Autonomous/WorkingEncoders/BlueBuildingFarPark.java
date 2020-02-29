@@ -34,8 +34,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Hardware.Robot;
 import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
+import org.firstinspires.ftc.teamcode.Hardware.Robot;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -64,7 +64,7 @@ import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuildingFarPark")
+@Autonomous(name="BlueBuildingFarPark", group = "BlueBuilding")
 public class BlueBuildingFarPark extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
@@ -74,12 +74,11 @@ public class BlueBuildingFarPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // Neverest 40
-    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    //static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) / (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.6;
-    static final double TURN_SPEED = 0.5;
+    static final double TURN_SPEED = 0.4;
 
     Integer cpr = 28; //counts per rotation originally 28
     Integer gearratio = 40; //IDK IT WAS ORIGINALLY 40
@@ -87,6 +86,9 @@ public class BlueBuildingFarPark extends LinearOpMode {
     Double cpi = (cpr * gearratio)/(Math.PI * diameter); //counts per inch, 28cpr * gear ratio / (2 * pi * diameter (in inches, in the center))
     Double bias = 0.8;//default 0.8
     Double meccyBias = 0.9;//change to adjust only strafing movement (was .9)3
+
+    //
+
 
     @Override
     public void runOpMode() {
@@ -116,41 +118,34 @@ public class BlueBuildingFarPark extends LinearOpMode {
                 bsgRobot.backRight.getCurrentPosition());
         telemetry.update();
 
-        bsgRobot.rightFoundation.setPosition(0);
-        bsgRobot.leftFoundation.setPosition(1);
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
+        bsgRobot.armStopDown();
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path,
-        // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
         //strafe right
-        strafeToPosition(10, .3);
+        strafeToPosition(16, .3);
 
         //strafeRight(1000);
 
-        encoderDrive(DRIVE_SPEED, -35, -35, 2.0); //forward 35.5 inches towards foundation
+        encoderDrive(DRIVE_SPEED, -47, -47, 5.0); //forward 35.5 inches towards foundation
 
         sleep(500);
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(DRIVE_SPEED, 25.5, 25.5, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(DRIVE_SPEED, 40, 40, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 
         foundationUp(800); //let go of foundation
 
         //strafe left
-        strafeToPosition(-15, .3);
-
-        encoderDrive(DRIVE_SPEED, -15, -15, 3.0);
-
-        strafeToPosition(-5, .3);
-
-
+        //FIX IT FROM HERE
+        strafeToPosition(-48, .3);
         //strafeLeft(1500);
 
         bsgRobot.armStopDown();
@@ -158,72 +153,33 @@ public class BlueBuildingFarPark extends LinearOpMode {
 
 
 
-        //fix
-        strafeLeft(1000);
-
-        encoderDrive(.5, 47, 47, 6); //forward 40 inches towards foundation
-
-        sleep(500);
-
-        foundationDown(2000); //grab foundation
-
-        encoderDrive(.8, -47, -47, 6); //drag foundation backwards 40 inches into build zone
-
-        sleep(500);
-
-        foundationUp(800); //let go of foundation
-
-        //fix
-        strafeRight(2200);
-
-        encoderDrive(.5,  31,  31, 5);
-
-        sleep(500);
-
-        strafeRight(1100);
-
-
-        //rotate(-90, .8); //rotate LEFT to face towards alliance bridge
-
-        // sleep(500);
-
-        //encoderDrive(.8, 35, 35, 3); //drive forward 35 inches to park under alliance bridge
-
-        //  sleep(500);
-
         telemetry.addData("Path", "Complete");
         telemetry.update();
 
         AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
-    /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
-        int newLeftTarget;
-        int newRightTarget;
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = bsgRobot.frontLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newBackLeftTarget = bsgRobot.backLeft.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = bsgRobot.frontRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newBackRightTarget = bsgRobot.backRight.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
 
-            bsgRobot.frontLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.backLeft.setTargetPosition(newLeftTarget);
-            bsgRobot.frontRight.setTargetPosition(newRightTarget);
-            bsgRobot.backRight.setTargetPosition(newRightTarget);
+            bsgRobot.frontLeft.setTargetPosition(newFrontLeftTarget);
+            bsgRobot.backLeft.setTargetPosition(newBackLeftTarget);
+            bsgRobot.frontRight.setTargetPosition(newFrontRightTarget);
+            bsgRobot.backRight.setTargetPosition(newBackRightTarget);
 
 
             // Turn On RUN_TO_POSITION
@@ -234,6 +190,7 @@ public class BlueBuildingFarPark extends LinearOpMode {
 
             // reset the timeout time and start motion.
             runtime.reset();
+
             bsgRobot.frontLeft.setPower(Math.abs(speed));
             bsgRobot.backLeft.setPower(Math.abs(speed));
             bsgRobot.frontRight.setPower(Math.abs(speed));
@@ -251,7 +208,8 @@ public class BlueBuildingFarPark extends LinearOpMode {
                             bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newFrontRightTarget,
+                        newBackLeftTarget, newBackRightTarget);
                 telemetry.addData("Path2", "Running at %7d :%7d",
                         bsgRobot.frontLeft.getCurrentPosition(),
                         bsgRobot.backLeft.getCurrentPosition(),
@@ -271,33 +229,6 @@ public class BlueBuildingFarPark extends LinearOpMode {
 
             //  sleep(250);   // optional pause after each move
         }
-    }
-
-    public void strafeToPosition(double inches, double speed){
-        //
-        int move = (int)(Math.round(inches * cpi * meccyBias * 1.265));
-        //
-        bsgRobot.backLeft.setTargetPosition(bsgRobot.backLeft.getCurrentPosition() - move);
-        bsgRobot.frontLeft.setTargetPosition(bsgRobot.frontLeft.getCurrentPosition() + move);
-        bsgRobot.backRight.setTargetPosition(bsgRobot.backRight.getCurrentPosition() + move);
-        bsgRobot.frontRight.setTargetPosition(bsgRobot.frontRight.getCurrentPosition() - move);
-        //
-        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //
-        bsgRobot.frontLeft.setPower(speed);
-        bsgRobot.backLeft.setPower(speed);
-        bsgRobot.frontRight.setPower(speed);
-        bsgRobot.backRight.setPower(speed);
-        //
-        while (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() && bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()){}
-        bsgRobot.frontRight.setPower(0);
-        bsgRobot.frontLeft.setPower(0);
-        bsgRobot.backRight.setPower(0);
-        bsgRobot.backLeft.setPower(0);
-        return;
     }
 
     //rotate function using IMU's
@@ -357,30 +288,57 @@ public class BlueBuildingFarPark extends LinearOpMode {
     }
 
     public void foundationDown(int pause) {
-        bsgRobot.rightFoundation.setPosition(.8);
-        bsgRobot.leftFoundation.setPosition(.2);
+        bsgRobot.rightFoundation.setPosition(.2);
+        bsgRobot.leftFoundation.setPosition(.8);
         sleep(pause);
     }
 
     public void foundationUp(int pause) {
-        bsgRobot.rightFoundation.setPosition(.1);
-        bsgRobot.leftFoundation.setPosition(.9);
+        bsgRobot.rightFoundation.setPosition(1);
+        bsgRobot.leftFoundation.setPosition(0);
         sleep(pause);
     }
 
     public void strafeLeft(long time) {
-        bsgRobot.frontRight.setPower(1);
-        bsgRobot.backRight.setPower(-1);
-        bsgRobot.frontLeft.setPower(-1);
-        bsgRobot.backLeft.setPower(1);
+        bsgRobot.frontRight.setPower(1);//1
+        bsgRobot.backRight.setPower(-.4);
+        bsgRobot.frontLeft.setPower(-.9);//1
+        bsgRobot.backLeft.setPower(.6);
         sleep(time);
     }
 
     public void strafeRight(long time) {
-        bsgRobot.frontRight.setPower(-1);
-        bsgRobot.backRight.setPower(1);
-        bsgRobot.frontLeft.setPower(1);
-        bsgRobot.backLeft.setPower(-1);
+        bsgRobot.frontRight.setPower(-.7);
+        bsgRobot.backRight.setPower(.1);
+        bsgRobot.frontLeft.setPower(.8);
+        bsgRobot.backLeft.setPower(-.3);
         sleep(time);
+    }
+
+    public void strafeToPosition(double inches, double speed){
+        //
+        int move = (int)(Math.round(inches * cpi * meccyBias * 1.265));
+        //
+        bsgRobot.backLeft.setTargetPosition(bsgRobot.backLeft.getCurrentPosition() - move);
+        bsgRobot.frontLeft.setTargetPosition(bsgRobot.frontLeft.getCurrentPosition() + move);
+        bsgRobot.backRight.setTargetPosition(bsgRobot.backRight.getCurrentPosition() + move);
+        bsgRobot.frontRight.setTargetPosition(bsgRobot.frontRight.getCurrentPosition() - move);
+        //
+        bsgRobot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bsgRobot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //
+        bsgRobot.frontLeft.setPower(speed);
+        bsgRobot.backLeft.setPower(speed);
+        bsgRobot.frontRight.setPower(speed);
+        bsgRobot.backRight.setPower(speed);
+        //
+        while (bsgRobot.frontLeft.isBusy() && bsgRobot.frontRight.isBusy() && bsgRobot.backLeft.isBusy() && bsgRobot.backRight.isBusy()){}
+        bsgRobot.frontRight.setPower(0);
+        bsgRobot.frontLeft.setPower(0);
+        bsgRobot.backRight.setPower(0);
+        bsgRobot.backLeft.setPower(0);
+        return;
     }
 }

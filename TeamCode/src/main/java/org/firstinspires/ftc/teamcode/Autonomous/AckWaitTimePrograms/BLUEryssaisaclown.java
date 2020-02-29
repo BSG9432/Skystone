@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.KNO3AutoTransitioner.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.Hardware.Robot;
 @Autonomous (name = "BLUEryssaisaclown", group = "Wait Time")
+@Disabled
 public class BLUEryssaisaclown extends LinearOpMode {
 
 

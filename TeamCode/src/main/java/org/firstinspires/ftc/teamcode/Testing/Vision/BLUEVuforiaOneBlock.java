@@ -336,58 +336,49 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        //side arm shaft points left + = down; - = up
+        //arm shaft points left + = down; - = up
 
-
-        bsgRobot.armStopUp();
+        //Put the arm stop up
+       /* bsgRobot.armStopUp();
         sleep(500);
 
+        //Use encoders to put the arm down
         armDown();
         sleep(500);
+
+        //open the clamp
         bsgRobot.openClamp();
         sleep(750);
 
+        //drive 18 inches forward towards stones
         encoderDrive(.6, 18, 18, 4);
 
-        //open clamp
-
+        //close clamp
         bsgRobot.closeClamp();
         sleep (600);
 
+        //drive 2.5 inches backwards
         encoderDrive(.7, -2.5, -2.5, 3.0);
 
-       encoderDrive(.7,-10, 10, 3.0);
-       encoderDrive(.7, 25, 25, 3.0);
+        //rotate CCW approximately 90
+        encoderDrive(.7,-10, 10, 3.0);
 
+        //drive forward 25 inches into the building side
+        encoderDrive(.7, 25, 25, 3.0);
 
-
+        //release stone
         bsgRobot.openClamp();
         sleep(600);
 
+        //drive 12 inches backward under alliance bridge
         encoderDrive(.7, -12, -12,3.0);
-
-
-
-        //arm up
-
-       // encoderDrive(.8, -8.5, -7.5, 3.0);
-
-
-        //strafeToPosition(55, .8);
-        //28 to park
-
-       // encoderDrive(.8, 7.5, 7.5, 3.0);
 
 
 
         //start looking for skystones
         targetsSkyStone.activate();
         sleep(250);
-        bsgRobot.closeClamp();
-        sleep(500);
-
-        //encoderDrive(.6, -20, -20, 3);
-
+*/
 
 
         while (!isStopRequested()) {
@@ -408,7 +399,6 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
                     break;
                 }
             }
-
             // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
                 // express position (translation) of robot in inches.
@@ -421,31 +411,26 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
                 if (targetVisible == true) {
-                    //arm up
-                    armUp();
-                    sleep(250);
-                    //drive forward maybe 5 inches
-                    encoderDrive(.5, 5, 5,1.0);
-                    //arm down
-                    armDown();
-                    //close clamp
-                    //drive backwards 9 inches
-                    //turn ccw -90 degrees
-                    //drive forward towards middle of foundation
-                    //turn cw 90 degrees
-                    //drive forward until foundation (idk random guess 10 inches)
-                    //arm down
-                    //open clamp
-                    //arm up
-                    //turn 180
-                    //drag foundation
-                    //ideally strafe under bridge
+                    if (translation.get(0) >= 18 && translation.get(0) < 19) {
+
+                        telemetry.addLine("Left");
+
+                    } else if (translation.get(0) >= 19 && translation.get(0) < 20) {
+
+                        telemetry.addLine("Middle");
+
+                    } else if (translation.get(0) >= 20 && translation.get(0) < 23) {
+                        telemetry.addLine("Right");
+
+                    }
+
 
 
                     break;
                 } else if (targetVisible == false) {
                     //strafe right 8 inches
-                    strafeToPosition(.5, 8);
+                    strafeToPosition(8.5, .4);
+
 
                 } else {
                     bsgRobot.stopWheels();
