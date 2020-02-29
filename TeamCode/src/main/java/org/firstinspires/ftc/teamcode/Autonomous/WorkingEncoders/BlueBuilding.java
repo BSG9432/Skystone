@@ -64,7 +64,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="BlueBuilding")
+@Autonomous(name="BlueBuilding", group = "BlueBuilding")
 public class BlueBuilding extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware

@@ -65,7 +65,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @Disabled
-@Autonomous(name="BlueLoading")
+@Autonomous(name="BlueLoading", group = "BlueLoading")
 public class BlueLoading extends LinearOpMode {
 
     //taking the hardware from our Robot class with our hardware
@@ -123,7 +123,7 @@ public class BlueLoading extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(.8,  23,  23, 3); //forward 23 inches to park under alliance bridge (SET ROBOT ON START OF THE SECOND TILE)
+        encoderDrive(.8,  40,  40, 3); //forward 23 inches to park under alliance bridge (SET ROBOT ON START OF THE SECOND TILE)
 
         sleep(500);
 
