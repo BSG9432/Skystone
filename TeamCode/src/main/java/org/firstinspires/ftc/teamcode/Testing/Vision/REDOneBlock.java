@@ -57,8 +57,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * is explained below.
  */
 
-@Autonomous(name="BLUEVuforiaOneBlock", group="testing")
-public class BLUEVuforiaOneBlock extends LinearOpMode {
+@Autonomous(name="REDOneBlock", group="testing")
+public class REDOneBlock extends LinearOpMode {
     Robot bsgRobot = new Robot();
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
@@ -356,8 +356,8 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         encoderDrive(.7, -2.5, -2.5, 3.0);
 
-       encoderDrive(.7,-10, 10, 3.0);
-       encoderDrive(.7, 25, 25, 3.0);
+        encoderDrive(.7,10, -10, 3.0);
+        encoderDrive(.7, 25, 25, 3.0);
 
 
 
@@ -370,13 +370,13 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
         //arm up
 
-       // encoderDrive(.8, -8.5, -7.5, 3.0);
+        // encoderDrive(.8, -8.5, -7.5, 3.0);
 
 
         //strafeToPosition(55, .8);
         //28 to park
 
-       // encoderDrive(.8, 7.5, 7.5, 3.0);
+        // encoderDrive(.8, 7.5, 7.5, 3.0);
 
 
 
@@ -460,7 +460,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
         //auto transitioner to automatically switch to TeleOp
-       // AutoTransitioner.transitionOnStop(this, "TylaOp");
+        // AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
 
@@ -579,7 +579,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
     //encoders for arm
     public void armEncoder(double speed,
-                               int targetTicks, double timeoutS) {
+                           int targetTicks, double timeoutS) {
         int newTarget;
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
