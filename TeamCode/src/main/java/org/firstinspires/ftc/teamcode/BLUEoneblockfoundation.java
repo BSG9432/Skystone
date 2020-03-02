@@ -385,9 +385,9 @@ public class BLUEoneblockfoundation extends LinearOpMode {
         encoderDrive(.7,24,24,10.0);
         //let go of foundation
         bsgRobot.foundationUp();
-        strafeToPosition(-15,.5);
-        encoderDrive(.7,-15, -15,10.0);
-        strafeToPosition(10,.5);
+        strafeToPosition(-32,.5);
+        encoderDrive(.7,-25, -25,10.0);
+        strafeToPosition(-25,.5);
 
 
 
