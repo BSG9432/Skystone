@@ -360,7 +360,7 @@ public class BLUEoneblockfoundation extends LinearOpMode {
         //go backward 3 1/2 inches
         encoderDrive(.8, -3.5, -3.5, 10.0);
         //turn 90 degrees
-        encoderDrive(.8,-10, 10, 10.0);
+        encoderDrive(.8,-9, 9, 10.0);
         //go forward 80 inches
         encoderDrive(.8, 70/2, 70/2, 10.0);
 

@@ -356,7 +356,7 @@ public class REDOneBlock extends LinearOpMode {
 
         encoderDrive(.7, -2.5, -2.5, 3.0);
 
-        encoderDrive(.7,10, -10, 3.0);
+        encoderDrive(.7,9, -9, 3.0);
         encoderDrive(.7, 25, 25, 3.0);
 
 
