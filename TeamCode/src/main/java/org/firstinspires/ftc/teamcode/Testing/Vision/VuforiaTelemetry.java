@@ -57,8 +57,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * is explained below.
  */
 
-@Autonomous(name="BLUEVuforiaOneBlock", group="testing")
-public class BLUEVuforiaOneBlock extends LinearOpMode {
+@Autonomous(name="VuforiaTelemetry", group="testing")
+public class VuforiaTelemetry extends LinearOpMode {
     Robot bsgRobot = new Robot();
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
@@ -324,6 +324,9 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
+
+        targetsSkyStone.activate();
+
         // WARNING:
         // In this sample, we do not wait for PLAY to be pressed.  Target Tracking is started immediately when INIT is pressed.
         // This sequence is used to enable the new remote DS Camera Preview feature to be used with this sample.
@@ -339,42 +342,32 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         //arm shaft points left + = down; - = up
 
         //Put the arm stop up
-        bsgRobot.armStopUp();
+       /* bsgRobot.armStopUp();
         sleep(500);
-
         //Use encoders to put the arm down
         armDown();
         sleep(500);
-
         //open the clamp
         bsgRobot.openClamp();
         sleep(750);
-
         //drive 18 inches forward towards stones
         encoderDrive(.6, 18, 18, 4);
-
         //close clamp
         bsgRobot.closeClamp();
         sleep (600);
-
         //drive 2.5 inches backwards
         encoderDrive(.7, -2.5, -2.5, 3.0);
-
         //rotate CCW approximately 90
         encoderDrive(.7,-10, 10, 3.0);
-
         //drive forward 25 inches into the building side
         encoderDrive(.7, 25, 25, 3.0);
-
         //release stone
         bsgRobot.openClamp();
         sleep(600);
-
         //drive 12 inches backward under alliance bridge
         encoderDrive(.7, -12, -12,3.0);
 
-
-
+        */
         //start looking for skystones
         targetsSkyStone.activate();
         sleep(250);
@@ -410,7 +403,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
-                if (targetVisible == true) {
+                if (targetVisible) {
                     if (translation.get(0) >= 18 && translation.get(0) < 19) {
 
                         telemetry.addLine("Left");
@@ -445,7 +438,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
         //auto transitioner to automatically switch to TeleOp
-       // AutoTransitioner.transitionOnStop(this, "TylaOp");
+        // AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
 
@@ -564,7 +557,7 @@ public class BLUEVuforiaOneBlock extends LinearOpMode {
 
     //encoders for arm
     public void armEncoder(double speed,
-                               int targetTicks, double timeoutS) {
+                           int targetTicks, double timeoutS) {
         int newTarget;
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
