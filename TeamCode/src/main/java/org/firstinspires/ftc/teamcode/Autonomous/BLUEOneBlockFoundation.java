@@ -108,10 +108,12 @@ public class BLUEOneBlockFoundation extends LinearOpMode {
         //let go of foundation
         bsgRobot.foundationUp();
         strafeToPosition(-28,.6);
+
         //go backwards 25 inches
         encoderDrive(.8,-15, -15,10.0);
-        encoderDrive(.8, 8, -8, 10.0);
-        encoderDrive(.8, 2,2,10.0);
+        armDown();
+        encoderDrive(.8, -8, 8, 10.0);
+        encoderDrive(.8, 5,5,10.0);
 
 
 
