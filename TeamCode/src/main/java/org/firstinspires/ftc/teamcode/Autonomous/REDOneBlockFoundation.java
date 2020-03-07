@@ -74,18 +74,46 @@ public class REDOneBlockFoundation extends LinearOpMode {
         encoderDrive(.7, -2.5, -2.5, 3.0);
 
         //rotate CCW approximately 90
-        encoderDrive(.7,-10, 10, 3.0);
+        encoderDrive(.7,10.5, -10.5, 3.0);
+        encoderDrive(.8, 70/2, 70/2, 10.0);
 
-        //drive forward 25 inches into the building side
-        encoderDrive(.7, 25, 25, 3.0);
 
-        //release stone
+        //turn 10 inches
+        encoderDrive(.8,-10, 10,10.0);
+        //arm up
+        armUp();
+        //go forward 8 inches and drop block
+        encoderDrive(.8,8,8 ,10.0);
+        sleep(500);
         bsgRobot.openClamp();
-        sleep(600);
+        sleep(700);
+        //go backwards 3 inches
+        encoderDrive(.8, -3,-3,10.0);
 
-        //drive 12 inches backward under alliance bridge
-        encoderDrive(.7, -12, -12,3.0);
 
+        //turn 180 degrees
+        encoderDrive(.8,19.5,-19.5,10.0);
+        strafeToPosition(5.5,.4);
+        //go backwards 7 inches
+        encoderDrive(.8,-6.5,-6.5,10.0);
+        //drag foundation 7 inches backward
+
+        bsgRobot.foundationDown();
+        armUp();
+        bsgRobot.armStopDown();
+
+        sleep(500);
+        //go forward 24 inches
+        encoderDrive(.8,26,26,10.0);
+        //let go of foundation
+        bsgRobot.foundationUp();
+        strafeToPosition(-28,.6);
+
+        //go backwards 25 inches
+        encoderDrive(.8,-15, -15,10.0);
+        armDown();
+        encoderDrive(.8, 8, -8, 10.0);
+        encoderDrive(.8, 5,5,10.0);
 
         //auto transitioner to automatically switch to TeleOp
         //AutoTransitioner.transitionOnStop(this, "TylaOp");
