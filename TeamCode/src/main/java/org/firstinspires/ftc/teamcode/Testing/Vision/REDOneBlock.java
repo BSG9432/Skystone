@@ -354,9 +354,9 @@ public class REDOneBlock extends LinearOpMode {
         bsgRobot.closeClamp();
         sleep (600);
 
-        encoderDrive(.7, -2.5, -2.5, 3.0);
+        encoderDrive(.7, -4, -4, 3.0);
 
-        encoderDrive(.7,9, -9, 3.0);
+        encoderDrive(.7,-9, 9, 3.0);
         encoderDrive(.7, 25, 25, 3.0);
 
 

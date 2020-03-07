@@ -57,8 +57,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot;
  * is explained below.
  */
 
-@Autonomous(name="BLUEoneblockfoundation", group="testing")
-public class BLUEoneblockfoundation extends LinearOpMode {
+@Autonomous(name="oldBLUEoneblockfoundation", group="testing")
+public class oldBLUEoneblockfoundation extends LinearOpMode {
     Robot bsgRobot = new Robot();
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
@@ -343,26 +343,29 @@ public class BLUEoneblockfoundation extends LinearOpMode {
 
         //side arm shaft points left + = down; - = up
 
-
         bsgRobot.armStopUp();
         sleep(500);
 
+        //Use encoders to put the arm down
         armDown();
         sleep(500);
+
+        //open the clamp
         bsgRobot.openClamp();
         sleep(750);
 
-        //go forward and grab block
-        encoderDrive(.8, 18, 18, 4);
+        //drive 18 inches forward towards stones
+        encoderDrive(.6, 18, 18, 4);
+
+        //close clamp
         bsgRobot.closeClamp();
         sleep (600);
 
-        //go backward 3 1/2 inches
-        encoderDrive(.8, -4, -4, 10.0);
-        //turn 90 degrees
-        encoderDrive(.8,-10, 10, 10.0);
-        //strafeToPosition(-4,.5);
-        //go forward 80 inches
+        //drive 2.5 inches backwards
+        encoderDrive(.7, -2.5, -2.5, 3.0);
+
+        //rotate CCW approximately 90
+        encoderDrive(.7,-10, 10, 3.0);
         encoderDrive(.8, 70/2, 70/2, 10.0);
 
 
@@ -371,7 +374,7 @@ public class BLUEoneblockfoundation extends LinearOpMode {
         //arm up
         armUp();
         //go forward 8 inches and drop block
-        encoderDrive(.8,8.5,8.5,10.0);
+        encoderDrive(.8,8.5,8.5 ,10.0);
         sleep(500);
         bsgRobot.openClamp();
         sleep(700);
