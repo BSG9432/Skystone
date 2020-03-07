@@ -51,7 +51,7 @@ public class REDOneBlockFoundation extends LinearOpMode {
 
         waitForStart();
 
-//Put the arm stop up
+        //Put the arm stop up
         bsgRobot.armStopUp();
         sleep(500);
 
@@ -116,7 +116,7 @@ public class REDOneBlockFoundation extends LinearOpMode {
         //encoderDrive(.8, 5,5,10.0);
 
         //auto transitioner to automatically switch to TeleOp
-        //AutoTransitioner.transitionOnStop(this, "TylaOp");
+        AutoTransitioner.transitionOnStop(this, "TylaOp");
     }
 
 
