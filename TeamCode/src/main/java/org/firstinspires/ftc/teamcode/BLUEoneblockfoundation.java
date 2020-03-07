@@ -358,10 +358,10 @@ public class BLUEoneblockfoundation extends LinearOpMode {
         sleep (600);
 
         //go backward 3 1/2 inches
-        encoderDrive(.8, -3.5, -3.5, 10.0);
+        encoderDrive(.8, -4, -4, 10.0);
         //turn 90 degrees
-        encoderDrive(.8,-9, 9, 10.0);
-        strafeToPosition(-4,.5);
+        encoderDrive(.8,-10, 10, 10.0);
+        //strafeToPosition(-4,.5);
         //go forward 80 inches
         encoderDrive(.8, 70/2, 70/2, 10.0);
 
@@ -371,7 +371,7 @@ public class BLUEoneblockfoundation extends LinearOpMode {
         //arm up
         armUp();
         //go forward 8 inches and drop block
-        encoderDrive(.8,8,8,10.0);
+        encoderDrive(.8,8.5,8.5,10.0);
         sleep(500);
         bsgRobot.openClamp();
         sleep(700);
@@ -394,10 +394,10 @@ public class BLUEoneblockfoundation extends LinearOpMode {
         encoderDrive(.8,26,26,10.0);
         //let go of foundation
         bsgRobot.foundationUp();
-        strafeToPosition(-28,.5);
+        strafeToPosition(-28,.6);
         //go backwards 25 inches
-        encoderDrive(.8,-25, -25,10.0);
-        strafeToPosition(-2,.6);
+        encoderDrive(.8,-15, -15,10.0);
+        encoderDrive(.8, 0, 4, 10.0);
 
 
 
