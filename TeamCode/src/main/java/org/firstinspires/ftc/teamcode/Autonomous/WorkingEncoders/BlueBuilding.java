@@ -137,7 +137,7 @@ public class BlueBuilding extends LinearOpMode {
 
         foundationDown(2000); //grab foundation
 
-        encoderDrive(DRIVE_SPEED, 40, 40, 6); //drag foundation backwards 35.5 inches into build zone
+        encoderDrive(DRIVE_SPEED, 42, 42, 6); //drag foundation backwards 35.5 inches into build zone
 
         sleep(500);
 

@@ -93,7 +93,7 @@ public class REDOneBlockFoundation extends LinearOpMode {
 
         //turn 180 degrees
         encoderDrive(.8,19.5,-19.5,10.0);
-        strafeToPosition(5.5,.4);
+        strafeToPosition(-5.5,.4);
         //go backwards 7 inches
         encoderDrive(.8,-6.5,-6.5,10.0);
         //drag foundation 7 inches backward
@@ -107,13 +107,13 @@ public class REDOneBlockFoundation extends LinearOpMode {
         encoderDrive(.8,26,26,10.0);
         //let go of foundation
         bsgRobot.foundationUp();
-        strafeToPosition(-28,.6);
+        strafeToPosition(28,.6);
 
         //go backwards 25 inches
-        encoderDrive(.8,-15, -15,10.0);
-        armDown();
-        encoderDrive(.8, 8, -8, 10.0);
-        encoderDrive(.8, 5,5,10.0);
+        //encoderDrive(.8,-15, -15,10.0);
+        //armDown();
+       // encoderDrive(.8, 8, -8, 10.0);
+        //encoderDrive(.8, 5,5,10.0);
 
         //auto transitioner to automatically switch to TeleOp
         //AutoTransitioner.transitionOnStop(this, "TylaOp");
